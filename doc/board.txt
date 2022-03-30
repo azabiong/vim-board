@@ -1,0 +1,267 @@
+*board.txt*  vim-board
+                                                                             ~
+                                                                             ~
+      _    _ _____ _______     ______   _____  _______  ______ ______        ~
+       \  /    |   |  |  | ___ |_____] |     | |_____| |_____/ |     \       ~
+        \/   __|__ |  |  |     |_____] |_____| |     | |    \_ |_____/       ~
+                                                                             ~
+                                                                             ~
+                      Azabiong <azabiongc@gmail.com>                         ~
+                              Licence: MIT                                   ~
+                                                                             ~
+------------------------------------------------------------------------------
+CONTENTS                                                            *Vim-Board*
+                                                                     `ver 0.9`
+                  Introduction           |Board-Introduction|
+                  Configuration          |Board-Configuration|
+                  Menu                   |Board-Menu|
+                  Syntax                 |Board-Syntax|
+                  Commands               |Board-Commands|
+                  Options                |Board-Options|
+
+
+------------------------------------------------------------------------------
+INTRODUCTION                                                *Board-Introduction*
+
+
+This plugin introduces a file type `board`, where you can easily erase and write
+summaries, links to directories and files, and some additional commands.
+
+
+Feature 1~
+
+ After assigning a '`key`' to the plugin, you can take quick notes on the board
+ at any time while editing using:
+>
+      Key Enter
+<
+ and to return:
+>
+      Key Esc
+<
+Feature 2~
+ You can easily define shortcuts to directories or files on the board as simple
+ `key-path` pairs. For example:
+>
+      dt  ~/Documents/Terms/
+      v   ~/.vimrc
+<
+ Immediately after saving, you can use the following key sequences to change the
+ current working directory, or open the file:
+>
+      Key dt
+      Key v
+<
+------------------------------------------------------------------------------
+CONFIGURATION                                              *Board-Configuration*
+
+The first step is to define a directory to store the `board` files. The plugin
+default path is:
+>
+    let BoardPath = '~/.vim/after/vim-board'
+<
+The next step is to assign a convenient key to bring up the `board` with the `menu`.
+The plugin default shortcut is `a single quote and space` if available.
+>
+    nmap '<Space> <Plug>(BoardMenu)
+<
+Now, save the changes and reload the configuration.
+>
+ At this point, you can try out the features in the introduction section above.
+<
+------------------------------------------------------------------------------
+MENU                                                                *Board-Menu*
+
+Pressing the `BoardMenu` key will bring up the most recently used `board` with the
+`menu`.
+>
+    Board (-)prev(=)main(+)new(;)return  _
+<
+You can enter the key defined on the `board` to change the working directory or
+open the file, or you can switch between boards using the following keys:
+
+        <Enter>   edit current board
+         <Esc>    return
+           ;      return
+        <Space>   scroll down
+         <Down>   scroll down
+          <Up>    scroll up
+       <C-Space>  scroll up
+           -      switch to previous board
+           =      switch to main board
+           +      add new board
+           .      link current board
+           :      command-line mode
+
+For manually opened boards, you can use `(.)link` menu with the `.` key to activate
+links defined on the board.
+
+------------------------------------------------------------------------------
+BOARD SYNTAX                                                      *Board-Syntax*
+
+The `board` file syntax is relatively simple. You can use indentation and some
+leading characters to mark each item differently.
+
+Section ~
+
+ The plugin uses sections to categorize content. Each section starts at the
+ beginning of a line, and can have different syntax depending on its type.
+>
+  Section
+      Group
+          TEXT
+<
+:Links section ~
+
+ The plugin loads links defined in this section. The following example defines
+ two links:
+>
+        /p  ~/Languages/Python/
+        pn  ~/Languages/Python/notes.py
+<
+
+ Each link is a simple space-separated `key-path` pair, and uses the same
+ indentation as the `TEXT` field starting at column 6 or higher.
+
+ Commands ~
+    You can also add additional commands using `|` bar. For example, to update
+    the `NERDTree` list after changing the current working directory: >
+
+        /p  ~/Languages/Python/ | NERDTreeCWD
+<
+    After opening the file, to scroll line 128 to the top:
+>
+        pn  ~/Languages/Python/notes.py | 128 | normal! zt
+<
+    When switching to another board stored in the |BoardPath| directory, you can
+    omit the path and specify only the file name. For example:
+>
+        'r  reference.board
+        /r  ~/Reference/Code/Library/ | reference.board | Hi:load reference
+<
+ Key ~
+    A key can consist of any combination of symbols, alphanumeric, and Unicode
+    characters except those that start with some predefined characters.
+
+    Available leading characters:~
+      ~!@$%^_()[]{}<>'"/?,0-9a-zA-Z and Unicode characters
+
+    Used in the syntax      Used in the menu~
+        #  comment             ;  return
+        :  setting             -  previous
+        |  command             =  main
+        *` special             +  new
+        -  plain text          .  load
+        &  reference           :  command
+
+    You can also define the same key differently on each board.
+
+    Tip ~
+    When you suddenly have multiple to-do lists, numbering can be useful.
+>
+        t1  ~/Todo/file1 | /item | echo ' find item'
+        t2  ~/Todo/dir2/ | echo ' add file2'
+<
+    Long key ~
+    You only need to enter the unique prefix part of the key. For example, if
+    you define a long key `xylophone` and don't have a key that starts with `xy`,
+    you can open the link with `xy` <Enter>.
+
+ Path ~
+    To easily define a link to a file, the plugin supports copying the current
+    file's path to a register when the `menu` key is pressed (by default the `b`
+    register).
+
+    To paste the path stored in register 'b' in insert mode:
+>
+        CTRL-R b
+<
+ Multi-line commands ~
+    Multi-line commands can be set using the leading bar `|` character.
+>
+        m   ~/directory/or_file
+            | echo 'foo'
+            | echo 'bar'
+<
+ Commands only ~
+    You can also define just a list of commands.
+
+    For example, to copy a string to the clipboard:
+>
+        c1  | let @+ = "copy this string to the clipboard"
+<
+    To define some input from the shell tool:
+>
+        c2  | new _tmp_ | %! curl -sI example.com
+<
+ Stop command ~
+    To stop a long list of commands while processing, press the `menu` key and
+    input CTRL-C or an undefined key.
+
+ Link reference ~
+    You can use the `&` symbol to run other links.
+>
+        N   | NERDTreeCWD
+        d   ~/directory | &N
+<
+------------------------------------------------------------------------------
+COMMANDS                                                 *Board*  *Board-Commands*
+                                                                   *Board:speed*
+Board speed ~
+    Set the command processing rate in proportion to `Hz` while running the
+    command list, and restores the default value after processing.
+
+    Default: 100
+    Values:  1 ~ 1000  or  max
+
+    Example: >
+        run | echo ' Board:speed'
+            | Board speed 1
+            | echo ' Ready.' | echo ' Ready..' | echo ' Ready...'
+            | echo ' Set.'   | echo ' Set..'
+            | Board speed 8
+            | echo ' Go!'
+            | echo ' One'
+            | echo ' Two'
+            | echo ' Three'
+            | echo ' Four'
+            | echo ' Five'
+            | echo ' Six'
+            | echo ' Seven'
+            | echo ' Eight'
+            | echo ' Nine'
+            | echo ' Done!'
+<                                                                  *Board:start*
+Board start ~
+    Start running another link in the `if | endif` statement.
+>
+         C  | echo 'a list of commands'
+
+         s  | if $PWD =~ '/name' | Board start &C | endif
+<                                                                   *Board:stop*
+Board stop ~
+    Stop running the current link.
+
+------------------------------------------------------------------------------
+OPTIONS                                                          *Board-Options*
+                                                                     *BoardPath*
+|BoardPath| specifies the directory where the `board` files will be stored.
+    The plugin default path is:
+>
+        let BoardPath = '~/.vim/after/vim-board'
+<
+    The plugin loads `_main_.board` when started.
+                                                                 *BoardRegister*
+|BoardRegister| specifies the register to copy the path to the current file when
+    the `menu` key is pressed. The plugin uses the 'b' register by default.
+>
+        let BoardRegister = 'b'
+<
+    Values: 'a' ~ 'z'  or  '' `(disable)`
+
+    For example, to paste the path stored in register 'b' in insert mode:
+>
+        CTRL-R b
+<
+------------------------------------------------------------------------------
+Vim:ft=help:tw=80:ts=4:et:nowrap:norl
