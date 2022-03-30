@@ -260,9 +260,10 @@ For more information about commands and options, please refer to:
 
 The plugin provides two default color sets and automatically loads one depending on the current `background` mode.
 
-<img width="320" alt="default_light" src="https://user-images.githubusercontent.com/83812658/160866907-19b697fa-c9b3-4f50-8402-33c80fdc9c26.png">
-<img width="320" alt="default_dark" src="https://user-images.githubusercontent.com/83812658/160867186-d91f778d-b182-408f-9598-1ff6981b7bc5.png">
-<br><br> 
+<div style="display:inline-block">
+<img width="316" alt="default_light" src="https://user-images.githubusercontent.com/83812658/160866907-19b697fa-c9b3-4f50-8402-33c80fdc9c26.png">&nbsp;
+<img width="316" alt="default_dark" src="https://user-images.githubusercontent.com/83812658/160867186-d91f778d-b182-408f-9598-1ff6981b7bc5.png">
+</div><br><br> 
 
 You can use the Vim **hi** command to customize colors starting with `Board`, 
 and save them to the configuration file or color scheme.
