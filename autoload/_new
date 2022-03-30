@@ -1,0 +1,41 @@
+# vim-board
+
+
+Section
+    Group
+        TEXT
+
+
+
+
+
+
+
+
+
+:Links
+    group
+        _
+
+
+
+
+
+
+
+
+
+# syntax example
+vim-board
+    * Command processing `100 Hz`
+    * Low power LED
+    [  LED-1  ]  {  LED-2  }  <  LED-3  >
+
+    # simple checklist, or Todo
+    o  active item
+    -  inactive or done
+
+- Plain Text Section (with a hyphen)
+    * plain text
+
+

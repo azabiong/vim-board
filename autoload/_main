@@ -1,0 +1,28 @@
+# vim-board
+
+:Links
+    group
+     # key  path
+        _
+
+
+
+
+
+# syntax example
+Section
+    Group
+        TEXT
+
+    * special `marker`
+    - plain text
+    [  one  ]  {  two  }  < three >
+
+    # simple checklist, or Todo
+    o  active item
+    -  inactive or done
+
+- Plain Text Section (with a hyphen)
+    * plain text
+
+
