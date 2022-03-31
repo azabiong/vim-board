@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 0.9
+" Version: 0.9.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '0.9'
+let s:Version = '0.9.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', enter:0,
                \ timer:0, interval:10, stack:[#{key:'', cmd:[], run:0}], range:1024,
@@ -32,7 +32,7 @@ aug Board
 aug END
 
 function s:Load()
-  if exists("s:Colors") | return | endif
+  if exists("s:Loaded") | return | endif
 
   call s:LoadColors()
   if exists("*popup_create")
@@ -42,12 +42,13 @@ function s:Load()
   else
     let s:Help.Update = function('s:Nop')
   endif
+  let s:Loaded = 1
 endfunction
 
 function s:LoadColors()
   if has('gui_running') || (has('termguicolors') && &termguicolors) || &t_Co >= 256
     if &background == 'dark'
-      let s:Colors = [
+      let l:colors = [
         \ ['BoardSection', 'ctermfg=219 ctermbg=NONE cterm=bold guifg=#f8a0f8 guibg=NONE    gui=bold'],
         \ ['BoardConfig',  'ctermfg=109 ctermbg=NONE cterm=NONE guifg=#92b6b4 guibg=NONE    gui=NONE'],
         \ ['BoardGroup',   'ctermfg=147 ctermbg=NONE cterm=bold guifg=#aabcf0 guibg=NONE    gui=bold'],
@@ -59,7 +60,7 @@ function s:LoadColors()
         \ ['BoardLink',    'ctermfg=215 ctermbg=NONE cterm=bold guifg=#f8b868 guibg=NONE    gui=bold'],
         \ ]
     else
-      let s:Colors = [
+      let l:colors = [
         \ ['BoardSection', 'ctermfg=127 ctermbg=NONE cterm=bold guifg=#af00af guibg=NONE    gui=bold'],
         \ ['BoardConfig',  'ctermfg=61  ctermbg=NONE cterm=NONE guifg=#5040a8 guibg=NONE    gui=NONE'],
         \ ['BoardGroup',   'ctermfg=25  ctermbg=NONE cterm=bold guifg=#2a58b0 guibg=NONE    gui=bold'],
@@ -72,7 +73,7 @@ function s:LoadColors()
         \ ]
     endif
   else
-      let s:Colors = [
+      let l:colors = [
         \ ['BoardSection', 'ctermfg=Magenta'],
         \ ['BoardConfig',  'ctermfg=Blue'   ],
         \ ['BoardGroup',   'ctermfg=Cyan'   ],
@@ -83,7 +84,7 @@ function s:LoadColors()
         \ ['BoardLink',    'ctermfg=Red'    ],
         \ ]
   endif
-  for l:c in s:Colors
+  for l:c in l:colors
     if empty(s:GetColor(l:c[0]))
       exe 'hi' l:c[0] l:c[1]
     endif
@@ -549,7 +550,7 @@ function s:Input(...)
   let l:menu = ' Board (-)prev(=)main(+)new(;)return'
   let l:loaded = s:Loaded()
   if !l:loaded
-    let l:menu .= '(.)load'
+    let l:menu .= '(.)link'
   else
     if !&modified && l:loaded > 1
      setl nobl
