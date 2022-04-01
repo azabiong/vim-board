@@ -186,7 +186,7 @@ Section ~
  Commands only ~
     You can also define just a list of commands.
 
-    For example, to copy a string to the clipboard:
+    For example, to copy a frequently used string to the clipboard:
 >
         c1  | let @+ = "copy this string to the clipboard"
 <

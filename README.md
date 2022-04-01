@@ -219,9 +219,9 @@ To paste the path stored in register `b` in insert mode:
 
 You can also define just a list of commands.  
 
-For example, to copy a frequently used string to clipboard:
+For example, to copy a frequently used string to the clipboard:
 ```vim
-        c1  | let @+ = "copy this string to clipboard"
+        c1  | let @+ = "copy this string to the clipboard"
 ```
 
 To define some input from the shell tool:
@@ -261,7 +261,7 @@ For more information about commands and options, please refer to:
 The plugin provides two default color sets and automatically loads one depending on the current `background` mode.
 
 <div style="display:inline-block">
-<img width="316" alt="default_light" src="https://user-images.githubusercontent.com/83812658/160866907-19b697fa-c9b3-4f50-8402-33c80fdc9c26.png">&nbsp;
+<img width="316" alt="default_light" src="https://user-images.githubusercontent.com/83812658/160866907-19b697fa-c9b3-4f50-8402-33c80fdc9c26.png">
 <img width="316" alt="default_dark" src="https://user-images.githubusercontent.com/83812658/160867186-d91f778d-b182-408f-9598-1ff6981b7bc5.png">
 </div><br><br> 
 
