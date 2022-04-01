@@ -205,7 +205,10 @@ Section ~
         d   ~/directory | &N
 <
 ------------------------------------------------------------------------------
-COMMANDS                                                 *Board*  *Board-Commands*
+COMMANDS                                                        *Board-Commands*
+                                                                         *Board*
+Board ~
+    Print the plugin version
                                                                    *Board:speed*
 Board speed ~
     Set the command processing rate in proportion to `Hz` while running the
@@ -263,5 +266,11 @@ OPTIONS                                                          *Board-Options*
 >
         CTRL-R b
 <
+------------------------------------------------------------------------------
+ISSUES                                                            *Board-Issues*
+
+If you have any issues that need fixing, comments or new features you would
+like to add, please feel free to open an issue.
+
 ------------------------------------------------------------------------------
 Vim:ft=help:tw=80:ts=4:et:nowrap:norl
