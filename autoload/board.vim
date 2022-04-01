@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 0.9.2
+" Version: 0.9.6
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '0.9.2'
+let s:Version = '0.9.6'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', enter:0,
                \ timer:0, interval:10, stack:[#{key:'', cmd:[], run:0}], range:1024,
@@ -280,7 +280,7 @@ function s:AddLink(key)
   if len(s:Board.stack) > s:Board.range
     return s:Error('Stack Overflow  '.s:Board.range)
   endif
-  let l:key = matchstr(a:key, '&\?\zs\w\+')
+  let l:key = matchstr(a:key, '&\?\zs\S\+')
   return s:RunLink(l:key)
 endfunction
 
