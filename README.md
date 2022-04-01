@@ -73,9 +73,9 @@ Now, save the changes and reload the configuration.
 ## Menu
 
 Pressing the `BoardMenu` key will bring up the most recently used `board` with the `menu`.
-```
-    Board (-)prev(=)main(+)new(;)return  _
-```
+
+<img width="687" alt="menu" src="https://user-images.githubusercontent.com/83812658/161204572-0c8f6aa7-8c0b-4fc4-b5da-82bbfb4e69e0.png"><br>
+
 You can enter the key defined on the `board` to change the working directory or
 open the file, or you can switch between boards using the following keys:
 
