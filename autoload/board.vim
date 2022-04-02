@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 0.9.6
+" Version: 0.9.8
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '0.9.6'
+let s:Version = '0.9.8'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', enter:0,
                \ timer:0, interval:10, stack:[#{key:'', cmd:[], run:0}], range:1024,
@@ -510,12 +510,14 @@ function s:CheckSentence(unit, begin, match='')
   return -1
 endfunction
 
-function s:Stop()
+function s:Stop(status=1)
   if s:Board.timer
     call timer_stop(s:Board.timer)
     let s:Board.timer = 0
     if len(s:Board.stack)
-      call s:Status('  Stopped  '.s:Board.stack[-1].key)
+      if a:status
+        call s:Status('  Stopped  '.s:Board.stack[-1].key)
+      endif
       let s:Board.stack = []
     endif
   endif
@@ -644,7 +646,7 @@ endfunction
 
 function s:Scroll(key)
   if has_key(s:KeyMap, a:key)
-    exe "normal! ".s:KeyMap[a:key]
+    exe "normal! ".s:KeyMap[a:key].'M'
     redraw
   endif
 endfunction
@@ -739,7 +741,7 @@ function board#Command(cmd)
   elseif l:cmd ==? 'speed' | call s:SetSpeed(l:val)
   elseif l:cmd ==? 'stack' | call s:SetStack(l:val)
   elseif l:cmd ==? 'start' | call s:AddLink(l:val)
-  elseif l:cmd ==? 'stop'  | call s:Stop()
+  elseif l:cmd ==? 'stop'  | call s:Stop(0)
   else
     echo ' Board: no matching command: '.l:cmd
   endif
