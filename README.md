@@ -116,7 +116,7 @@ and can have different syntax depending on its type.
 <div style="display:inline-block">
 <img width="316" alt="default_light" src="https://user-images.githubusercontent.com/83812658/160866907-19b697fa-c9b3-4f50-8402-33c80fdc9c26.png">
 <img width="316" alt="default_dark" src="https://user-images.githubusercontent.com/83812658/160867186-d91f778d-b182-408f-9598-1ff6981b7bc5.png">
-</div><br><br> 
+</div><br>
 
 ### :Links Section
 
