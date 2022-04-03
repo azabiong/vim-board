@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 0.9.8
+" Version: 1.0
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '0.9.8'
+let s:Version = '1.0'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', enter:0,
                \ timer:0, interval:10, stack:[#{key:'', cmd:[], run:0}], range:1024,
@@ -393,7 +393,7 @@ function s:ReadLine(num)
   " key column > 5
   if match(l:line, '\v\ {5,}\S') != -1
     let l:line = trim(l:line)
-    if stridx('#*`-=+;:.', line[0]) == -1
+    if stridx('#*`-+=&;:.', line[0]) == -1
       let l:key = matchstr(l:line, '\S\+\ze')
       if l:key == '|'
         let l:key = ''
@@ -499,9 +499,7 @@ function s:CheckSentence(unit, begin, match='')
         break
       endif
     endfor
-    if empty(a:match)
-      return l:index
-    elseif l:cmd ==# a:match
+    if empty(a:match) || l:cmd ==# a:match
       return l:index
     endif
     let l:index += 1
@@ -618,7 +616,7 @@ function s:Edit()
 endfunction
 
 function s:SelectWin()
-  if !empty(&buftype)
+  if !empty(&buftype) && &buftype != 'help'
     for i in range(winnr('$'), 1, -1)
       if empty(winbufnr(i)->getbufvar('&buftype'))
         exe i "wincmd w"
