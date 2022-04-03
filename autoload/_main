@@ -2,8 +2,10 @@
 
 :Links
     group
-     # key  path
         _
+
+
+
 
 
 
@@ -21,8 +23,11 @@ Section
     # simple checklist, or Todo
     o  active item
     -  inactive or done
+    +  new item
+    =  description
+    &  more items
+
 
 - Plain Text Section (with a hyphen)
     * plain text
-
 
