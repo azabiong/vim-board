@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                     `ver 1.02`
+                                                                     `ver 1.03`
                   Introduction           |Board-Introduction|
                   Configuration          |Board-Configuration|
                   Menu                   |Board-Menu|
@@ -184,19 +184,6 @@ Section ~
             | echo 'foo'
             | echo 'bar'
 <
- Commands only ~
-    You can also define just a list of commands.
-
-    For example, to copy a frequently used string to the clipboard:
->
-        c1  | let @+ = "copy this string to the clipboard"
-<
-    To define some input from the shell tool:
->
-        c2  | new _tmp_ | %! curl -sI example.com
-
-        c3  | Board* | .! echo "This is the scratchpad on the Board"
-<
  Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
     input CTRL-C or an undefined key.
@@ -207,6 +194,27 @@ Section ~
         N   | NERDTreeCWD
         d   ~/directory | &N
 <
+ Commands only ~
+    You can also define just a list of commands.
+
+    For example, to copy a frequently used string to the clipboard:
+>
+        c1  | let @+ = "copy this string to the clipboard"
+<
+    To define some input from the shell tool:
+>
+        c2  | new _tmp_ | %! curl -sI example.com
+        c3  | Board*    | .! echo "This is the scratchpad on the Board"
+<
+ Command-line mode ~
+    When using the `|` bar character as a shell `pipe` or other meaning, you can
+    switch to command-line mode input by adding a `:` after the bar.
+>
+        c4  | Board* |: .! ls | wc
+        c5  | Board* |: .! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
+<
+    The rest of the commands are treated as command-line input.
+
 ------------------------------------------------------------------------------
 COMMANDS                                                        *Board-Commands*
                                                                          *Board*
@@ -244,8 +252,8 @@ Board speed ~
 Board start ~
     Start running another link in the `if | endif` statement.
 >
-         C  | echo 'a list of commands'
-         s  | if $PWD =~ '/name' | Board start &C | endif
+        C   | echo 'a list of commands'
+        s   | if $PWD =~ '/name' | Board start &C | endif
 <                                                                   *Board:stop*
 Board stop ~
     Stop running the current link.
@@ -280,6 +288,9 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.03~
+    Add command-line mode switch `|:` to use shell pipe
+      c   | Board* |: .! ls | wc
 1.02~
     Add command to open the scratchpad
       :Board*

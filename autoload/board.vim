@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.02
+" Version: 1.03
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.02'
+let s:Version = '1.03'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', enter:0,
                \ timer:0, interval:10, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -314,7 +314,16 @@ function s:GetLink(key)
       if l:line[0] == '|'
         let l:line = '| '.l:line
       endif
+      let l:mode = stridx(l:line, '|:')
+      let l:cmd = ''
+      if l:mode != -1
+        let l:cmd = trim(l:line[l:mode+2:])
+        let l:line = l:line[:l:mode-1]
+      endif
       let l:list = map(split(l:line, '|'), {i,v -> trim(v)})
+      if !empty(l:cmd)
+        call add(l:list, l:cmd)
+      endif
       return #{board: s:Links[b]['#'.b], path: l:list[0], command: l:list[1:]}
     endif
   endfor
