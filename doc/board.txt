@@ -194,9 +194,8 @@ Section ~
     To define some input from the shell tool:
 >
         c2  | new _tmp_ | %! curl -sI example.com
-     or
-        c3  | Board* | .! echo "\n This is the scratchpad on the Board"
 
+        c3  | Board* | .! echo "This is the scratchpad on the Board"
 <
  Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
