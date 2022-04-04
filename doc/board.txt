@@ -7,17 +7,18 @@
                                                                              ~
                                                                              ~
                       Azabiong <azabiongc@gmail.com>                         ~
-                              Licence: MIT                                   ~
+                              License: MIT                                   ~
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                     `ver 1.0`
+                                                                     `ver 1.02`
                   Introduction           |Board-Introduction|
                   Configuration          |Board-Configuration|
                   Menu                   |Board-Menu|
                   Syntax                 |Board-Syntax|
                   Commands               |Board-Commands|
                   Options                |Board-Options|
+                  Log                    |Board-Log|
 
 
 ------------------------------------------------------------------------------
@@ -193,6 +194,9 @@ Section ~
     To define some input from the shell tool:
 >
         c2  | new _tmp_ | %! curl -sI example.com
+     or
+        c3  | Board* | .! echo "\n This is the scratchpad on the Board"
+
 <
  Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
@@ -209,6 +213,9 @@ COMMANDS                                                        *Board-Commands*
                                                                          *Board*
 Board ~
     Print the plugin version
+
+Board* ~
+    Open the scratchpad. This can be useful when combined with shell commands.
                                                                    *Board:speed*
 Board speed ~
     Set the command processing rate in proportion to `Hz` while running the
@@ -239,7 +246,6 @@ Board start ~
     Start running another link in the `if | endif` statement.
 >
          C  | echo 'a list of commands'
-
          s  | if $PWD =~ '/name' | Board start &C | endif
 <                                                                   *Board:stop*
 Board stop ~
@@ -271,6 +277,13 @@ ISSUES                                                            *Board-Issues*
 
 If you have any issues that need fixing, comments or new features you would
 like to add, please feel free to open an issue.
+
+------------------------------------------------------------------------------
+LOG                                                                  *Board-Log*
+
+1.02~
+    Add command to open the scratchpad
+      :Board*
 
 ------------------------------------------------------------------------------
 Vim:ft=help:tw=80:ts=4:et:nowrap:norl

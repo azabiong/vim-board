@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.0
+" Version: 1.02
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,10 +13,11 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.0'
+let s:Version = '1.02'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', enter:0,
-               \ timer:0, interval:10, stack:[#{key:'', cmd:[], run:0}], range:1024,
+               \ timer:0, interval:10, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
+               \ scratch:#{ pad:-1, name:' Board* '},
                \ }
 let s:Links  = {'bufnr':{'key':'path'}, 'order':[]}
 let s:KeyMap = {'+':"4\<C-E>", '-':"4\<C-Y>", 'v':"\<C-F>", '^':"\<C-B>"}
@@ -635,6 +636,24 @@ function s:CmdlineLeave()
   call s:Help.Update(0)
 endfunction
 
+function s:OpenScratchpad()
+  let l:buf = s:Board.scratch.pad
+  if l:buf == -1
+    let s:Board.scratch.pad = bufadd(s:Board.scratch.name)
+    call bufload(s:Board.scratch.pad)
+  endif
+  let l:win = bufwinnr(s:Board.scratch.pad)
+  if l:win == -1
+    exe "bel sb" s:Board.scratch.pad
+    exe "resize" (winheight(0)/2 + 1)
+  else
+    exe l:win "wincmd w"
+  endif
+  if l:buf == -1
+    setl buftype=nofile bl noswapfile nofen fdc=0 nowrap
+  endif
+endfunction
+
 function s:CmdlineChanged()
   if s:FindKey(getcmdline())
     let s:Board.enter = 1
@@ -740,6 +759,7 @@ function board#Command(cmd)
   elseif l:cmd ==? 'stack' | call s:SetStack(l:val)
   elseif l:cmd ==? 'start' | call s:AddLink(l:val)
   elseif l:cmd ==? 'stop'  | call s:Stop(0)
+  elseif l:cmd ==# '*'     | call s:OpenScratchpad()
   else
     echo ' Board: no matching command: '.l:cmd
   endif
