@@ -1,7 +1,7 @@
 " board file syntax
 "
 "  comment: #
-"  special: *
+"  special: *+=&
 "    plain: -
 " surround: [] {} <> ``
 "  section: column 1
@@ -34,7 +34,7 @@ syn match BoardBracket "[\[\]\{\}\<\>]" contained
 syn match BoardMarker "`[^`]*`" contained
 syn match BoardConfig "\v^:.*$" contained
 syn match BoardTodo "\<Todo\>\c" contained
-syn match BoardJumper " \zs[|&]" contained
+syn match BoardJumper " \zs[|&]:\=" contained
 syn match BoardPlain "^\s*-.*$"
 
 hi def link BoardHelp    StatusLine
