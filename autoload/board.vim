@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.03
+" Version: 1.03.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,9 +13,9 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.03'
+let s:Version = '1.03.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
-               \ opened:'', menu:0, input:'', enter:0,
+               \ opened:'', menu:0, input:'', change:'', enter:0,
                \ timer:0, interval:10, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
@@ -556,6 +556,7 @@ endfunction
 
 function s:Input(...)
   let s:Board.input = ''
+  let s:Board.change = ''
   let s:Board.enter = 0
   let l:menu = ' Board (-)prev(=)main(+)new(;)return'
   let l:loaded = s:Loaded()
@@ -683,6 +684,8 @@ function s:Enter()
 endfunction
 
 function s:FindKey(key)
+  if s:Board.change ==# a:key | return | endif
+  let s:Board.change = a:key
   let s:Board.input = ''
   let l:len = len(a:key)
   let l:help = ''
