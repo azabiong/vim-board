@@ -197,7 +197,11 @@ Section ~
  Commands only ~
     You can also define just a list of commands.
 
-    For example, to copy a frequently used string to the clipboard:
+    For example, to go back to the previous directory:
+>
+        <   | cd- | pwd
+<
+    To copy a frequently used string to the clipboard:
 >
         c1  | let @+ = "copy this string to the clipboard"
 <
@@ -213,8 +217,6 @@ Section ~
         c4  | Board* |: r! ls | wc
         c5  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
 <
-    The rest of the commands are treated as command-line input.
-
 ------------------------------------------------------------------------------
 COMMANDS                                                        *Board-Commands*
                                                                          *Board*
@@ -290,7 +292,7 @@ LOG                                                                  *Board-Log*
 
 1.03~
     Add command-line mode switch `|:` to use shell pipe
-      c   | Board* |: .! ls | wc
+      c   | Board* |: r! ls | wc
 1.02~
     Add command to open the scratchpad
       :Board*

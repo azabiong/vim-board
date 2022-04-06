@@ -232,7 +232,12 @@ You can use the `&` symbol to run other links.
 
 You can also define just a list of commands.  
 
-For example, to copy a frequently used string to the clipboard:
+For example, to go back to the previous directory:
+```vim
+        <   | cd- | pwd
+```
+
+To copy a frequently used string to the clipboard:
 ```vim
         c1  | let @+ = "copy this string to the clipboard"
 ```
@@ -252,7 +257,6 @@ switch to command-line mode input by adding a `:` after the bar.
         c4  | Board* |: r! ls | wc
         c5  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
 ```
-The rest of the commands are treated as command-line input.
 
 </details>
 <br>
