@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.03.2
+" Version: 1.03.6
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.03.2'
+let s:Version = '1.03.6'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', change:'', enter:0,
                \ timer:0, interval:10, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -662,6 +662,7 @@ function s:OpenScratchpad()
   if l:buf == -1
     setl buftype=nofile bl noswapfile nofen fdc=0 nowrap
   endif
+  normal! G
 endfunction
 
 function s:CmdlineChanged()
