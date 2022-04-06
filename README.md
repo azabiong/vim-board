@@ -243,14 +243,14 @@ To define some input from the shell tool:
         c3  | Board*    | .! echo "This is the scratchpad on the Board"
 ```
 
-#### Command-line mode  
+#### Command-line mode
 
 When using the `|` bar character as a shell `pipe` or other meaning, you can
 switch to command-line mode input by adding a `:` after the bar.
 
 ```vim
-        c4  | Board* |: .! ls | wc
-        c5  | Board* |: .! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
+        c4  | Board* |: r! ls | wc
+        c5  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
 ```
 The rest of the commands are treated as command-line input.
 
