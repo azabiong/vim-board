@@ -28,16 +28,17 @@ Section
 # syntax example
 vim-board
     * Command processing `100 Hz`
-    * Low power LED
+    + Low power LED
     [  LED-1  ]  {  LED-2  }  <  LED-3  >
 
+- Plain Text Section (with a hyphen)
+    * plain text
+
+S [E]{C}<T>`I`O N
     # simple checklist, or Todo
     o  active item
     -  inactive or done
     +  new item
     =  description
     &  more items
-
-- Plain Text Section (with a hyphen)
-    * plain text
-
+        T E X`T`
