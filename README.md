@@ -244,8 +244,8 @@ To copy a frequently used string to the clipboard:
 
 To define some input from the shell tool:
 ```vim
-        c2  | new _tmp_ | %! curl -sI example.com
-        c3  | Board*    | .! echo "This is the scratchpad on the Board"
+        c2  | Board* | r! echo "This is the scratchpad on the Board"
+        c3  | Board* | r! curl -sI example.com
 ```
 
 #### Command-line mode
