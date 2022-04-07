@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.03.6
+" Version: 1.06
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.03.6'
+let s:Version = '1.06'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', change:'', enter:0,
                \ timer:0, interval:10, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -755,6 +755,16 @@ function board#Menu()
     return
   endif
   call s:Switch('')
+endfunction
+
+function board#TermCd()
+  let l:op = has('win32') ? '/d ' : ''
+  let l:cd = 'cd '.l:op.fnamemodify(getcwd(), ':~')."\<CR>"
+  if exists("*term_sendkeys")
+    call term_sendkeys(bufnr(), l:cd)
+  elseif exists("*chansend")
+    call chansend(b:terminal_job_id, l:cd)
+  endif
 endfunction
 
 function board#Complete(arg, line, pos)

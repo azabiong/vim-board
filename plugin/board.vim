@@ -15,6 +15,7 @@ endif
 let g:loaded_vim_board = 1
 
 nn <Plug>(BoardMenu) <Cmd>call board#Menu()<CR>
+tno <Plug>(BoardTermCd) <Cmd>call board#TermCd()<CR>
 
 if !hasmapto('<Plug>(BoardMenu)', 'n') && empty(maparg("'<Space>", 'n'))
   nmap '<Space> <Plug>(BoardMenu)
