@@ -433,8 +433,11 @@ function s:SetSyntax(op)
 endfunction
 
 function s:SetSpeed(freq)
-  let l:freq = (a:freq ==? 'max') ? 0 : (a:freq * 4/3)
-  let s:Board.interval = (l:freq ==? 'max')  0 : 1000 / min([max([l:freq, 1]), 1000])
+  if (a:freq ==? 'max')
+    let s:Board.interval = 0
+  else
+    let s:Board.interval = 1000 / min([max([a:freq * 4/3, 1]), 1000])
+  endif
 endfunction
 
 function s:SetStack(range)
