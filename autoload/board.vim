@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.06
+" Version: 1.06.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,10 +13,10 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.06'
+let s:Version = '1.06.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', change:'', enter:0,
-               \ timer:0, interval:10, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
+               \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
 let s:Links  = {'bufnr':{'key':'path'}, 'order':[]}
@@ -224,7 +224,7 @@ function s:Switch(key)
     endif
     let s:Board.stack = []
     let s:Board.range = 1024
-    let s:Board.interval = 10
+    let s:Board.interval = 8
     call s:RunLink(a:key)
   endif
 endfunction
@@ -433,7 +433,8 @@ function s:SetSyntax(op)
 endfunction
 
 function s:SetSpeed(freq)
-  let s:Board.interval = (a:freq ==? 'max') ? 0 : 1000 / min([max([a:freq, 1]), 1000])
+  let l:freq = (a:freq ==? 'max') ? 0 : (a:freq * 4/3)
+  let s:Board.interval = (l:freq ==? 'max')  0 : 1000 / min([max([l:freq, 1]), 1000])
 endfunction
 
 function s:SetStack(range)
