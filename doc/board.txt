@@ -28,7 +28,6 @@ INTRODUCTION                                                *Board-Introduction*
 This plugin introduces a file type `board`, where you can easily erase and write
 summaries, links to directories and files, and some additional commands.
 
-
 Feature 1~
 
  After assigning a '`key`' to the plugin, you can take quick notes on the board
@@ -225,10 +224,19 @@ Board ~
 
 Board* ~
     Open the scratchpad. This can be useful when combined with shell commands.
+                                                                   *Board:start*
+Board start ~
+    Start running another link.
+>
+        C   | echo 'a list of commands'
+        s   | if $PWD =~ '/name' | Board start &C | endif
+<                                                                   *Board:stop*
+Board stop ~
+    Stop running the current link.
                                                                    *Board:speed*
 Board speed ~
     Set the command processing rate in proportion to `Hz` while running the
-    command list, and restores the default value after processing.
+    current link, and restores the default value after processing.
 
     Default: 100
     Values:  1 ~ 1000  or  max
@@ -250,16 +258,13 @@ Board speed ~
             | echo ' Eight'
             | echo ' Nine'
             | echo ' Done!'
-<                                                                  *Board:start*
-Board start ~
-    Start running another link in the `if | endif` statement.
+<                                                                   *BoardTermCd*
+<Plug>(BoardTermCd) ~
+    When using terminal window, synchronize current working directory with Vim
+    by running `cd` command. To map key `Ctrl`+`\\` for terminal window:
 >
-        C   | echo 'a list of commands'
-        s   | if $PWD =~ '/name' | Board start &C | endif
-<                                                                   *Board:stop*
-Board stop ~
-    Stop running the current link.
-
+        tmap <C-\><C-\>  <Plug>(BoardTermCd)
+<
 ------------------------------------------------------------------------------
 OPTIONS                                                          *Board-Options*
                                                                      *BoardPath*
@@ -280,12 +285,6 @@ OPTIONS                                                          *Board-Options*
     For example, to paste the path stored in register 'b' in insert mode:
 >
         CTRL-R b
-<                                                                   *BoardTermCd*
-<Plug>(BoardTermCd) ~
-    When using terminal window, synchronize current working directory with Vim
-    by running `cd` command. To map key `Ctrl`+`\\` for terminal window:
->
-        tmap <C-\><C-\>  <Plug>(BoardTermCd)
 <
 ------------------------------------------------------------------------------
 ISSUES                                                            *Board-Issues*

@@ -38,7 +38,7 @@ You can use your preferred plugin manager using the string `'azabiong/vim-board'
  :Plug 'azabiong/vim-board'
 ```
 <details>
-<summary> &nbsp; or, Vim 8 pack feature: </summary>
+<summary> &nbsp; or,&nbsp; Vim 8 pack feature: </summary>
 <br>
 
 > |Linux, Mac| Windows &nbsp;|
