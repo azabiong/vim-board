@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.06.2
+" Version: 1.06.5
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.06.2'
+let s:Version = '1.06.5'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
                \ opened:'', menu:0, input:'', change:'', enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -55,7 +55,7 @@ function s:LoadColors()
         \ ['BoardGroup',   'ctermfg=147 ctermbg=NONE cterm=bold guifg=#aabcf0 guibg=NONE    gui=bold'],
         \ ['BoardLed1',    'ctermfg=159 ctermbg=60   cterm=NONE guifg=#a0f0f0 guibg=#585888 gui=NONE'],
         \ ['BoardLed2',    'ctermfg=225 ctermbg=96   cterm=NONE guifg=#f8d8f8 guibg=#905080 gui=NONE'],
-        \ ['BoardLed3',    'ctermfg=229 ctermbg=240  cterm=NONE guifg=#f0f0a8 guibg=#686040 gui=NONE'],
+        \ ['BoardLed3',    'ctermfg=229 ctermbg=94   cterm=NONE guifg=#f0f0a8 guibg=#806828 gui=NONE'],
         \ ['BoardBracket', 'ctermfg=243 ctermbg=238  cterm=NONE guifg=#787a78 guibg=#404242 gui=NONE'],
         \ ['BoardMarker',  'ctermfg=114 ctermbg=NONE cterm=bold guifg=#88c888 guibg=NONE    gui=bold'],
         \ ['BoardLink',    'ctermfg=215 ctermbg=NONE cterm=bold guifg=#f8b868 guibg=NONE    gui=bold'],
@@ -322,7 +322,7 @@ function s:GetLink(key)
       endif
       let l:list = map(split(l:line, '|'), {i,v -> trim(v)})
       if !empty(l:cmd)
-        call add(l:list, l:cmd)
+        call extend(l:list, [':', l:cmd])
       endif
       return #{board: s:Links[b]['#'.b], path: l:list[0], command: l:list[1:]}
     endif
@@ -475,15 +475,20 @@ function s:RunCmd(...)
         return
       endif
     else
-      let l:end = s:CheckSentence(l:unit, l:unit.run)
-      if l:end == -1
-        return s:Error(l:unit.error)
-      elseif l:end > l:unit.run
-        let l:cmd = []
-        for i in range(l:unit.run, l:end)
-          call add(l:cmd, l:unit.cmd[i])
-        endfor
-        let l:unit.run = l:end
+      if l:cmd == ':'
+        let l:unit.run += 1
+        let l:cmd = l:unit.cmd[l:unit.run]
+      else
+        let l:end = s:CheckSentence(l:unit, l:unit.run)
+        if l:end == -1
+          return s:Error(l:unit.error)
+        elseif l:end > l:unit.run
+          let l:cmd = []
+          for i in range(l:unit.run, l:end)
+            call add(l:cmd, l:unit.cmd[i])
+          endfor
+          let l:unit.run = l:end
+        endif
       endif
       try
         call execute(l:cmd, '')
