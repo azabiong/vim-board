@@ -7,7 +7,6 @@
 <br>
 
 # vim-board
-> no fun from here, sorry
 
 This plugin introduces a file type `board`, where you can easily erase and write summaries,
 links to directories and files, and some additional commands.
