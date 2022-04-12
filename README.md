@@ -1,7 +1,7 @@
 <!-- https://github.com/azabiong/vim-board -->
 
 ![vimModeStateDiagram](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
-> Special thanks to Darcy Parker for allowing reference to this wonderful artwork ▶ [origin](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
+> Special thanks to Darcy Parker for allowing reference to this wonderful artwork ▷ [origin](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
 
 <br>
 
