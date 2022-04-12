@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                     `ver 1.06`
+                                                                     `ver 1.08`
                   Introduction           |Board-Introduction|
                   Configuration          |Board-Configuration|
                   Menu                   |Board-Menu|
@@ -25,7 +25,7 @@ CONTENTS                                                            *Vim-Board*
 INTRODUCTION                                                *Board-Introduction*
 
 
-This plugin introduces a file type `board`, where you can easily erase and write
+This plugin introduces a file type `board` where you can easily erase and write
 summaries, links to directories and files, and some additional commands.
 
 Feature 1~
@@ -295,6 +295,10 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.08~
+    Add 'auto hold' mode on `Menu <Enter>`
+    Improve command line mode input
+    Tune command interval
 1.06~
     Add sync terminal current working directory
       :h  BoardTermCd

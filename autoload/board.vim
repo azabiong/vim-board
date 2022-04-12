@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.06.5
+" Version: 1.08
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,8 +13,8 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.06.5'
-let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'',
+let s:Version = '1.08'
+let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ opened:'', menu:0, input:'', change:'', enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
                \ scratch:#{ pad:-1, name:' Board* '},
@@ -242,6 +242,9 @@ function s:RunLink(key)
   let l:base = empty(s:Board.stack)
   if empty(l:path)
     " commands only
+    if l:base && s:Board.current != s:Board.hold
+      call s:OpenFile(s:Board.opened)
+    endif
   elseif isdirectory(l:path)
     if &lazyredraw | redraw | endif
     exe "cd" l:path
@@ -292,6 +295,9 @@ function s:OpenFile(path, load=0)
     exe "edit" a:path
   else
     exe "buf" l:buf
+  endif
+  if s:Board.hold != a:path
+    let s:Board.hold = ''
   endif
   if fnamemodify(a:path, ':e') ==? 'board'
     call s:SetOrder(a:path)
@@ -605,6 +611,7 @@ function s:Input(...)
   endif
   if empty(l:key)
     if s:Board.enter
+      let s:Board.hold = s:Board.current
       setl bl
       return
     endif
@@ -612,11 +619,11 @@ function s:Input(...)
   endif
 
   if l:key == ";"
-    let l:buf = bufname()
-    if !empty(s:Board.opened) && s:Board.opened != fnamemodify(l:buf, ':p')
+    if !empty(s:Board.opened) && s:Board.opened != fnamemodify(bufname(), ':p')
       call s:OpenFile(s:Board.opened)
     endif
   elseif l:key == ':'
+    let s:Board.hold = ''
     return feedkeys(':', 'n')
   elseif l:key == '.'
     if !l:loaded

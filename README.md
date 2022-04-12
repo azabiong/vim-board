@@ -1,13 +1,14 @@
 <!-- https://github.com/azabiong/vim-board -->
 
 ![vimModeStateDiagram](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
+
 > Special thanks to Darcy Parker for allowing reference to this wonderful artwork ▷ [origin](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
 
 <br>
 
 # vim-board
 
-This plugin introduces a file type `board`, where you can easily erase and write summaries,
+This plugin introduces a file type `board` where you can easily erase and write summaries,
 links to directories and files, and some additional commands.
 
 #### Feature 1
