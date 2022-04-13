@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.08
+" Version: 1.08.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.08'
+let s:Version = '1.08.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ opened:'', menu:0, input:'', change:'', enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -741,7 +741,7 @@ function s:ConfirmSave()
   echohl BoardMarker
   echo "  Save changes? (y)es, (n)o: "
   echohl None
-  let l:op = getcharstr()
+  let l:op = nr2char(getchar())
   echo ''
   redraw
   if l:op ==? 'y'
