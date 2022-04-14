@@ -41,7 +41,7 @@ links to directories and files, and some additional commands.
 
 You can use your preferred plugin manager using the string `'azabiong/vim-board'`. For example:
 ```vim
- :Plug 'azabiong/vim-board'
+ Plug 'azabiong/vim-board'
 ```
 <details>
 <summary> &nbsp; or,&nbsp; Vim 8 pack feature: </summary>
@@ -70,6 +70,17 @@ default shortcut is a single quote and space if available.
 ```vim
     nmap '<Space> <Plug>(BoardMenu)
 ```
+
+<details>
+<summary><b>&nbsp; nvim &nbsp;.lua </b></summary>
+
+```lua
+  vim.g['BoardPath'] = '~/.vim/after/vim-board'
+
+  vim.api.nvim_set_keymap('n', "'<Space>", '<Plug>(BoardMenu)', {})
+```
+</details>
+
 Now, save the changes and reload the configuration.
 
 > At this point, you can try out the features in the introduction section above.
