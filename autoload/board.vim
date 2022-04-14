@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.08.2
+" Version: 1.08.3
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.08.2'
+let s:Version = '1.08.3'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ opened:'', menu:0, input:'', change:'', enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -293,10 +293,11 @@ function s:OpenFile(path, load=0)
   if !filereadable(a:path) && l:buf == -1 | return | endif
   if l:buf == -1
     exe "edit" a:path
+    let l:buf = bufnr(a:path)
   else
     exe "buf" l:buf
   endif
-  if s:Board.hold != a:path
+  if bufnr(s:Board.hold) != l:buf
     let s:Board.hold = ''
   endif
   if fnamemodify(a:path, ':e') ==? 'board'
