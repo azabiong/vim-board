@@ -248,7 +248,9 @@ function s:RunLink(key)
   elseif isdirectory(l:path)
     if &lazyredraw | redraw | endif
     exe "cd" l:path
-    call s:OpenFile(s:Board.opened)
+    if l:base && s:Board.current != s:Board.hold && filereadable(s:Board.opened)
+      call s:OpenFile(s:Board.opened)
+    endif
     echohl BoardGroup | echo ' '.l:info | echohl None
   else
     if filereadable(l:path)
