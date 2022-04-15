@@ -2,7 +2,7 @@
 
 ![vimModeStateDiagram](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
 
-> Special thanks to Darcy Parker for allowing reference to this wonderful artwork ▷ [origin](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
+> Special thanks to Darcy Parker for allowing reference to this wonderful diagram ▷ [origin](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
 
 <br>
 
@@ -75,7 +75,7 @@ default shortcut is a single quote and space if available.
 <summary><b>&nbsp; nvim &nbsp;.lua </b></summary>
 
 ```lua
-  vim.g['BoardPath'] = '~/.vim/after/vim-board'
+  vim.g.BoardPath = '~/.vim/after/vim-board'
 
   vim.api.nvim_set_keymap('n', "'<Space>", '<Plug>(BoardMenu)', {})
 ```
