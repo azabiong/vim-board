@@ -24,7 +24,6 @@ CONTENTS                                                            *Vim-Board*
 ------------------------------------------------------------------------------
 INTRODUCTION                                                *Board-Introduction*
 
-
 This plugin introduces a file type `board` where you can easily erase and write
 summaries, links to directories and files, and some additional commands.
 
@@ -187,20 +186,10 @@ Section ~
     To stop a long list of commands while processing, press the `menu` key and
     input CTRL-C or an undefined key.
 
- Link reference ~
-    You can use the `&` symbol to run other links.
->
-        N   | NERDTreeCWD
-        d   ~/directory | &N
-<
  Commands only ~
     You can also define just a list of commands.
 
-    For example, to go back to the previous directory:
->
-        <   | cd- | pwd
-<
-    To copy a frequently used string to the clipboard:
+    For example, to copy a frequently used string to the clipboard:
 >
         c1  | let @+ = "copy this string to the clipboard"
 <
@@ -211,10 +200,16 @@ Section ~
 <
  Command-line mode ~
     When using the `|` bar character as a shell `pipe` or other meaning, you can
-    switch to command-line mode input by adding a `:` after the bar.
+    switch to command-line mode input by adding a colon `:` after the bar.
 >
         c4  | Board* |: r! ls | wc
         c5  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
+<
+ Link reference ~
+    You can use the `&` symbol to run other links.
+>
+        N   | NERDTreeCWD
+        d   ~/directory | &N
 <
 ------------------------------------------------------------------------------
 COMMANDS                                                        *Board-Commands*
@@ -229,7 +224,7 @@ Board start ~
     Start running another link.
 >
         C   | echo 'a list of commands'
-        s   | if $PWD =~ '/name' | Board start &C | endif
+        s   | if getcwd() =~ '/name' | Board start &C | endif
 <                                                                   *Board:stop*
 Board stop ~
     Stop running the current link.

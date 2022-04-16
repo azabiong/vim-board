@@ -237,24 +237,11 @@ To paste the path stored in register `b` in insert mode:
 To stop a long list of commands while processing, press the `menu` key and 
 input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.  
 
-#### Link reference
-
-You can use the `&` symbol to run other links.
-```vim
-        N   | NERDTreeCWD
-        d   ~/directory | &N
-```
-
 #### Commands only
 
 You can also define just a list of commands.  
 
-For example, to go back to the previous directory:
-```vim
-        <   | cd- | pwd
-```
-
-To copy a frequently used string to the clipboard:
+For example, to copy a frequently used string to the clipboard:
 ```vim
         c1  | let @+ = "copy this string to the clipboard"
 ```
@@ -268,11 +255,19 @@ To define some input from the shell tool:
 #### Command-line mode
 
 When using the `|` bar character as a shell `pipe` or other meaning, you can
-switch to command-line mode input by adding a `:` after the bar.
+switch to command-line mode input by adding a colon `:` after the bar.
 
 ```vim
         c4  | Board* |: r! ls | wc
         c5  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
+```
+
+#### Link reference
+
+You can use the `&` symbol to run other links.
+```vim
+        N   | NERDTreeCWD
+        d   ~/directory | &N
 ```
 
 </details>
