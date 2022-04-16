@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.08.6
+" Version: 1.08.8
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.08.6'
+let s:Version = '1.08.8'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ opened:'', menu:0, input:'', change:'', enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -329,7 +329,7 @@ function s:GetLink(key)
         let l:cmd = trim(l:line[l:mode+2:])
         let l:line = l:line[:l:mode-1]
       endif
-      let l:list = map(split(l:line, '|'), {i,v -> trim(v)})
+      let l:list = map(split(l:line, '\v(\|)@<!\|(\|)@!'), {i,v -> trim(v)})
       if !empty(l:cmd)
         call extend(l:list, [':', l:cmd])
       endif
@@ -609,15 +609,16 @@ function s:Input(...)
   echohl None
   call inputrestore()
   echo ''
-  if s:Board.enter && !empty(s:Board.input)
-    let l:key = s:Board.input
-  endif
-  if empty(l:key)
-    if s:Board.enter
+  if s:Board.enter
+    if !empty(s:Board.input)
+      let l:key = s:Board.input
+    endif
+    if empty(l:key)
       let s:Board.hold = s:Board.current
       setl bl
       return
     endif
+  else
     let l:key = ';'
   endif
 
@@ -667,7 +668,8 @@ endfunction
 
 function s:OpenScratchpad()
   let l:buf = s:Board.scratch.pad
-  if l:buf == -1
+  if !bufexists(l:buf)
+    let l:buf = -1
     let s:Board.scratch.pad = bufadd(s:Board.scratch.name)
     call bufload(s:Board.scratch.pad)
   endif
