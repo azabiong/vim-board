@@ -241,7 +241,7 @@ input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.
 
 You can also define just a list of commands.  
 
-For example, to copy a frequently used string to the clipboard:
+For example, to copy a frequently used string or command to the clipboard:
 ```vim
         c1  | let @+ = "copy this string to the clipboard"
 ```

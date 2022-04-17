@@ -39,6 +39,7 @@ Feature 1~
       Key Esc
 <
 Feature 2~
+
  You can easily define shortcuts to directories or files on the board as simple
  `key-path` pairs. For example:
 >
@@ -189,7 +190,7 @@ Section ~
  Commands only ~
     You can also define just a list of commands.
 
-    For example, to copy a frequently used string to the clipboard:
+    For example, to copy a frequently used string or command to the clipboard:
 >
         c1  | let @+ = "copy this string to the clipboard"
 <
