@@ -9,7 +9,7 @@
 # vim-board
 
 This plugin introduces a file type `board` where you can easily erase and write summaries,
-links to directories and files, and some additional commands.
+shortcuts to directories and files, and some additional commands.
 
 #### Feature 1
 
@@ -137,7 +137,7 @@ and can have different syntax depending on its type.
 
 ### :Links Section
 
- The plugin loads links defined in this section. The following example defines
+ The plugin loads the shortcut links defined in this section. The following example defines
  two links:
  ```
         /p  ~/Languages/Python/

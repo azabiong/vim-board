@@ -25,7 +25,7 @@ CONTENTS                                                            *Vim-Board*
 INTRODUCTION                                                *Board-Introduction*
 
 This plugin introduces a file type `board` where you can easily erase and write
-summaries, links to directories and files, and some additional commands.
+summaries, shortcuts to directories and files, and some additional commands.
 
 Feature 1~
 
@@ -113,13 +113,12 @@ Section ~
 <
 :Links section ~
 
- The plugin loads links defined in this section. The following example defines
- two links:
+ The plugin loads the shortcut links defined in this section. The following
+ example defines two links:
 >
         /p  ~/Languages/Python/
         pn  ~/Languages/Python/notes.py
 <
-
  Each link is a simple space-separated `key-path` pair, and uses the same
  indentation as the `TEXT` field starting at column 6 or higher.
 
@@ -229,7 +228,9 @@ Board start ~
 <                                                                   *Board:stop*
 Board stop ~
     Stop running the current link.
-                                                                   *Board:speed*
+>
+        0   | lua if 0 then vim.cmd('Board stop') end | echo 'no output'
+<                                                                   *Board:speed*
 Board speed ~
     Set the command processing rate in proportion to `Hz` while running the
     current link, and restores the default value after processing.
