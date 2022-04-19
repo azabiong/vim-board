@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.08.8
+" Version: 1.08.9
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.08.8'
+let s:Version = '1.08.9'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ opened:'', menu:0, input:'', change:'', enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -55,7 +55,7 @@ function s:LoadColors()
         \ ['BoardGroup',   'ctermfg=147 ctermbg=NONE cterm=bold guifg=#aabcf0 guibg=NONE    gui=bold'],
         \ ['BoardLed1',    'ctermfg=159 ctermbg=60   cterm=NONE guifg=#a0f0f0 guibg=#585888 gui=NONE'],
         \ ['BoardLed2',    'ctermfg=225 ctermbg=96   cterm=NONE guifg=#f8d8f8 guibg=#905080 gui=NONE'],
-        \ ['BoardLed3',    'ctermfg=229 ctermbg=94   cterm=NONE guifg=#f0f0a8 guibg=#806828 gui=NONE'],
+        \ ['BoardLed3',    'ctermfg=229 ctermbg=94   cterm=NONE guifg=#f0f0a8 guibg=#866c50 gui=NONE'],
         \ ['BoardBracket', 'ctermfg=243 ctermbg=238  cterm=NONE guifg=#787a78 guibg=#404242 gui=NONE'],
         \ ['BoardMarker',  'ctermfg=114 ctermbg=NONE cterm=bold guifg=#88c888 guibg=NONE    gui=bold'],
         \ ['BoardLink',    'ctermfg=215 ctermbg=NONE cterm=bold guifg=#f8b868 guibg=NONE    gui=bold'],
