@@ -438,7 +438,7 @@ function s:SetSyntax(op)
     syn match BoardLink "^:links\c\>" contained
     let b:Board.syntax = 'on'
   endif
-  setl fdm=marker nonu
+  setl fdm=marker nonu mps=
 endfunction
 
 function s:SetSpeed(freq)
@@ -683,7 +683,7 @@ function s:OpenScratchpad()
     exe l:win "wincmd w"
   endif
   if l:buf == -1
-    setl buftype=nofile bl noswapfile nofen fdc=0 nowrap
+    setl buftype=nofile bl noswapfile nofen nowrap nonu
   endif
   normal! G
 endfunction
