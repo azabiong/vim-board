@@ -623,7 +623,9 @@ function s:Input(...)
   endif
 
   if l:key == ";"
-    if !empty(s:Board.opened) && s:Board.opened != fnamemodify(bufname(), ':p')
+    let l:buf = bufnr(s:Board.opened)
+    let l:type = getbufvar(l:buf, '&buftype')
+    if l:buf != -1 && l:buf != bufnr() && (empty(l:type) || l:type == 'help')
       call s:OpenFile(s:Board.opened)
     endif
   elseif l:key == ':'
