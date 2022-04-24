@@ -158,8 +158,7 @@ After opening the file, to scroll line 128 to the top:
 When switching to another board stored in the `BoardPath` directory, you can omit
 the path and specify only the file name. For example:
 ```vim
-        'r  reference.board
-        /r  ~/Reference/Code/Library/ | 'r | Hi:load reference
+        'a  another.board
 ```
 <br>
 </details>

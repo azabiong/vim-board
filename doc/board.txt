@@ -135,8 +135,7 @@ Section ~
     When switching to another board stored in the |BoardPath| directory, you can
     omit the path and specify only the file name. For example:
 >
-        'r  reference.board
-        /r  ~/Reference/Code/Library/ | 'r | Hi:load reference
+        'a  another.board
 <
  Key ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
