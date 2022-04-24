@@ -1,8 +1,8 @@
-" Vim Board: Multifunction writable board
+" Vim Board: Simple notes and shortcuts
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.08.9
+" Version: 1.09
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,15 +13,16 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.08.9'
+let s:Version = '1.09'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
-               \ opened:'', menu:0, input:'', change:'', enter:0,
+               \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
-let s:Links  = {'bufnr':{'key':'path'}, 'order':[]}
+let s:Links = #{ bufnr:{'key':'path'}, order:[] }
+let s:Input = #{ timer:0, interval:108, wait:432, reltime:0 }
+let s:Help  = #{ Update:'', win:0, buf:-1 }
 let s:KeyMap = {'+':"4\<C-E>", '-':"4\<C-Y>", 'v':"\<C-F>", '^':"\<C-B>"}
-let s:Help   = {'Update':'', 'win':0, 'buf':-1}
 let s:Sentence = ['if', 'for', 'while']
 
 aug Board
@@ -143,6 +144,7 @@ function s:SetMainBoard()
   let l:main = expand('$HOME').'/'.l:vim.'/after/vim-board'
   let l:main = expand(get(g:, 'BoardPath', l:main)).'/_main_.board'
   let l:edit = ''
+  call s:SelectWin()
   if !filereadable(l:main)
     let l:edit = " main board:  ".fnamemodify(l:main, ':~')."\n"
     if confirm(l:edit, " Create file?  &yes\n&no", 0) != 1
@@ -159,7 +161,6 @@ function s:SetMainBoard()
     redraw
     call s:Edit()
     silent write
-    let s:Board.opened = ''
   endif
   let s:Board.path = fnamemodify(l:main, ':p:h')
   let s:Board.main = l:main
@@ -203,21 +204,23 @@ function s:AddNewBoard()
 endfunction
 
 function s:Switch(key)
-  let l:board = []  " [board, load]
+  let l:board = []  " [board, load, prompt]
   let l:current = (&filetype == 'board') ? expand('%:p') : s:Board.current
 
   if     a:key == '+' | return s:AddNewBoard()
-  elseif empty(a:key) | let l:board = [l:current, 0]
-  elseif a:key == '-' | let l:board = [s:Board.prev, 0]
-  elseif a:key == '=' | let l:board = [s:Board.main, 2]
-  elseif a:key == '=='| let l:board = [l:current, 1]
+  elseif a:key == '-' | let l:board = [s:Board.prev, 0, 1]
+  elseif a:key == '=' | let l:board = [s:Board.main, 2, 1]
+  elseif a:key == '.' | let l:board = [l:current, 0, 0]
+  elseif a:key == '.?'| let l:board = [l:current, 0, 1]
+  elseif a:key == '=='| let l:board = [l:current, 1, 1]
                         if &modified && !s:ConfirmSave()
                           return s:Prompt()
                         endif
   endif
   if !empty(l:board)
+    call s:SelectWin()
     call s:OpenFile(l:board[0], l:board[1])
-    return s:Prompt()
+    return l:board[2] ? s:Prompt() : s:Status('')
   else
     if s:Board.timer
       call timer_stop(s:Board.timer)
@@ -226,6 +229,14 @@ function s:Switch(key)
     let s:Board.range = 1024
     let s:Board.interval = 8
     call s:RunLink(a:key)
+  endif
+endfunction
+
+function s:Restore(base)
+  if a:base && s:Board.restore && s:Board.current != s:Board.hold &&
+      \ exists("w:BoardOverlap") && filereadable(w:BoardOverlap)
+    call s:OpenFile(w:BoardOverlap)
+    unlet w:BoardOverlap
   endif
 endfunction
 
@@ -242,15 +253,11 @@ function s:RunLink(key)
   let l:base = empty(s:Board.stack)
   if empty(l:path)
     " commands only
-    if l:base && s:Board.current != s:Board.hold && filereadable(s:Board.opened)
-      call s:OpenFile(s:Board.opened)
-    endif
+    call s:Restore(l:base)
   elseif isdirectory(l:path)
     if &lazyredraw | redraw | endif
     exe "cd" l:path
-    if l:base && s:Board.current != s:Board.hold && filereadable(s:Board.opened)
-      call s:OpenFile(s:Board.opened)
-    endif
+    call s:Restore(l:base)
     echohl BoardGroup | echo ' '.l:info | echohl None
   else
     if filereadable(l:path)
@@ -262,8 +269,8 @@ function s:RunLink(key)
         return 0
       endif
     endif
+    call s:SelectWin()
     if fnamemodify(l:path, ':e') ==? 'board'
-      call s:SelectWin()
       if s:OpenFile(l:path, 2) && l:base
         call s:Prompt()
       endif
@@ -352,6 +359,9 @@ function s:SetOrder(path)
   let l:bufnr = bufnr(a:path)
   if empty(s:Board.current) || bufnr(s:Board.current) != l:bufnr
     let [s:Board.current, s:Board.prev] = [a:path, s:Board.current]
+    if empty(s:Board.prev)
+      let s:Board.prev = s:Board.current
+    endif
     call filter(s:Links.order, {i,v -> v != l:bufnr})
     call insert(s:Links.order, l:bufnr)
   endif
@@ -542,7 +552,7 @@ function s:Stop(status=1)
     let s:Board.timer = 0
     if len(s:Board.stack)
       if a:status
-        call s:Status('  Stopped  '.s:Board.stack[-1].key)
+        call s:Status('  '.s:Board.stack[-1].key.' stopped')
       endif
       let s:Board.stack = []
     endif
@@ -569,13 +579,10 @@ function s:Error(msg)
 endfunction
 
 function s:Prompt()
-  call timer_start(0, function('s:Input'))
+  call timer_start(0, function('s:InputLong'))
 endfunction
 
-function s:Input(...)
-  let s:Board.input = ''
-  let s:Board.change = ''
-  let s:Board.enter = 0
+function s:InputLong(...)
   let l:menu = ' Board (-)prev(=)main(+)new(;)return'
   let l:loaded = s:Loaded()
   if !l:loaded
@@ -586,22 +593,22 @@ function s:Input(...)
    endif
    setl nonu
   endif
-  let s:Board.menu = l:menu.'  '
+  call s:InputInit(1, l:menu.'  ')
 
   aug BoardCmdline
     au!
-    au CmdlineLeave   * call s:CmdlineLeave()
-    au CmdlineChanged * call s:CmdlineChanged()
+    au CmdlineLeave   * call s:CmdlineLeave(1)
+    au CmdlineChanged * call s:CmdlineChanged(1)
   aug END
-  cno <buffer><Space>    <Cmd>call <SID>Scroll('+')<CR><C-R><Esc>
-  cno <buffer><C-Space>  <Cmd>call <SID>Scroll('-')<CR><C-R><Esc>
-  cno <buffer><Nul>      <Cmd>call <SID>Scroll('-')<CR><C-R><Esc>
-  cno <buffer><Down>     <Cmd>call <SID>Scroll('+')<CR><C-R><Esc>
-  cno <buffer><Up>       <Cmd>call <SID>Scroll('-')<CR><C-R><Esc>
-  cno <buffer><PageDown> <Cmd>call <SID>Scroll('v')<CR><C-R><Esc>
-  cno <buffer><PageUp>   <Cmd>call <SID>Scroll('^')<CR><C-R><Esc>
-  cno <buffer><expr><CR> <SID>Enter()
+  cno <buffer><Space>     <Cmd>call <SID>Scroll('+')<CR><C-R><Esc>
+  cno <buffer><C-Space>   <Cmd>call <SID>Scroll('-')<CR><C-R><Esc>
+  cno <buffer><Nul>       <Cmd>call <SID>Scroll('-')<CR><C-R><Esc>
+  cno <buffer><Down>      <Cmd>call <SID>Scroll('+')<CR><C-R><Esc>
+  cno <buffer><Up>        <Cmd>call <SID>Scroll('-')<CR><C-R><Esc>
+  cno <buffer><PageDown>  <Cmd>call <SID>Scroll('v')<CR><C-R><Esc>
+  cno <buffer><PageUp>    <Cmd>call <SID>Scroll('^')<CR><C-R><Esc>
   cno <buffer><expr><C-C> <SID>Stop()
+  cno <buffer><expr><CR>  <SID>Enter()
 
   call inputsave()
   echohl BoardGroup
@@ -609,6 +616,7 @@ function s:Input(...)
   echohl None
   call inputrestore()
   echo ''
+
   if s:Board.enter
     if !empty(s:Board.input)
       let l:key = s:Board.input
@@ -622,15 +630,12 @@ function s:Input(...)
     let l:key = ';'
   endif
 
-  if l:key == ";"
-    let l:buf = bufnr(s:Board.opened)
-    let l:type = getbufvar(l:buf, '&buftype')
-    if l:buf != -1 && l:buf != bufnr() && (empty(l:type) || l:type == 'help')
-      call s:OpenFile(s:Board.opened)
-    endif
-  elseif l:key == ':'
+  if l:key == ':'
     let s:Board.hold = ''
     return feedkeys(':', 'n')
+  elseif l:key == ";"
+    let s:Board.hold = ''
+    call s:Restore(1)
   elseif l:key == '.'
     if !l:loaded
       call s:Switch('==')
@@ -640,6 +645,77 @@ function s:Input(...)
   else
     call s:Switch(l:key)
   endif
+endfunction
+
+function s:InputShort()
+  call s:InputInit(0, ' Board ')
+
+  aug BoardCmdline
+    au!
+    au CmdlineLeave   * call s:CmdlineLeave(0)
+    au CmdlineChanged * call s:CmdlineChanged(0)
+  aug END
+  cno <buffer><expr><C-C> <SID>Stop()
+  cno <buffer><expr><CR>  <SID>Enter()
+  cno <buffer><nowait><Esc> <Esc>
+
+  let s:Input.reltime = reltime()
+  let s:Input.timer = timer_start(s:Input.interval, function('s:InputCheck'))
+  call inputsave()
+  echohl BoardGroup
+  let l:key = trim(input(s:Board.menu))
+  echohl None
+  call inputrestore()
+  call timer_stop(s:Input.timer)
+  let s:Input.timer = 0
+
+  if s:Board.enter
+    if !empty(s:Board.input)
+      let l:key = s:Board.input
+    endif
+    if empty(l:key)
+      let s:Board.hold = s:Board.current
+      call s:Switch('.')
+      setl bl
+      return
+    endif
+  else
+    let l:key = ';'
+  endif
+
+  if l:key == ':'
+    return feedkeys(':', 'n')
+  else
+    redraw | echo ''
+    if l:key == ";" || l:key == '.'
+      return
+    else
+      call s:Switch(l:key)
+    endif
+  endif
+endfunction
+
+function s:InputInit(restore, menu)
+  let s:Board.restore = a:restore
+  let s:Board.input = ''
+  let s:Board.change = ''
+  let s:Board.keys = 0
+  let s:Board.enter = 0
+  let s:Board.menu = a:menu
+endfunction
+
+function s:InputCheck(...)
+  if !s:Input.timer | return | endif
+  if !s:Board.keys
+    let l:dt = reltimefloat(reltime(s:Input.reltime)) * 1000
+    if l:dt > s:Input.wait
+      call feedkeys("\<Esc>", 'n')
+      return timer_start(8, {-> execute("call s:Switch('.?')")})
+    endif
+  else
+    let s:Input.reltime = reltime()
+  endif
+  let s:Input.timer = timer_start(s:Input.interval, function('s:InputCheck'))
 endfunction
 
 function s:Edit()
@@ -657,14 +733,39 @@ function s:SelectWin()
       endif
     endfor
   endif
+  let l:path = fnamemodify(bufname(), ':p')
+  let l:type = empty(&buftype) || &buftype == 'help'
+  let l:board = fnamemodify(bufname(), ':e') ==? 'board'
+  if filereadable(l:path) && l:type && !l:board
+    let w:BoardOverlap = l:path
+  endif
 endfunction
 
-function s:CmdlineLeave()
+function s:ConfirmSave()
+  echohl BoardMarker
+  echo "  Save changes? (y)es, (n)o: "
+  echohl None
+  let l:op = nr2char(getchar())
+  echo ''
+  redraw
+  if l:op ==? 'y'
+    update
+  endif
+  return !&modified
+endfunction
+
+function s:CmdlineLeave(board)
   if exists("#BoardCmdline")
     au!  BoardCmdline
     aug! BoardCmdline
   endif
-  cmapclear <buffer>
+  if a:board
+    cmapclear <buffer>
+  else
+    cu <buffer><C-C>
+    cu <buffer><CR>
+    cu <buffer><Esc>
+  endif
   call s:Help.Update(0)
 endfunction
 
@@ -688,7 +789,8 @@ function s:OpenScratchpad()
   normal! G
 endfunction
 
-function s:CmdlineChanged()
+function s:CmdlineChanged(board)
+  let s:Input.reltime = reltime()
   if s:FindKey(getcmdline())
     let s:Board.enter = 1
     call feedkeys("\<Esc>", 'n')
@@ -711,14 +813,17 @@ function s:FindKey(key)
   if s:Board.change ==# a:key | return | endif
   let s:Board.change = a:key
   let s:Board.input = ''
+  let s:Board.keys = 0
   let l:len = len(a:key)
   let l:help = ''
   if l:len == 1 && stridx('-=+;:.', a:key) != -1
     let s:Board.input = a:key
+    let s:Board.keys = 1
     return 1
   elseif l:len
     let l:list = s:GetKeys(a:key)
     let l:len = len(l:list)
+    let s:Board.keys = l:len
     if l:len == 1
       if a:key == l:list[0]
         return 1
@@ -726,7 +831,7 @@ function s:FindKey(key)
       let s:Board.input = l:list[0]
     endif
     let l:help = join(l:list, '  ')
-    let l:left = max([len(s:Board.menu) - len(l:help)/2 + 1, 8])
+    let l:left = max([len(s:Board.menu) - len(l:help)/2 + 1, 7])
     let l:help = repeat(' ', l:left).l:help
   endif
   call s:Help.Update(1, l:help)
@@ -742,19 +847,7 @@ function s:BufReadPost()
   if s:Loaded()
     call s:SetSyntax(1)
   endif
-endfunction
-
-function s:ConfirmSave()
-  echohl BoardMarker
-  echo "  Save changes? (y)es, (n)o: "
-  echohl None
-  let l:op = nr2char(getchar())
-  echo ''
-  redraw
-  if l:op ==? 'y'
-    update
-  endif
-  return !&modified
+  setl nonu
 endfunction
 
 function s:ColorScheme()
@@ -762,22 +855,22 @@ function s:ColorScheme()
 endfunction
 
 function board#Menu()
-  call s:SelectWin()
   let l:reg = g:BoardRegister[0]
+  let l:buf = bufname()
+  let l:board = fnamemodify(l:buf, ':e') ==? 'board'
   if match(l:reg, '[a-z]') != -1
-    call setreg(l:reg, fnamemodify(bufname(), ':~'))
+    call setreg(l:reg, fnamemodify(l:buf, ':~'))
   endif
-  if !s:Loaded()
-    let s:Board.opened = fnamemodify(bufname(), ':p')
-    if fnamemodify(bufname(), ':e') ==? 'board'
-      call s:SetOrder(s:Board.opened)
-    endif
+  if !s:Loaded() && l:board
+    call s:SetOrder(fnamemodify(l:buf, ':p'))
   endif
   if empty(s:Board.main)
     call s:SetMainBoard()
-    return
+  elseif l:board
+    call s:Switch('.?')
+  else
+    call s:InputShort()
   endif
-  call s:Switch('')
 endfunction
 
 function board#TermCd()

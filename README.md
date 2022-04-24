@@ -1,11 +1,5 @@
 <!-- https://github.com/azabiong/vim-board -->
 
-![vimModeStateDiagram](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
-
-> Special thanks to Darcy Parker for allowing reference to this wonderful diagram ▷ [origin](https://rawgit.com/darcyparker/1886716/raw/vimModeStateDiagram.svg)
-
-<br>
-
 # vim-board
 
 This plugin introduces a file type `board` where you can easily erase and write summaries,
@@ -89,9 +83,9 @@ Now, save the changes and reload the configuration.
 
 ## Menu
 
-Pressing the `BoardMenu` key will bring up the most recently used `board` with the `menu`.
+Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most recently used `board`.
 
-<img height="26" alt="menu" src="https://user-images.githubusercontent.com/83812658/161204572-0c8f6aa7-8c0b-4fc4-b5da-82bbfb4e69e0.png"><br>
+<img height="27" alt="menu" src="https://user-images.githubusercontent.com/83812658/164972992-a76fd0b7-a5c8-4403-ab40-690ced07d21d.gif"> <br>
 
 You can enter the key defined on the `board` to change the working directory or
 open the file, or you can switch between boards using the following keys:
@@ -165,7 +159,7 @@ When switching to another board stored in the `BoardPath` directory, you can omi
 the path and specify only the file name. For example:
 ```vim
         'r  reference.board
-        /r  ~/Reference/Code/Library/ | reference.board | Hi:load reference
+        /r  ~/Reference/Code/Library/ | 'r | Hi:load reference
 ```
 <br>
 </details>

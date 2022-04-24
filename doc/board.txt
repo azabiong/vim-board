@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                     `ver 1.08`
+                                                                     `ver 1.09`
                   Introduction           |Board-Introduction|
                   Configuration          |Board-Configuration|
                   Menu                   |Board-Menu|
@@ -72,8 +72,8 @@ Now, save the changes and reload the configuration.
 ------------------------------------------------------------------------------
 MENU                                                                *Board-Menu*
 
-Pressing the `BoardMenu` key will bring up the most recently used `board` with the
-`menu`.
+Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most
+recently used `board`.
 >
     Board (-)prev(=)main(+)new(;)return  _
 <
@@ -136,7 +136,7 @@ Section ~
     omit the path and specify only the file name. For example:
 >
         'r  reference.board
-        /r  ~/Reference/Code/Library/ | reference.board | Hi:load reference
+        /r  ~/Reference/Code/Library/ | 'r | Hi:load reference
 <
  Key ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
@@ -292,6 +292,9 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.09~
+    Add auto-expand menu
+    Improve buffer switching
 1.08~
     Add 'auto hold' mode on `Menu <Enter>`
     Improve command line mode input
