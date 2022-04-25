@@ -25,7 +25,7 @@ CONTENTS                                                            *Vim-Board*
 INTRODUCTION                                                *Board-Introduction*
 
 This plugin introduces a file type `board` where you can easily erase and write
-summaries, shortcuts to directories and files, and some additional commands.
+summaries, shortcuts to directories and files, and various commands.
 
 Feature 1~
 
@@ -192,17 +192,21 @@ Section ~
 >
         c1  | let @+ = "copy this string to the clipboard"
 <
+    To define a temporary key map:
+>
+        c2  | nn f0  <Cmd>echo "f0 ready"<CR>
+<
     To define some input from the shell tool:
 >
-        c2  | Board* | r! echo "This is the scratchpad on the Board"
-        c3  | Board* | r! curl -sI example.com
+        c3  | Board* | r! echo "This is the scratchpad on the Board"
+        c4  | Board* | r! curl -sI example.com
 <
  Command-line mode ~
     When using the `|` bar character as a shell `pipe` or other meaning, you can
     switch to command-line mode input by adding a colon `:` after the bar.
 >
-        c4  | Board* |: r! ls | wc
-        c5  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
+        c5  | Board* |: r! ls | wc
+        c6  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
 <
  Link reference ~
     You can use the `&` symbol to run other links.

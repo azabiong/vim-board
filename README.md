@@ -3,7 +3,7 @@
 # vim-board
 
 This plugin introduces a file type `board` where you can easily erase and write summaries,
-shortcuts to directories and files, and some additional commands.
+shortcuts to directories and files, and various commands.
 
 #### Feature 1
 
@@ -85,7 +85,7 @@ Now, save the changes and reload the configuration.
 
 Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most recently used `board`.
 
-<img height="27" alt="menu" src="https://user-images.githubusercontent.com/83812658/164972992-a76fd0b7-a5c8-4403-ab40-690ced07d21d.gif"> <br>
+<img height="26" alt="menu" src="https://user-images.githubusercontent.com/83812658/164972992-a76fd0b7-a5c8-4403-ab40-690ced07d21d.gif"> <br>
 
 You can enter the key defined on the `board` to change the working directory or
 open the file, or you can switch between boards using the following keys:
@@ -239,10 +239,15 @@ For example, to copy a frequently used string or command to the clipboard:
         c1  | let @+ = "copy this string to the clipboard"
 ```
 
+To define a temporary key map:
+```vim
+        c2  | nn f0  <Cmd>echo "f0 ready"<CR>
+```
+
 To define some input from the shell tool:
 ```vim
-        c2  | Board* | r! echo "This is the scratchpad on the Board"
-        c3  | Board* | r! curl -sI example.com
+        c3  | Board* | r! echo "This is the scratchpad on the Board"
+        c4  | Board* | r! curl -sI example.com
 ```
 
 #### Command-line mode
@@ -251,8 +256,8 @@ When using the `|` bar character as a shell `pipe` or other meaning, you can
 switch to command-line mode input by adding a colon `:` after the bar.
 
 ```vim
-        c4  | Board* |: r! ls | wc
-        c5  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
+        c5  | Board* |: r! ls | wc
+        c6  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
 ```
 
 #### Link reference
