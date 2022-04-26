@@ -40,8 +40,8 @@ Feature 1~
 <
 Feature 2~
 
- You can easily define shortcuts to directories, files or commands on the board
- using simple `key-path` pairs. For example:
+ You can easily define shortcuts to directories, files and commands on the board
+ using simple `key-value` pairs. For example:
 >
       dt  ~/Documents/Terms/
       v   ~/.vimrc
@@ -77,9 +77,9 @@ recently used `board`.
 >
     Board (-)prev(=)main(+)new(;)return  _
 <
-You can enter the key defined on the `board` to change the working directory or
-open the file, or you can switch between boards using the following keys:
-
+You can enter the key defined on the `board` to change working directories, open
+files, and execute commands. To switch between boards you can use the following
+keys:
         <Enter>   edit current board
          <Esc>    return
            ;      return
@@ -119,7 +119,7 @@ Section ~
         /p  ~/Languages/Python/
         pn  ~/Languages/Python/notes.py
 <
- Each link is a simple space-separated `key-path` pair, and uses the same
+ Each link is a simple space-separated `key-value` pair, and uses the same
  indentation as the `TEXT` field starting at column 6 or higher.
 
  Commands ~

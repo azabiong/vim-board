@@ -17,7 +17,8 @@ shortcuts to directories and files, and various commands.
 
 #### Feature 2
 
-> You can easily define shortcuts to directories, files or commands on the board using simple **key-path** pairs. For example:
+> You can easily define shortcuts to directories, files and commands on the board using simple **key-value** pairs.
+> For example:
 > ```
 >   dt  ~/Documents/Terms/
 >   v   ~/.vimrc
@@ -87,8 +88,8 @@ Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most
 
 <img height="26" alt="menu" src="https://user-images.githubusercontent.com/83812658/164972992-a76fd0b7-a5c8-4403-ab40-690ced07d21d.gif"> <br>
 
-You can enter the key defined on the `board` to change the working directory or
-open the file, or you can switch between boards using the following keys:
+You can enter the key defined on the `board` to change working directories, open files, and execute commands.
+To switch between boards you can use the following keys:
 
 <details>
 <summary><b> keys </b></summary>
@@ -138,7 +139,7 @@ and can have different syntax depending on its type.
         pn  ~/Languages/Python/notes.py
  ```
 
- Each link is a simple space-separated **key-path** pair, and uses the same
+ Each link is a simple space-separated **key-value** pair, and uses the same
  indentation as the `TEXT` field starting at column 6 or higher.
 
 <details>
