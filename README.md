@@ -239,9 +239,10 @@ For example, to copy a frequently used string or command to the clipboard:
         c1  | let @+ = "copy this string to the clipboard"
 ```
 
-To define a temporary key map:
+To define a set of temporary key-maps:
 ```vim
-        c2  | nn f0  <Cmd>echo "f0 ready"<CR>
+        c2  | nn f0 <Cmd>echo 0<CR>
+            | nn f1 <Cmd>echo 1<CR>
 ```
 
 To define some input from the shell tool:
