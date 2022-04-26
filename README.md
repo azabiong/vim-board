@@ -17,13 +17,13 @@ shortcuts to directories and files, and various commands.
 
 #### Feature 2
 
-> You can easily define shortcuts to directories or files on the board as simple **key-path** pairs. For example:
+> You can easily define shortcuts to directories, files or commands on the board using simple **key-path** pairs. For example:
 > ```
 >   dt  ~/Documents/Terms/
 >   v   ~/.vimrc
 > ```
 > Immediately after saving, you can use the following key sequences to change the
-> current working directory, or open the file:
+> current working directory, and open the file:
 >
 > &nbsp; &nbsp; &nbsp; `Key` `dt`
 >
