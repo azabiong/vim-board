@@ -77,9 +77,9 @@ recently used `board`.
 >
     Board (-)prev(=)main(+)new(;)return  _
 <
-You can enter the key defined on the `board` to change working directories, open
-files, and execute commands. To switch between boards you can use the following
-keys:
+You can enter the key you have defined on the `board`, or switch between boards
+using the following keys:
+
         <Enter>   edit current board
          <Esc>    return
            ;      return

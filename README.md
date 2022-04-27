@@ -7,7 +7,7 @@ shortcuts to directories and files, and various commands.
 
 #### Feature 1
 
-> After assigning a '`key`' to the plugin, you can take quick notes on the board at any time while editing using:
+> After assigning a `Key` to the plugin, you can take quick notes on the board at any time while editing using:
 >
 > &nbsp; &nbsp; &nbsp; `Key` <kbd>Enter</kbd>
 >
@@ -88,8 +88,7 @@ Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most
 
 <img height="26" alt="menu" src="https://user-images.githubusercontent.com/83812658/164972992-a76fd0b7-a5c8-4403-ab40-690ced07d21d.gif"> <br>
 
-You can enter the key defined on the `board` to change working directories, open files, and execute commands.
-To switch between boards you can use the following keys:
+You can enter the key you have defined on the `board`, or switch between boards using the following keys:
 
 <details>
 <summary><b> keys </b></summary>
