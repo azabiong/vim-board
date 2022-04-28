@@ -60,7 +60,7 @@ default path is:
 >
     let BoardPath = '~/.vim/after/vim-board'
 <
-The next step is to assign a convenient key to bring up the `board` with the `menu`.
+The next step is to assign a convenient key to bring up the `menu` with the `board`.
 The plugin default shortcut is `a single quote and space` if available.
 >
     nmap '<Space> <Plug>(BoardMenu)
@@ -132,11 +132,6 @@ Section ~
 >
         pn  ~/Languages/Python/notes.py | 128 | normal! zt
 <
-    When switching to another board stored in the |BoardPath| directory, you can
-    omit the path and specify only the file name. For example:
->
-        'a  another.board
-<
  Key ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
     characters except those that start with some predefined characters.
@@ -173,6 +168,12 @@ Section ~
     To paste the path stored in register 'b' in insert mode:
 >
         CTRL-R b
+<
+    When switching to another board stored in the |BoardPath| directory, you can
+    omit the path and specify only the file name. The links defined on the board
+    are automatically loaded when you switch boards using the key.
+>
+        'a  another.board
 <
  Multi-line commands ~
     Multi-line commands can be set using the leading bar `|` character.

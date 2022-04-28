@@ -60,7 +60,7 @@ The first step is to define a directory to store the `board` files. The plugin d
 ```vim
     let BoardPath = '~/.vim/after/vim-board'
 ```
-The next step is to assign a convenient key to bring up the `board` with the `menu`. The plugin
+The next step is to assign a convenient key to bring up the `menu` with the `board`. The plugin
 default shortcut is a single quote and space if available.
 ```vim
     nmap '<Space> <Plug>(BoardMenu)
@@ -155,11 +155,6 @@ After opening the file, to scroll line 128 to the top:
 ```vim
         pn  ~/Languages/Python/notes.py | 128 | normal! zt
 ```
-When switching to another board stored in the `BoardPath` directory, you can omit
-the path and specify only the file name. For example:
-```vim
-        'a  another.board
-```
 <br>
 </details>
 
@@ -210,7 +205,14 @@ when the `menu` key is pressed (by default the `b` register) .
 
 To paste the path stored in register `b` in insert mode:
 
-&nbsp; &nbsp; &nbsp; <kbd>Ctrl</kbd>+<kbd>R</kbd> `b`
+&nbsp; &nbsp; &nbsp; <kbd>Ctrl</kbd>+<kbd>R</kbd> `b`  
+<br>
+
+When switching to another board stored in the `BoardPath` directory, you can omit the path and specify only the file name.
+The links defined on the board are automatically loaded when you switch boards using the key. 
+```vim
+        'a  another.board
+```
 
 <br>
 </details>
