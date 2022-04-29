@@ -2,8 +2,8 @@
 
 # vim-board
 
-This plugin introduces a file type `board` where you can easily erase and write summaries,
-shortcuts to directories and files, and various commands.
+This plugin introduces a file type `board` where you can easily write notes,
+and define shortcuts to directories, files, and various commands.
 
 #### Feature 1
 
