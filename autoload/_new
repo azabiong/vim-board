@@ -1,6 +1,5 @@
 # vim-board
 
-
 Section
     Group
         TEXT
@@ -13,16 +12,16 @@ Section
 
 
 
+
+
+
+
+
+
+
 :Links
     group
         _
-
-
-
-
-
-
-
 
 
 # syntax example
