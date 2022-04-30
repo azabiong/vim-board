@@ -227,10 +227,6 @@ The links defined on the board are automatically loaded when you switch boards u
             | echo 'foo'
             | echo 'bar'
 ```
-#### Stop command
-
-To stop a long list of commands while processing, press the `menu` key and 
-input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.  
 
 #### Commands only
 
@@ -270,6 +266,11 @@ You can use the `&` symbol to run other links.
         N   | NERDTreeCWD
         d   ~/directory | &N
 ```
+
+#### Stop command
+
+To stop a long list of commands while processing, press the `menu` key and 
+input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.  
 
 </details>
 <br>

@@ -182,10 +182,6 @@ Section ~
             | echo 'foo'
             | echo 'bar'
 <
- Stop command ~
-    To stop a long list of commands while processing, press the `menu` key and
-    input CTRL-C or an undefined key.
-
  Commands only ~
     You can also define just a list of commands.
 
@@ -216,6 +212,10 @@ Section ~
         N   | NERDTreeCWD
         d   ~/directory | &N
 <
+ Stop command ~
+    To stop a long list of commands while processing, press the `menu` key and
+    input CTRL-C or an undefined key.
+
 ------------------------------------------------------------------------------
 COMMANDS                                                        *Board-Commands*
                                                                          *Board*
