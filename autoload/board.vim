@@ -322,7 +322,7 @@ function s:OpenFile(path, load=0)
   return 1
 endfunction
 
-" return {board, path, command[]}
+" returns {board, path, command[]}
 function s:GetLink(key)
   for b in s:Links.order
     if has_key(s:Links, b) && has_key(s:Links[b], a:key)
@@ -412,7 +412,7 @@ function s:LoadLinks(path='', type=0)
   call setpos('.', l:pos)
 endfunction
 
-" return [] end_of_section,  [''] no_value,  ['key','path|cmd|cmd..']
+" returns [] end_of_section,  [''] no_value,  ['key','path|cmd|cmd..']
 function s:ReadLine(num)
   let l:line = getline(a:num)
   " section column 1
@@ -521,7 +521,7 @@ function s:RunCmd(...)
   let s:Board.timer = timer_start(s:Board.interval, function('s:RunCmd'))
 endfunction
 
-" return end index of the sentence, or -1 with error
+" returns end index of the sentence, or -1 with error
 function s:CheckSentence(unit, begin, match='')
   let l:length = len(a:unit.cmd)
   let l:index = a:begin
