@@ -1,8 +1,8 @@
-" Vim Board: Simple notes and shortcuts
+" Vim Board: Easy notes and shortcuts
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.09
+" Version: 1.09.2
 
 scriptencoding utf-8
 if exists("g:loaded_vim_board")

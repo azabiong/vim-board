@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                     `ver 1.09`
+                                                                    `ver 1.09.2`
                   Introduction           |Board-Introduction|
                   Configuration          |Board-Configuration|
                   Menu                   |Board-Menu|
@@ -287,7 +287,15 @@ OPTIONS                                                          *Board-Options*
     For example, to paste the path stored in register 'b' in insert mode:
 >
         CTRL-R b
+<                                                               *BoardMenuExpand*
+|BoardMenuExpand| option specifies the wait time in milliseconds before expanding
+    the menu.
+>
+        let BoardMenuExpand = 420
 <
+    Default: 420 `(ms)`
+    Values:  180 ~ 540
+
 ------------------------------------------------------------------------------
 ISSUES                                                            *Board-Issues*
 
@@ -297,6 +305,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.09.2~
+    Add |BoardMenuExpand| option to adjust menu expansion time
 1.09~
     Add auto-expand menu
     Improve buffer switching

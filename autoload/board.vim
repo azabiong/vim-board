@@ -1,8 +1,8 @@
-" Vim Board: Simple notes and shortcuts
+" Vim Board: Easy notes and shortcuts
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.09
+" Version: 1.09.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -12,15 +12,16 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
+let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 420)
 
-let s:Version = '1.09'
+let s:Version = '1.09.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
 let s:Links = #{ bufnr:{'key':'path'}, order:[] }
-let s:Input = #{ timer:0, interval:108, wait:432, reltime:0 }
+let s:Input = #{ timer:0, interval:60, wait:420, reltime:0 }
 let s:Help  = #{ Update:'', win:0, buf:-1 }
 let s:KeyMap = {'+':"4\<C-E>", '-':"4\<C-Y>", 'v':"\<C-F>", '^':"\<C-B>"}
 let s:Sentence = ['if', 'for', 'while']
@@ -44,6 +45,7 @@ function s:Load()
   else
     let s:Help.Update = function('s:Nop')
   endif
+  let s:Input.wait = g:BoardMenuExpand < 1 ? 420 : min([max([g:BoardMenuExpand, 180]), 540])
   let s:Loaded = 1
 endfunction
 
@@ -708,7 +710,7 @@ function s:InputCheck(...)
   if !s:Input.timer | return | endif
   if !s:Board.keys
     let l:dt = reltimefloat(reltime(s:Input.reltime)) * 1000
-    if l:dt > s:Input.wait
+    if l:dt >= s:Input.wait
       call feedkeys("\<Esc>", 'n')
       return timer_start(8, {-> execute("call s:Switch('.?')")})
     endif
