@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.09.2`
+                                                                    `ver 1.09.6`
                   Introduction           |Board-Introduction|
                   Configuration          |Board-Configuration|
                   Menu                   |Board-Menu|
@@ -295,9 +295,9 @@ OPTIONS                                                          *Board-Options*
 |BoardMenuExpand| option specifies the wait time in milliseconds before expanding
     the menu.
 >
-        let BoardMenuExpand = 420
+        let BoardMenuExpand = 360
 <
-    Default: 420 `(ms)`
+    Default: 360 `(ms)`
     Values:  180 ~ 540
 
 ------------------------------------------------------------------------------
@@ -309,7 +309,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.09.2~
+1.09.6~
+    Support multiple :Links section
     Add |BoardMenuExpand| option to adjust menu expansion time
 1.09~
     Add auto-expand menu

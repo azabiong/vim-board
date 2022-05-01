@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.09.2
+" Version: 1.09.6
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -12,16 +12,15 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
-let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 420)
 
-let s:Version = '1.09.2'
+let s:Version = '1.09.6'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
 let s:Links = #{ bufnr:{'key':'path'}, order:[] }
-let s:Input = #{ timer:0, interval:60, wait:420, reltime:0 }
+let s:Input = #{ timer:0, interval:60, wait:360, reltime:0 }
 let s:Help  = #{ Update:'', win:0, buf:-1 }
 let s:KeyMap = {'+':"4\<C-E>", '-':"4\<C-Y>", 'v':"\<C-F>", '^':"\<C-B>"}
 let s:Sentence = ['if', 'for', 'while']
@@ -45,7 +44,10 @@ function s:Load()
   else
     let s:Help.Update = function('s:Nop')
   endif
-  let s:Input.wait = g:BoardMenuExpand < 1 ? 420 : min([max([g:BoardMenuExpand, 180]), 540])
+  let l:expand = get(g:,'BoardMenuExpand', 0)
+  if l:expand > 0
+    let s:Input.wait = min([max([l:expand, 180]), 540])
+  endif
   let s:Loaded = 1
 endfunction
 
@@ -383,32 +385,33 @@ function s:LoadLinks(path='', type=0)
   else
     let b:Board.list = b:Board.list || l:list
   endif
-  let l:pos = getpos('.')
-  if !filereadable(l:board) || !search('^:Links\c\>', 'w')
-    return
-  endif
+  if !filereadable(l:board) | return | endif
   let l:bufnr = bufnr(l:board)
   let s:Links[l:bufnr] = {}
   let l:list = s:Links[l:bufnr]
   let l:list['#'.l:bufnr] = fnamemodify(l:board, ':t')
-  let l:key = ''
-  let [l:num, l:end] = [line('.'), line('$')]
-  while l:num <= l:end
-    let l:num += 1
-    let l:link = s:ReadLine(l:num)
-    if empty(l:link)
-      break
-    elseif len(l:link) > 1
-      if empty(l:link[0])
-        " multi-line
-        if !empty(l:key)
-          let l:list[l:key] .= l:link[1]
+  let l:pos = getpos('.')
+  call cursor(1, 1)
+  while search('^:Links\c\>', 'W')
+    let l:key = ''
+    let [l:num, l:end] = [line('.'), line('$')]
+    while l:num <= l:end
+      let l:num += 1
+      let l:link = s:ReadLine(l:num)
+      if empty(l:link)
+        break
+      elseif len(l:link) > 1
+        if empty(l:link[0])
+          " multi-line
+          if !empty(l:key)
+            let l:list[l:key] .= l:link[1]
+          endif
+        else
+          let l:key = l:link[0]
+          let l:list[l:key] = l:link[1]
         endif
-      else
-        let l:key = l:link[0]
-        let l:list[l:key] = l:link[1]
       endif
-    endif
+    endwhile
   endwhile
   call s:SetSyntax(0)
   call setpos('.', l:pos)
