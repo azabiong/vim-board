@@ -1,8 +1,8 @@
 # vim-board
 
-Section
-    Group
-        TEXT
+_
+
+
 
 
 
@@ -21,13 +21,13 @@ Section
 
 :Links
     group
-        _
+
 
 
 # syntax example
 vim-board
     * Command processing `100 Hz`
-    + Low power LED
+    & Low power LED
     [  LED-1  ]  {  LED-2  }  <  LED-3  >
 
 - Plain Text Section (with a hyphen)
@@ -39,5 +39,4 @@ S [E]{C}<T>`I`O N
     -  inactive or done
     +  new item
     =  description
-    &  more items
         T E X`T`
