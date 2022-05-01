@@ -17,7 +17,7 @@ and define shortcuts to directories, files, and various commands.
 
 #### Feature 2
 
-> You can easily define shortcuts to directories, files and commands on the board using simple **key-value** pairs.
+> You can easily define shortcuts to directories, files, and commands on the board using simple **key-value** pairs.
 > For example:
 > ```
 >   dt  ~/Documents/Terms/
@@ -116,8 +116,8 @@ activate links defined on the board.
 
 ## Syntax
 
-The `board` file syntax is relatively simple. You can use indentation and some
-leading characters to mark each item differently.
+The `board` file syntax is simple. You can use indentation and some leading characters
+to mark each item differently.
 
 ### Section
 
@@ -155,6 +155,12 @@ After opening the file, to scroll line 128 to the top:
 ```vim
         pn  ~/Languages/Python/notes.py | 128 | normal! zt
 ```
+
+Or, you can combine commands to open specific files after changing the directory:
+```vim
+        d1  ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md 
+```
+
 <br>
 </details>
 
@@ -239,14 +245,14 @@ For example, to copy a frequently used string or command to the clipboard:
 
 To define a set of temporary key-maps:
 ```vim
-        c2  | nn f0 <Cmd>echo 0<CR>
+        k2  | nn f0 <Cmd>echo 0<CR>
             | nn f1 <Cmd>echo 1<CR>
 ```
 
 To define some input from the shell tool:
 ```vim
-        c3  | Board* | r! echo "This is the scratchpad on the Board"
-        c4  | Board* | r! curl -sI example.com
+        s1  | Board* | r! echo "This is the scratchpad on the Board"
+        s2  | Board* | r! curl -sI example.com
 ```
 
 #### Command-line mode
@@ -255,16 +261,16 @@ When using the `|` bar character as a shell `pipe` or other meaning, you can
 switch to command-line mode input by adding a colon `:` after the bar.
 
 ```vim
-        c5  | Board* |: r! ls | wc
-        c6  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
+        p1  | Board* |: r! ls | wc
+        p2  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
 ```
 
 #### Link reference
 
 You can use the `&` symbol to run other links.
 ```vim
-        N   | NERDTreeCWD
-        d   ~/directory | &N
+        NW  | NERDTreeCWD | wincmd p
+        d1  ~/Directory/  | &NW
 ```
 
 #### Stop command
