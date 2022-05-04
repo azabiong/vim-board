@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.09.6`
+                                                                    `ver 1.09.8`
                   Introduction           |Board-Introduction|
                   Configuration          |Board-Configuration|
                   Menu                   |Board-Menu|
@@ -195,8 +195,8 @@ Section ~
 <
     To define a set of temporary key-maps:
 >
-        k2  | nn f0 <Cmd>echo 0<CR>
-            | nn f1 <Cmd>echo 1<CR>
+        k1  | nn 0 <Cmd>echo 0<CR>
+            | nn 1 <Cmd>echo 1<CR>
 <
     To define some input from the shell tool:
 >
@@ -309,7 +309,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.09.6~
+1.09.8~
+    Add syntax type ':'
     Support multiple :Links section
     Add |BoardMenuExpand| option to adjust menu expansion time
 1.09~

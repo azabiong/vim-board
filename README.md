@@ -245,8 +245,8 @@ For example, to copy a frequently used string or command to the clipboard:
 
 To define a set of temporary key-maps:
 ```vim
-        k2  | nn f0 <Cmd>echo 0<CR>
-            | nn f1 <Cmd>echo 1<CR>
+        k1  | nn 0 <Cmd>echo 0<CR>
+            | nn 1 <Cmd>echo 1<CR>
 ```
 
 To define some input from the shell tool:
