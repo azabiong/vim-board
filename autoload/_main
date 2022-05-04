@@ -18,8 +18,7 @@ Section
     Group
         TEXT
 
-    * special `marker`
-    - plain text
+    * surround type `marker`
     [  one  ]  {  two  }  < three >
 
     # simple checklist, or Todo
@@ -27,9 +26,8 @@ Section
     -  inactive or done
     +  new item
     =  description
-    &  more items
+    :  note
 
 
 - Plain Text Section (with a hyphen)
     * plain text
-
