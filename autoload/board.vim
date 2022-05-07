@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.09.8
+" Version: 1.10
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.09.8'
+let s:Version = '1.10'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -391,8 +391,9 @@ function s:LoadLinks(path='', type=0)
   let l:list = s:Links[l:bufnr]
   let l:list['#'.l:bufnr] = fnamemodify(l:board, ':t')
   let l:pos = getpos('.')
+  let l:opt = 'c'
   call cursor(1, 1)
-  while search('^:Links\c\>', 'W')
+  while search('^:Links\c\>', l:opt.'W')
     let l:key = ''
     let [l:num, l:end] = [line('.'), line('$')]
     while l:num <= l:end
@@ -412,6 +413,7 @@ function s:LoadLinks(path='', type=0)
         endif
       endif
     endwhile
+    let l:opt = ''
   endwhile
   call s:SetSyntax(0)
   call setpos('.', l:pos)
@@ -899,11 +901,12 @@ function board#Command(cmd)
   let l:val = get(l:arg, 1, '')
 
   if     l:cmd ==# ''      | echo ' Board version '.s:Version
+  elseif l:cmd ==# '*'     | call s:OpenScratchpad()
   elseif l:cmd ==? 'speed' | call s:SetSpeed(l:val)
   elseif l:cmd ==? 'stack' | call s:SetStack(l:val)
   elseif l:cmd ==? 'start' | call s:AddLink(l:val)
   elseif l:cmd ==? 'stop'  | call s:Stop(0)
-  elseif l:cmd ==# '*'     | call s:OpenScratchpad()
+  elseif l:cmd ==? 'menu'  | call board#Menu()
   else
     echo ' Board: no matching command: '.l:cmd
   endif

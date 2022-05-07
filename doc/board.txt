@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.09.8`
+                                                                     `ver 1.10`
                   Introduction           |Board-Introduction|
                   Configuration          |Board-Configuration|
                   Menu                   |Board-Menu|
@@ -156,8 +156,8 @@ Section ~
     Tip ~
     When you suddenly have multiple to-do lists, numbering can be useful.
 >
-        t1  ~/Todo/file1 | /item | echo ' find item'
-        t2  ~/Todo/dir2/ | echo ' add file2'
+        t1  ~/Todo/file1 | /item | echo 'find item'
+        t2  ~/Todo/dir2/ | echo 'add file2'
 <
     Long key ~
     You only need to enter the unique prefix part of the key. For example, if
@@ -213,8 +213,8 @@ Section ~
  Link reference ~
     You can use the `&` symbol to run other links.
 >
-        NW  | NERDTreeCWD | wincmd p
-        d1  ~/Directory/  | &NW
+        Nw  | NERDTreeCWD | wincmd p
+        d1  ~/Directory/  | &Nw
 <
  Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
@@ -239,7 +239,10 @@ Board stop ~
     Stop running the current link.
 >
         0   | lua if 0 then vim.cmd('Board stop') end | echo 'no output'
-<                                                                   *Board:speed*
+<                                                                   *Board:menu*
+Board menu ~
+    Bring up the |Board-Menu|
+                                                                   *Board:speed*
 Board speed ~
     Set the command processing rate in proportion to `Hz` while running the
     current link, and restores the default value after processing.
@@ -309,10 +312,10 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.09.8~
-    Add syntax type ':'
-    Support multiple :Links section
-    Add |BoardMenuExpand| option to adjust menu expansion time
+1.10~
+    Add command |Board:menu| to bring up the menu from link
+    Add option |BoardMenuExpand| to adjust menu expansion time
+    Add syntax ':' type
 1.09~
     Add auto-expand menu
     Improve buffer switching

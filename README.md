@@ -190,8 +190,8 @@ You can also define the same key differently on each board.
 
 When you suddenly have multiple to-do lists, numbering can be useful.
 ```vim
-        t1  ~/Todo/file1 | /item | echo ' find item' 
-        t2  ~/Todo/dir2/ | echo ' add file2'
+        t1  ~/Todo/file1 | /item | echo 'find item' 
+        t2  ~/Todo/dir2/ | echo 'add file2'
 ```
 #### Long key
 
@@ -269,8 +269,8 @@ switch to command-line mode input by adding a colon `:` after the bar.
 
 You can use the `&` symbol to run other links.
 ```vim
-        NW  | NERDTreeCWD | wincmd p
-        d1  ~/Directory/  | &NW
+        Nw  | NERDTreeCWD | wincmd p
+        d1  ~/Directory/  | &Nw
 ```
 
 #### Stop command
@@ -293,7 +293,7 @@ For more information about commands and options, please refer to:
 ## Customizing Colors
 
 The plugin provides two default color sets and automatically loads one depending on the current `background` mode.
-You can use the Vim **hi** command to customize colors starting with `Board`,and save them to the configuration file
+You can use the Vim **hi** command to customize colors starting with `Board`, and save them to the configuration file
 or color scheme.
 ```
  BoardSection  BoardGroup  BoardConfig  BoardMarker  BoardSpecial  BoardLed...  BoardHelp
