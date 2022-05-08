@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.10
+" Version: 1.10.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -13,7 +13,7 @@ set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister','b')
 
-let s:Version = '1.10'
+let s:Version = '1.10.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -237,9 +237,11 @@ function s:Switch(key)
 endfunction
 
 function s:Restore(base)
-  if a:base && s:Board.restore && s:Board.current != s:Board.hold &&
-      \ exists("w:BoardOverlap") && filereadable(w:BoardOverlap)
-    call s:OpenFile(w:BoardOverlap)
+  if a:base && s:Board.restore && s:Board.current != s:Board.hold && exists("w:BoardOverlap")
+    let l:o = w:BoardOverlap
+    if filereadable(l:o.path) && s:OpenFile(l:o.path)
+      call winrestview(l:o.view)
+    endif
     unlet w:BoardOverlap
   endif
 endfunction
@@ -713,11 +715,11 @@ endfunction
 
 function s:InputCheck(...)
   if !s:Input.timer | return | endif
-  if !s:Board.keys
+  if !s:Board.keys && empty(s:Board.change)
     let l:dt = reltimefloat(reltime(s:Input.reltime)) * 1000
     if l:dt >= s:Input.wait
       call feedkeys("\<Esc>", 'n')
-      return timer_start(8, {-> execute("call s:Switch('.?')")})
+      return timer_start(0, {-> execute("call s:Switch('.?')")})
     endif
   else
     let s:Input.reltime = reltime()
@@ -744,7 +746,7 @@ function s:SelectWin()
   let l:type = empty(&buftype) || &buftype == 'help'
   let l:board = fnamemodify(bufname(), ':e') ==? 'board'
   if filereadable(l:path) && l:type && !l:board
-    let w:BoardOverlap = l:path
+    let w:BoardOverlap = {'path':l:path, 'view':winsaveview()}
   endif
 endfunction
 
