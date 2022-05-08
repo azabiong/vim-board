@@ -242,7 +242,14 @@ Board stop ~
 <                                                                   *Board:menu*
 Board menu ~
     Bring up the |Board-Menu|
-                                                                   *Board:speed*
+
+                                                                   *BoardTermCd*
+<Plug>(BoardTermCd) ~
+    When using terminal window, synchronize current working directory with Vim
+    by running `cd` command. To map key `Ctrl`+`\\` for terminal window:
+>
+        tmap <C-\><C-\>  <Plug>(BoardTermCd)
+<                                                                   *Board:speed*
 Board speed ~
     Set the command processing rate in proportion to `Hz` while running the
     current link, and restores the default value after processing.
@@ -267,12 +274,6 @@ Board speed ~
             | echo ' Eight'
             | echo ' Nine'
             | echo ' Done!'
-<                                                                   *BoardTermCd*
-<Plug>(BoardTermCd) ~
-    When using terminal window, synchronize current working directory with Vim
-    by running `cd` command. To map key `Ctrl`+`\\` for terminal window:
->
-        tmap <C-\><C-\>  <Plug>(BoardTermCd)
 <
 ------------------------------------------------------------------------------
 OPTIONS                                                          *Board-Options*
