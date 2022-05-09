@@ -125,8 +125,8 @@ The plugin uses sections to categorize content. Each section starts at the begin
 and can have different syntax depending on its type.
 
 <div style="display:inline-block">
-<img width="316" alt="default_light" src="https://user-images.githubusercontent.com/83812658/160866907-19b697fa-c9b3-4f50-8402-33c80fdc9c26.png">
-<img width="316" alt="default_dark" src="https://user-images.githubusercontent.com/83812658/160867186-d91f778d-b182-408f-9598-1ff6981b7bc5.png">
+<img width="316" alt="default_light" src="https://user-images.githubusercontent.com/83812658/167405420-56456166-21ad-40b2-9eaf-5fadc17bc109.png">
+<img width="316" alt="default_dark" src="https://user-images.githubusercontent.com/83812658/167405505-d204c82c-17b4-4e4a-bfbf-8161dd3cd572.png">
 </div><br>
 
 ### :Links Section
@@ -296,7 +296,7 @@ The plugin provides two default color sets and automatically loads one depending
 You can use the Vim **hi** command to customize colors starting with `Board`, and save them to the configuration file
 or color scheme.
 ```
- BoardSection  BoardGroup  BoardConfig  BoardMarker  BoardSpecial  BoardLed...  BoardHelp
+ BoardHelp  BoardSection  BoardGroup  BoardConfig  BoardMarker  BoardSpecial  BoardLed...
 ```
 <br>
 
