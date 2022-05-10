@@ -200,7 +200,7 @@ function s:AddNewBoard()
     let l:base = s:Board.plug.'/_new'
     silent exe "0read" l:base
     silent exe "bwipe" l:base
-    call setline(1, '# '.fnamemodify(l:file, ':t'))
+    call setline(1, '# '.fnamemodify(l:file, ':t:r'))
   endif
   call s:OpenFile(l:file, 2)
   call s:Edit()
