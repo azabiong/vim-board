@@ -1,15 +1,14 @@
 # vim-board
 
+
+
+
+
+
+
 :Links
     group
         _
-
-
-
-
-
-
-
 
 
 
@@ -27,7 +26,9 @@ Section
     +  new item
     =  description
     :  note
+    &  etc
 
 
 - Plain Text Section (with a hyphen)
     * plain text
+
