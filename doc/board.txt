@@ -12,13 +12,14 @@
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
                                                                      `ver 1.10`
-                  Introduction           |Board-Introduction|
-                  Configuration          |Board-Configuration|
-                  Menu                   |Board-Menu|
-                  Syntax                 |Board-Syntax|
-                  Commands               |Board-Commands|
-                  Options                |Board-Options|
-                  Log                    |Board-Log|
+                  Introduction          |Board-Introduction|
+                  Configuration         |Board-Configuration|
+                  Menu                  |Board-Menu|
+                  Syntax                |Board-Syntax|
+                  Customizing Colors    |Board-Customizing-Colors|
+                  Commands              |Board-Commands|
+                  Options               |Board-Options|
+                  Log                   |Board-Log|
 
 
 ------------------------------------------------------------------------------
@@ -195,8 +196,8 @@ Section ~
 <
     To define a set of temporary key-maps:
 >
-        k1  | nn 0 <Cmd>echo 0<CR>
-            | nn 1 <Cmd>echo 1<CR>
+        k1  | nn f0 <Cmd>echo 0<CR>
+            | nn f9 <Cmd>echo 9<CR>
 <
     To define some input from the shell tool:
 >
@@ -211,7 +212,7 @@ Section ~
         p2  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
 <
  Link reference ~
-    You can use the `&` symbol to run other links.
+    You can use the `&` symbol to run other links, for example:
 >
         Nw  | NERDTreeCWD | wincmd p
         d1  ~/Directory/  | &Nw
@@ -220,6 +221,21 @@ Section ~
     To stop a long list of commands while processing, press the `menu` key and
     input CTRL-C or an undefined key.
 
+------------------------------------------------------------------------------
+CUSTOMIZING COLORS                                    *Board-Customizing-Colors*
+
+The plugin provides two default color sets and automatically loads one depending
+on the current 'background' mode. You can use the Vim |:hi| command to customize
+colors starting with `Board`, and save them to the configuration file or color
+scheme.
+>
+  BoardHelp  BoardSection  BoardGroup  BoardMarker  BoardSpecial  BoardNote
+  BoardLed...
+<
+ Example ~
+>
+    :hi BoardEqual ctermfg=183 guifg=#e0acf8
+<
 ------------------------------------------------------------------------------
 COMMANDS                                                        *Board-Commands*
                                                                          *Board*
@@ -248,8 +264,13 @@ Board menu ~
     When using terminal window, synchronize current working directory with Vim
     by running `cd` command. To map key `Ctrl`+`\\` for terminal window:
 >
-        tmap <C-\><C-\>  <Plug>(BoardTermCd)
-<                                                                   *Board:speed*
+      tmap <C-\><C-\>  <Plug>(BoardTermCd)
+<
+    nvim .lua
+>
+      vim.api.nvim_set_keymap('t', '<C-\\><C-\\>', '<Plug>(BoardTermCd)', {})
+<
+                                                                   *Board:speed*
 Board speed ~
     Set the command processing rate in proportion to `Hz` while running the
     current link, and restores the default value after processing.

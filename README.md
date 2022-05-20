@@ -244,9 +244,9 @@ For example, to copy a frequently used string or command to the clipboard:
 ```
 
 To define a set of temporary key-maps:
-```vim
-        k1  | nn 0 <Cmd>echo 0<CR>
-            | nn 1 <Cmd>echo 1<CR>
+```vi
+        k1  | nn f0 <Cmd>echo 0<CR>
+            | nn f9 <Cmd>echo 9<CR>
 ```
 
 To define some input from the shell tool:
@@ -267,7 +267,7 @@ switch to command-line mode input by adding a colon `:` after the bar.
 
 #### Link reference
 
-You can use the `&` symbol to run other links.
+You can use the `&` symbol to run other links, for example:
 ```vim
         Nw  | NERDTreeCWD | wincmd p
         d1  ~/Directory/  | &Nw
@@ -296,7 +296,7 @@ The plugin provides two default color sets and automatically loads one depending
 You can use the Vim **hi** command to customize colors starting with `Board`, and save them to the configuration file
 or color scheme.
 ```
- BoardHelp  BoardSection  BoardGroup  BoardConfig  BoardMarker  BoardSpecial  BoardLed...
+ BoardHelp  BoardSection  BoardGroup  BoardMarker  BoardSpecial  BoardNote  BoardLed...
 ```
 <br>
 
