@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.10.2
+" Version: 1.10.6
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -11,12 +11,13 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-let g:BoardRegister = get(g:,'BoardRegister','b')
+let g:BoardRegister = get(g:,'BoardRegister', 'b')
+let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 360)
 
-let s:Version = '1.10.2'
+let s:Version = '1.10.6'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
-               \ timer:0, interval:8, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
+               \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
 let s:Links = #{ bufnr:{'key':'path'}, order:[] }
@@ -43,10 +44,6 @@ function s:Load()
     let s:Help.Update = function('s:WinFloat')
   else
     let s:Help.Update = function('s:Nop')
-  endif
-  let l:expand = get(g:,'BoardMenuExpand', 0)
-  if l:expand > 0
-    let s:Input.wait = min([max([l:expand, 180]), 540])
   endif
   let s:Loaded = 1
 endfunction
@@ -231,7 +228,7 @@ function s:Switch(key)
     endif
     let s:Board.stack = []
     let s:Board.range = 1024
-    let s:Board.interval = 8
+    let s:Board.interval = 1
     call s:RunLink(a:key)
   endif
 endfunction
@@ -587,6 +584,13 @@ function s:Error(msg)
   echohl None
 endfunction
 
+function s:SetMenuExpand()
+  let l:expand = get(g:,'BoardMenuExpand', 0)
+  if l:expand > 0 && l:expand != s:Input.wait
+    let s:Input.wait = min([max([l:expand, 180]), 540])
+  endif
+endfunction
+
 function s:Prompt()
   call timer_start(0, function('s:InputLong'))
 endfunction
@@ -878,6 +882,7 @@ function board#Menu()
   elseif l:board
     call s:Switch('.?')
   else
+    call s:SetMenuExpand()
     call s:InputShort()
   endif
 endfunction
