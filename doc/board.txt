@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                     `ver 1.10`
+                                                                    `ver 1.10.6`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -275,7 +275,7 @@ Board speed ~
     Set the command processing rate in proportion to `Hz` while running the
     current link, and restores the default value after processing.
 
-    Default: 100
+    Default: 1000
     Values:  1 ~ 1000  or  max
 
     Example: >
