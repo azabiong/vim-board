@@ -320,9 +320,9 @@ OPTIONS                                                          *Board-Options*
 |BoardMenuExpand| option specifies the wait time in milliseconds before expanding
     the menu.
 >
-        let BoardMenuExpand = 360
+        let BoardMenuExpand = 300
 <
-    Default: 360 `(ms)`
+    Default: 300 `(ms)`
     Values:  180 ~ 540
 
 ------------------------------------------------------------------------------
@@ -334,6 +334,9 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.10.6~
+    Support runtime 'BoardMenuExpand' option setting.
+    Improve buffer switching
 1.10~
     Add command |Board:menu| to bring up the menu from link
     Add option |BoardMenuExpand| to adjust menu expansion time
