@@ -12,7 +12,7 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
-let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 360)
+let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 300)
 
 let s:Version = '1.10.6'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
@@ -21,7 +21,7 @@ let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:''
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
 let s:Links = #{ bufnr:{'key':'path'}, order:[] }
-let s:Input = #{ timer:0, interval:60, wait:360, reltime:0 }
+let s:Input = #{ timer:0, interval:60, wait:300, reltime:0 }
 let s:Help  = #{ Update:'', win:0, buf:-1 }
 let s:KeyMap = {'+':"4\<C-E>", '-':"4\<C-Y>", 'v':"\<C-F>", '^':"\<C-B>"}
 let s:Sentence = ['if', 'for', 'while']
