@@ -320,9 +320,9 @@ OPTIONS                                                          *Board-Options*
 |BoardMenuExpand| option specifies the wait time in milliseconds before expanding
     the menu.
 >
-        let BoardMenuExpand = 300
+        let BoardMenuExpand = 270
 <
-    Default: 300 `(ms)`
+    Default: 270 `(ms)`
     Values:  180 ~ 540
 
 ------------------------------------------------------------------------------
