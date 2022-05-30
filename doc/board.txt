@@ -160,6 +160,16 @@ Section ~
         t1  ~/Todo/file1 | /item | echo 'find item'
         t2  ~/Todo/dir2/ | echo 'add file2'
 <
+    Or, to push items to something like slot 0:
+>
+        0   ~/dir/third
+        0   ~/dir/second
+        0   ~/dir/first
+<
+    You can then use the key `0` to open the recently pushed item, and clear
+    the item when done. When opening an item in the middle, the native |gf|
+    command would be useful.
+
     Long key ~
     You only need to enter the unique prefix part of the key. For example, if
     you define a long key `xylophone` and don't have a key that starts with `xy`,
