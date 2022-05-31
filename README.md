@@ -193,14 +193,14 @@ When you suddenly have multiple to-do lists, numbering can be useful.
         t1  ~/Todo/file1 | /item | echo 'find item' 
         t2  ~/Todo/dir2/ | echo 'add file2'
 ```
-Or, to push items to something like slot 0:
+Or, to stack items in something like queue `0`
 ```vim
         0   ~/dir/third
         0   ~/dir/second
         0   ~/dir/first
 ```
-You can then use the key `0` to open the recently pushed item, and clear the item when done.
-When opening an item in the middle, the native `gf` command would be useful.
+You can then use the `0` key to open the bottom item, and then erase or move it when done similar to a `pop` operation.
+When opening the item in the middle, the native `gf` command would be useful.
 
 #### Long key
 
