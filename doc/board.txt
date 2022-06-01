@@ -328,7 +328,7 @@ OPTIONS                                                          *Board-Options*
         CTRL-R b
 <                                                               *BoardMenuExpand*
 |BoardMenuExpand| option specifies the wait time in milliseconds before expanding
-    the menu.
+    the menu. You can try changing the values before saving.
 >
         let BoardMenuExpand = 270
 <
