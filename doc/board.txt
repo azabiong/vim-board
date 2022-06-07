@@ -209,7 +209,11 @@ Section ~
         k1  | nn f0 <Cmd>echo 0<CR>
             | nn f9 <Cmd>echo 9<CR>
 <
-    To define some input from the shell tool:
+    To define a temporary substitution command:
+>
+        s1  | %s/Foo/Bar/gc
+<
+    To define some input from the shell tool to the scratchpad, `Board*`:
 >
         s1  | Board* | r! echo "This is the scratchpad on the Board"
         s2  | Board* | r! curl -sI example.com
@@ -224,8 +228,8 @@ Section ~
  Link reference ~
     You can use the `&` symbol to run other links, for example:
 >
-        Nw  | NERDTreeCWD | wincmd p
-        d1  ~/Directory/  | &Nw
+        N   | NERDTreeCWD
+        d1  ~/Directory/ | &N
 <
  Stop command ~
     To stop a long list of commands while processing, press the `menu` key and

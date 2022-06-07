@@ -258,10 +258,15 @@ To define a set of temporary key-maps:
             | nn f9 <Cmd>echo 9<CR>
 ```
 
-To define some input from the shell tool:
+To define a temporary substitution command:
+```vi
+        s1  | %s/Foo/Bar/gc
+```
+
+To define some input from the shell tool to the scratchpad, `Board*`:
 ```vim
-        s1  | Board* | r! echo "This is the scratchpad on the Board"
-        s2  | Board* | r! curl -sI example.com
+        t1  | Board* | r! echo "This is the scratchpad on the Board"
+        t2  | Board* | r! curl -sI example.com
 ```
 
 #### Command-line mode
@@ -278,8 +283,8 @@ switch to command-line mode input by adding a colon `:` after the bar.
 
 You can use the `&` symbol to run other links, for example:
 ```vim
-        Nw  | NERDTreeCWD | wincmd p
-        d1  ~/Directory/  | &Nw
+        N   | NERDTreeCWD
+        d1  ~/Directory/ | &N
 ```
 
 #### Stop command
