@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.10.6
+" Version: 1.10.8
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 270)
 
-let s:Version = '1.10.6'
+let s:Version = '1.10.8'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -331,7 +331,7 @@ function s:GetLink(key)
     if has_key(s:Links, b) && has_key(s:Links[b], a:key)
       let l:line = s:Links[b][a:key]
       if l:line[0] == '|'
-        let l:line = '| '.l:line
+        let l:line = ' |  '.l:line
       endif
       let l:mode = stridx(l:line, '|:')
       let l:cmd = ''
@@ -339,7 +339,7 @@ function s:GetLink(key)
         let l:cmd = trim(l:line[l:mode+2:])
         let l:line = l:line[:l:mode-1]
       endif
-      let l:list = map(split(l:line, '\v(\|)@<!\|(\|)@!'), {i,v -> trim(v)})
+      let l:list = map(split(l:line, '\v\ \|(\|)@!'), {i,v -> trim(v)})
       if !empty(l:cmd)
         call extend(l:list, [':', l:cmd])
       endif
