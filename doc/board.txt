@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.10.6`
+                                                                    `ver 1.10.8`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -348,7 +348,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.10.6~
+1.10.8~
+    Improve command splitting
     Support runtime 'BoardMenuExpand' option setting.
     Improve buffer switching
 1.10~
