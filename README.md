@@ -109,8 +109,7 @@ You can enter the key you have defined on the `board`, or switch between boards 
   |<kbd>.</kbd>    |link current board|
   |<kbd>:</kbd>    |command-line mode|
 
-For manually opened boards, you can use the `(.)link` menu with the <kbd>.</kbd> key to
-activate links defined on the board.
+> For manually opened boards, you can use the <kbd>.</kbd> key to activate links defined on the board.
 </details>
 <br>
 

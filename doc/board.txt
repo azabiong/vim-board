@@ -94,8 +94,8 @@ using the following keys:
            .      link current board
            :      command-line mode
 
-For manually opened boards, you can use `(.)link` menu with the `.` key to activate
-links defined on the board.
+For manually opened boards, you can use the `(.)` key to activate links defined
+on the board.
 
 ------------------------------------------------------------------------------
 BOARD SYNTAX                                                      *Board-Syntax*
