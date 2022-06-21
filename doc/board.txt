@@ -204,14 +204,14 @@ Section ~
 >
         c1  | let @+ = "copy this string to the clipboard"
 <
+    To define a substitution command:
+>
+        s1  | %s/Foo/Bar/gc
+<
     To define a set of temporary key-maps:
 >
         k1  | nn f0 <Cmd>echo 0<CR>
             | nn f9 <Cmd>echo 9<CR>
-<
-    To define a temporary substitution command:
->
-        s1  | %s/Foo/Bar/gc
 <
     To define some input from the shell tool to the scratchpad, `Board*`:
 >

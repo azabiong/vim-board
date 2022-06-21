@@ -251,15 +251,15 @@ For example, to copy a frequently used string or command to the clipboard:
         c1  | let @+ = "copy this string to the clipboard"
 ```
 
+To define a substitution command:
+```vi
+        s1  | %s/Foo/Bar/gc
+```
+
 To define a set of temporary key-maps:
 ```vi
         k1  | nn f0 <Cmd>echo 0<CR>
             | nn f9 <Cmd>echo 9<CR>
-```
-
-To define a temporary substitution command:
-```vi
-        s1  | %s/Foo/Bar/gc
 ```
 
 To define some input from the shell tool to the scratchpad, `Board*`:
