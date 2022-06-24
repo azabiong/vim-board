@@ -12,7 +12,7 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
-let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 270)
+let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 240)
 
 let s:Version = '1.10.8'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
@@ -21,7 +21,7 @@ let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:''
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
 let s:Links = #{ bufnr:{'key':'path'}, order:[] }
-let s:Input = #{ timer:0, interval:30, wait:270, reltime:0 }
+let s:Input = #{ timer:0, interval:30, wait:240, reltime:0 }
 let s:Help  = #{ Update:'', win:0, buf:-1 }
 let s:KeyMap = {'+':"4\<C-E>", '-':"4\<C-Y>", 'v':"\<C-F>", '^':"\<C-B>"}
 let s:Sentence = ['if', 'for', 'while']
@@ -586,8 +586,9 @@ endfunction
 
 function s:SetMenuExpand()
   let l:expand = get(g:,'BoardMenuExpand', 0)
-  if l:expand > 0 && l:expand != s:Input.wait
-    let s:Input.wait = min([max([l:expand, 180]), 540])
+  if l:expand && l:expand != s:Input.wait
+    let s:Input.wait = min([max([l:expand, 180]), 480])
+    let g:BoardMenuExpand = s:Input.wait
   endif
 endfunction
 
