@@ -239,7 +239,7 @@ Section ~
 CUSTOMIZING COLORS                                    *Board-Customizing-Colors*
 
 The plugin provides two default color sets and automatically loads one depending
-on the current 'background' mode. You can use the Vim |:hi| command to customize
+on the current 'background' mode. You can use the native |hi| command to customize
 colors starting with `Board`, and save them to the configuration file or color
 scheme.
 >
@@ -334,10 +334,10 @@ OPTIONS                                                          *Board-Options*
 |BoardMenuExpand| option specifies the wait time in milliseconds before expanding
     the menu. You can try changing the values before saving.
 >
-        let BoardMenuExpand = 270
+        let BoardMenuExpand = 240
 <
-    Default: 270 `(ms)`
-    Values:  180 ~ 540
+    Default: 240 `(ms)`
+    Values:  180 ~ 480
 
 ------------------------------------------------------------------------------
 ISSUES                                                            *Board-Issues*

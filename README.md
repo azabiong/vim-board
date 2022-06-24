@@ -306,7 +306,7 @@ For more information about commands and options, please refer to:
 ## Customizing Colors
 
 The plugin provides two default color sets and automatically loads one depending on the current `background` mode.
-You can use the Vim **hi** command to customize colors starting with `Board`, and save them to the configuration file
+You can use the native **hi** command to customize colors starting with `Board`, and save them to the configuration file
 or color scheme.
 ```
  BoardHelp  BoardSection  BoardGroup  BoardMarker  BoardSpecial  BoardNote  BoardLed...
