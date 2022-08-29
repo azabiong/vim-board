@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.10.8`
+                                                                    `ver 1.11`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -44,13 +44,13 @@ Feature 2~
  You can easily define shortcuts to directories, files, and commands on the board
  using simple `key-value` pairs. For example:
 >
-      dt  ~/Documents/Terms/
+      /t  ~/Documents/Terms/
       v   ~/.vimrc
 <
  Immediately after saving, you can use the following key sequences to change the
- current working directory, and open the file:
+ current working directory, or open the file:
 >
-      Key dt
+      Key /t
       Key v
 <
 ------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ Section ~
 <
     Or, you can combine commands to open specific files after changing the directory:
 >
-        d1  ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
+        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 <
  Key ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
@@ -193,7 +193,7 @@ Section ~
  Multi-line commands ~
     Multi-line commands can be set using the leading bar `|` character.
 >
-        m   ~/directory/or_file
+        bar ~/directory/or_file
             | echo 'foo'
             | echo 'bar'
 <
@@ -206,11 +206,11 @@ Section ~
 <
     To define a substitution command:
 >
-        s1  | %s/Foo/Bar/gc
+        sub | %s/Foo/Bar/gc
 <
     To define a set of temporary key-maps:
 >
-        k1  | nn f0 <Cmd>echo 0<CR>
+        key | nn f0 <Cmd>echo 0<CR>
             | nn f9 <Cmd>echo 9<CR>
 <
     To define some input from the shell tool to the scratchpad, `Board*`:
@@ -222,14 +222,14 @@ Section ~
     When using the `|` bar character as a shell `pipe` or other meaning, you can
     switch to command-line mode input by adding a colon `:` after the bar.
 >
-        p1  | Board* |: r! ls | wc
-        p2  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
+        s3  | Board* |: r! ls | wc
+        s4  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
 <
  Link reference ~
     You can use the `&` symbol to run other links, for example:
 >
         N   | NERDTreeCWD
-        d1  ~/Directory/ | &N
+        /d1 ~/Directory/ | &N
 <
  Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
@@ -348,10 +348,9 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.10.8~
-    Improve command splitting
+1.11
+    Improve menu expansion, command splitting, buffer switching
     Support runtime 'BoardMenuExpand' option setting.
-    Improve buffer switching
 1.10~
     Add command |Board:menu| to bring up the menu from link
     Add option |BoardMenuExpand| to adjust menu expansion time

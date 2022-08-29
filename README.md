@@ -20,13 +20,13 @@ and define shortcuts to directories, files, and various commands.
 > You can easily define shortcuts to directories, files, and commands on the board using simple **key-value** pairs.
 > For example:
 > ```
->   dt  ~/Documents/Terms/
+>   /t  ~/Documents/Terms/
 >   v   ~/.vimrc
 > ```
 > Immediately after saving, you can use the following key sequences to change the
-> current working directory, and open the file:
+> current working directory, or open the file:
 >
-> &nbsp; &nbsp; &nbsp; `Key` `dt`
+> &nbsp; &nbsp; &nbsp; `Key` `/t`
 >
 > &nbsp; &nbsp; &nbsp; `Key` `v`
 
@@ -157,7 +157,7 @@ After opening the file, to scroll line 128 to the top:
 
 Or, you can combine commands to open specific files after changing the directory:
 ```vim
-        d1  ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md 
+        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md 
 ```
 
 <br>
@@ -237,7 +237,7 @@ The links defined on the board are automatically loaded when you switch boards u
 
 **Multi-line commands** &nbsp;can be set using the leading bar `|` character.
 ```vim
-        m   ~/directory/or_file
+        bar ~/directory/or_file
             | echo 'foo'
             | echo 'bar'
 ```
@@ -253,19 +253,19 @@ For example, to copy a frequently used string or command to the clipboard:
 
 To define a substitution command:
 ```vi
-        s1  | %s/Foo/Bar/gc
+        sub | %s/Foo/Bar/gc
 ```
 
 To define a set of temporary key-maps:
 ```vi
-        k1  | nn f0 <Cmd>echo 0<CR>
+        key | nn f0 <Cmd>echo 0<CR>
             | nn f9 <Cmd>echo 9<CR>
 ```
 
 To define some input from the shell tool to the scratchpad, `Board*`:
 ```vim
-        t1  | Board* | r! echo "This is the scratchpad on the Board"
-        t2  | Board* | r! curl -sI example.com
+        s1  | Board* | r! echo "This is the scratchpad on the Board"
+        s2  | Board* | r! curl -sI example.com
 ```
 
 #### Command-line mode
@@ -274,8 +274,8 @@ When using the `|` bar character as a shell `pipe` or other meaning, you can
 switch to command-line mode input by adding a colon `:` after the bar.
 
 ```vim
-        p1  | Board* |: r! ls | wc
-        p2  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
+        s3  | Board* |: r! ls | wc
+        s4  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
 ```
 
 #### Link reference
@@ -283,7 +283,7 @@ switch to command-line mode input by adding a colon `:` after the bar.
 You can use the `&` symbol to run other links, for example:
 ```vim
         N   | NERDTreeCWD
-        d1  ~/Directory/ | &N
+        /d1 ~/Directory/ | &N
 ```
 
 #### Stop command
