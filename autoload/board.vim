@@ -443,10 +443,7 @@ function s:ReadLine(num)
 endfunction
 
 function s:SetBoard()
-  if &ft !=# 'board'
-    setl ft=board noet ts=4 sts=4 sw=0
-  endif
-  setl nonu
+  setl ft=board et ts=4 sts=4 sw=0 nonu
 endfunction
 
 function s:SetSyntax(op)
