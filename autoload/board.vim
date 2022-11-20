@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.11.2
+" Version: 1.11.3
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -320,6 +320,7 @@ function s:OpenFile(path, load=0)
         call s:LoadLinks(a:path, a:load)
       endif
     endif
+    call s:SetSyntax()
   endif
   redraw
   return 1
@@ -414,7 +415,7 @@ function s:LoadLinks(path='', type=0)
     endwhile
     let l:opt = ''
   endwhile
-  call s:SetSyntax(0)
+  call s:SetSyntax(1)
   call setpos('.', l:pos)
 endfunction
 
@@ -446,8 +447,8 @@ function s:SetBoard()
   setl ft=board et ts=4 sts=4 sw=0 nonu
 endfunction
 
-function s:SetSyntax(op)
-  if a:op || !exists("b:Board.syntax")
+function s:SetSyntax(op=0)
+  if a:op || exists("b:Board.syntax")
     syn match BoardLink "^:links\c\>" contained
     let b:Board.syntax = 'on'
   endif
@@ -855,9 +856,6 @@ function s:BufWritePost()
 endfunction
 
 function s:BufReadPost()
-  if s:Loaded()
-    call s:SetSyntax(1)
-  endif
   setl nonu
 endfunction
 
