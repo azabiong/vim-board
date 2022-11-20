@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.11.2'
+let s:Version = '1.11.3'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
