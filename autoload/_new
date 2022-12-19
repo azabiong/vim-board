@@ -38,6 +38,10 @@ S [E]{C}<T>`I`O N
     o  active item
     -  inactive or done
     +  new item
+    *  special
     =  description
+    ?  question
+    !  answer
     :  note
+    &  more
         T E X`T`

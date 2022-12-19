@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.11`
+                                                                    `ver 1.12`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -348,6 +348,9 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.12
+    Support inline comment
+    Add syntax type '?!'
 1.11
     Improve menu expansion, command splitting, buffer switching
     Support runtime 'BoardMenuExpand' option setting.

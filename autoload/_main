@@ -24,10 +24,12 @@ Section
     o  active item
     -  inactive or done
     +  new item
+    *  special
     =  description
+    ?  question
+    !  answer
     :  note
-    &  etc
-
+    &  more
 
 - Plain Text Section (with a hyphen)
     * plain text
