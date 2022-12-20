@@ -18,7 +18,7 @@ syn region boardRegion start="^[^#:\- ]\+" end="$\n^[^# ]"me=e-1 transparent con
 
 syn region BoardConfig start="^:" end="$\n^[^# ]"me=e-1 contains=
   \ BoardConfigType,BoardLink,BoardGroup,BoardMarker,BoardJumper,BoardComment,
-  \ BoardSpecial,BoardNote,BoardPlain,BoardEqual,BoardPlus,BoardAmpersand,BoardQuestion,BoardExclamation
+  \ BoardSpecial,BoardNote,BoardPlain,BoardEqual,BoardPlus,BoardAmpersand
 
 syn match BoardSection "^\S.*$" contained contains=BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
 syn match BoardGroup "\v^\s{1,4}\S.*$" contained contains=BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment

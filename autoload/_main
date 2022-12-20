@@ -26,9 +26,9 @@ Section
     +  new item
     *  special
     =  description
+    :  explanation
     ?  question
-    !  answer
-    :  note
+    !  notice
     &  more
 
 - Plain Text Section (with a hyphen)

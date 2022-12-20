@@ -40,8 +40,8 @@ S [E]{C}<T>`I`O N
     +  new item
     *  special
     =  description
+    :  explanation
     ?  question
-    !  answer
-    :  note
+    !  notice
     &  more
         T E X`T`
