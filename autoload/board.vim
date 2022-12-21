@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.12
+" Version: 1.12.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.12'
+let s:Version = '1.12.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -737,9 +737,10 @@ function s:Edit()
 endfunction
 
 function s:SelectWin()
-  if !empty(&buftype) && &buftype != 'help'
+  if !empty(&buftype) && &buftype != 'help' && !&modifiable
     for i in range(winnr('$'), 1, -1)
-      if empty(winbufnr(i)->getbufvar('&buftype'))
+      let l:buf = winbufnr(i)
+      if empty(getbufvar(l:buf, '&buftype')) || getbufvar(l:buf, '&modifiable')
         exe i "wincmd w"
         break
       endif
