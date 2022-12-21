@@ -17,10 +17,11 @@ syn region boardRegion start="^[^#:\- ]\+" end="$\n^[^# ]"me=e-1 transparent con
   \ BoardSpecial,BoardNote,BoardPlain,BoardEqual,BoardPlus,BoardAmpersand,BoardQuestion,BoardExclamation
 
 syn region BoardConfig start="^:" end="$\n^[^# ]"me=e-1 contains=
-  \ BoardConfigType,BoardLink,BoardGroup,BoardMarker,BoardJumper,BoardComment,
+  \ BoardConfigType,BoardLink,BoardGroup,BoardMarker,BoardJumper,BoardCommentLine,
   \ BoardSpecial,BoardNote,BoardPlain,BoardEqual,BoardPlus,BoardAmpersand
 
 syn match BoardSection "^\S.*$" contained contains=BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
+syn match BoardConfigType "\v^:.*$" contained contains=BoardComment
 syn match BoardGroup "\v^\s{1,4}\S.*$" contained contains=BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
 syn match BoardSpecial "^\s*\*.*$" contained contains=BoardMarker,BoardComment
 syn match BoardNote "^\s*:.*$" contained contains=BoardMarker,BoardComment
@@ -34,10 +35,10 @@ syn match BoardLed2 "{[^}]*}" contained contains=BoardBracket
 syn match BoardLed3 "\v\<[^\>]*\>" contained contains=BoardBracket
 syn match BoardBracket "[\[\]\{\}\<\>]" contained
 syn match BoardMarker "`[^`]*`" contained
-syn match BoardConfigType "\v^:.*$" contained contains=BoardComment
 syn match BoardTodo "\<Todo\>\c" contained
 syn match BoardJumper " \zs[|&]:\=" contained
 syn match BoardComment "#.*$" contains=BoardTodo
+syn match BoardCommentLine "^\s*#.*$" contains=BoardTodo
 syn match BoardPlain "^\s*-.*$"
 
 hi def link BoardHelp StatusLine
@@ -51,6 +52,7 @@ hi def link BoardExclamation Constant
 hi def link BoardConfig Type
 hi def link BoardConfigType PreProc
 hi def link BoardComment Comment
+hi def link BoardCommentLine Comment
 hi def link BoardJumper Operator
 hi def link BoardTodo Todo
 
