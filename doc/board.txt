@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.12`
+                                                                    `ver 1.15`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -66,7 +66,7 @@ The plugin default shortcut is `a single quote and space` if available.
 >
     nmap '<Space> <Plug>(BoardMenu)
 <
-Now, save the changes and reload the configuration.
+Now, save the changes and reload the plugin.
 >
  At this point, you can try out the features in the introduction section above.
 <
@@ -142,15 +142,17 @@ Section ~
     characters except those that start with some predefined characters.
 
     Available leading characters:~
-      ~!@$%^_()[]{}<>'"/?,0-9a-zA-Z and Unicode characters
 
-    Used in the syntax      Used in the menu~
-        #  comment             ;  return
-        :  setting             -  previous
-        |  command             =  main
-        *` special             +  new
-        -  plain text          .  load
-        &  reference           :  command
+        ~`!@$%^&*_()[]{}<>'",/? 0-9 a-z A-Z and Unicode characters
+
+    Used in the menu and syntax:~
+
+        ;  return       #  comment
+        -  previous     |  command
+        =  main
+        +  new
+        .  load
+        :  command
 
     You can also define the same key differently on each board.
 
@@ -248,7 +250,7 @@ scheme.
 <
  Example ~
 >
-    :hi BoardEqual ctermfg=183 guifg=#e0acf8
+    :hi BoardSpecial ctermfg=208 guifg=#ff8700
 <
 ------------------------------------------------------------------------------
 COMMANDS                                                        *Board-Commands*
@@ -348,6 +350,9 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.15~
+    Add syntax guide characters
+    Add more syntax type '&*`'
 1.12~
     Support inline comment
     Add syntax type '?!'

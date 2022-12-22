@@ -2,6 +2,8 @@
 
 # vim-board
 
+<p><h6> &nbsp;&nbsp; ver 1.15 </h6></p>
+
 This plugin introduces a file type `board` where you can easily write notes,
 and define shortcuts to directories, files, and various commands.
 
@@ -76,7 +78,7 @@ default shortcut is a single quote and space if available.
 ```
 </details>
 
-Now, save the changes and reload the configuration.
+Now, save the changes and reload the plugin.
 
 > At this point, you can try out the features in the introduction section above.
 
@@ -141,11 +143,11 @@ and can have different syntax depending on its type.
  indentation as the `TEXT` field starting at column 6 or higher.
 
 <details>
-<summary><b> Commands </b></summary> 
+<summary><b> Commands </b></summary>
 <br>
 
 You can also add additional commands using `|` bar. For example, to update
-the `NERDTree` list after changing the current working directory: 
+the `NERDTree` list after changing the current working directory:
 ```vim
         /p  ~/Languages/Python/ | NERDTreeCWD
 ```
@@ -157,7 +159,7 @@ After opening the file, to scroll line 128 to the top:
 
 Or, you can combine commands to open specific files after changing the directory:
 ```vim
-        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md 
+        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 ```
 
 <br>
@@ -172,16 +174,16 @@ characters except those that start with some predefined characters.
 
 Available leading characters:
 ```
-    ~!@$%^_()[]{}<>'"/?,0-9a-zA-Z and Unicode characters
+    ~`!@$%^&*_()[]{}<>'",/? 0-9 a-z A-Z and Unicode characters
 ```
-Used in the syntax and menu:
+Used in the menu and syntax:
 ```
-    #  comment             ;  return
-    :  setting             -  previous
-    |  command             =  main
-    *` special             +  new
-    -  plain text          .  load
-    &  reference           :  command
+    ;  return       #  comment
+    -  previous     |  command
+    =  main
+    +  new
+    .  load
+    :  command
 ```
 You can also define the same key differently on each board.
 
@@ -189,7 +191,7 @@ You can also define the same key differently on each board.
 
 When you suddenly have multiple to-do lists, numbering can be useful.
 ```vim
-        t1  ~/Todo/file1 | /item | echo 'find item' 
+        t1  ~/Todo/file1 | /item | echo 'find item'
         t2  ~/Todo/dir2/ | echo 'add file2'
 ```
 Or, to stack items in something like queue `0`
@@ -214,8 +216,8 @@ open the link with `xy` <kbd>Enter</kbd>.
 <summary><b> Path </b></summary>
 <br>
 
-To easily define a link to a file, the plugin supports copying the current file's path to a register 
-when the `menu` key is pressed (by default the `b` register) .  
+To easily define a link to a file, the plugin supports copying the current file's path to a register
+when the `menu` key is pressed (by default the `b` register).
 
 To paste the path stored in register `b` in insert mode:
 
@@ -223,7 +225,7 @@ To paste the path stored in register `b` in insert mode:
 <br>
 
 When switching to another board stored in the `BoardPath` directory, you can omit the path and specify only the file name.
-The links defined on the board are automatically loaded when you switch boards using the key. 
+The links defined on the board are automatically loaded when you switch boards using the key.
 ```vim
         'a  another.board
 ```
@@ -244,7 +246,7 @@ The links defined on the board are automatically loaded when you switch boards u
 
 #### Commands only
 
-You can also define just a list of commands.  
+You can also define just a list of commands.
 
 For example, to copy a frequently used string or command to the clipboard:
 ```vim
@@ -288,8 +290,8 @@ You can use the `&` symbol to run other links, for example:
 
 #### Stop command
 
-To stop a long list of commands while processing, press the `menu` key and 
-input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.  
+To stop a long list of commands while processing, press the `menu` key and
+input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.
 
 </details>
 <br>
@@ -310,6 +312,11 @@ You can use the native **hi** command to customize colors starting with `Board`,
 or color scheme.
 ```
  BoardHelp  BoardSection  BoardGroup  BoardMarker  BoardSpecial  BoardNote  BoardLed...
+```
+
+**Example**
+```vim
+  :hi BoardSpecial ctermfg=208 guifg=#ff8700
 ```
 <br>
 

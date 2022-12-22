@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.12.2
+" Version: 1.15
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.12.2'
+let s:Version = '1.15'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -29,6 +29,7 @@ let s:Sentence = ['if', 'for', 'while']
 aug Board
   au!
   au BufRead,BufNewFile *.board set ft=board
+  au BufWritePre        *.board call <SID>BufWritePre()
   au BufWritePost       *.board call <SID>BufWritePost()
   au BufReadPost        *.board call <SID>BufReadPost()
   au ColorScheme        *       call <SID>ColorScheme()
@@ -53,38 +54,38 @@ function s:LoadColors()
     if &background == 'dark'
       let l:colors = [
         \ ['BoardSection', 'ctermfg=219 ctermbg=NONE cterm=bold guifg=#f8a0f8 guibg=NONE    gui=bold'],
-        \ ['BoardConfig',  'ctermfg=109 ctermbg=NONE cterm=NONE guifg=#92b6b4 guibg=NONE    gui=NONE'],
+        \ ['BoardLink',    'ctermfg=109 ctermbg=NONE cterm=NONE guifg=#92b6b4 guibg=NONE    gui=NONE'],
         \ ['BoardGroup',   'ctermfg=147 ctermbg=NONE cterm=bold guifg=#aabcf0 guibg=NONE    gui=bold'],
         \ ['BoardLed1',    'ctermfg=159 ctermbg=60   cterm=NONE guifg=#a0f0f0 guibg=#585888 gui=NONE'],
         \ ['BoardLed2',    'ctermfg=225 ctermbg=96   cterm=NONE guifg=#f8d8f8 guibg=#905080 gui=NONE'],
         \ ['BoardLed3',    'ctermfg=229 ctermbg=94   cterm=NONE guifg=#f0f0a8 guibg=#866c50 gui=NONE'],
         \ ['BoardBracket', 'ctermfg=243 ctermbg=238  cterm=NONE guifg=#787a78 guibg=#404242 gui=NONE'],
         \ ['BoardMarker',  'ctermfg=114 ctermbg=NONE cterm=bold guifg=#88c888 guibg=NONE    gui=bold'],
-        \ ['BoardLink',    'ctermfg=215 ctermbg=NONE cterm=bold guifg=#f8b868 guibg=NONE    gui=bold'],
+        \ ['BoardCfgLinks','ctermfg=215 ctermbg=NONE cterm=bold guifg=#f8b868 guibg=NONE    gui=bold'],
         \ ]
     else
       let l:colors = [
         \ ['BoardSection', 'ctermfg=127 ctermbg=NONE cterm=bold guifg=#af00af guibg=NONE    gui=bold'],
-        \ ['BoardConfig',  'ctermfg=61  ctermbg=NONE cterm=NONE guifg=#5040a8 guibg=NONE    gui=NONE'],
+        \ ['BoardLink',    'ctermfg=61  ctermbg=NONE cterm=NONE guifg=#5040a8 guibg=NONE    gui=NONE'],
         \ ['BoardGroup',   'ctermfg=25  ctermbg=NONE cterm=bold guifg=#2a58b0 guibg=NONE    gui=bold'],
         \ ['BoardLed1',    'ctermfg=18  ctermbg=195  cterm=NONE guifg=#000078 guibg=#d8f8f8 gui=NONE'],
         \ ['BoardLed2',    'ctermfg=88  ctermbg=225  cterm=NONE guifg=#780000 guibg=#fcd8fa gui=NONE'],
         \ ['BoardLed3',    'ctermfg=234 ctermbg=230  cterm=NONE guifg=#282800 guibg=#f8f8d8 gui=NONE'],
         \ ['BoardBracket', 'ctermfg=248 ctermbg=188  cterm=NONE guifg=#a8a8a8 guibg=#d8d8d8 gui=NONE'],
         \ ['BoardMarker',  'ctermfg=28  ctermbg=NONE cterm=bold guifg=#008000 guibg=NONE    gui=bold'],
-        \ ['BoardLink',    'ctermfg=166 ctermbg=NONE cterm=bold guifg=#d85820 guibg=NONE    gui=bold'],
+        \ ['BoardCfgLinks','ctermfg=166 ctermbg=NONE cterm=bold guifg=#d85820 guibg=NONE    gui=bold'],
         \ ]
     endif
   else
       let l:colors = [
         \ ['BoardSection', 'ctermfg=Magenta'],
-        \ ['BoardConfig',  'ctermfg=Blue'   ],
+        \ ['BoardLink',    'ctermfg=Blue'   ],
         \ ['BoardGroup',   'ctermfg=Cyan'   ],
         \ ['BoardLed1',    'ctermfg=White ctermbg=darkCyan'   ],
         \ ['BoardLed2',    'ctermfg=White ctermbg=darkMagenta'],
         \ ['BoardLed3',    'ctermfg=White ctermbg=darkYellow' ],
         \ ['BoardMarker',  'ctermfg=Green'  ],
-        \ ['BoardLink',    'ctermfg=Red'    ],
+        \ ['BoardCfgLinks','ctermfg=Red'    ],
         \ ]
   endif
   for l:c in l:colors
@@ -423,13 +424,17 @@ endfunction
 function s:ReadLine(num)
   let l:line = getline(a:num)
   " section column 1
-  if !empty(line[0]) && stridx('# ', line[0]) == -1
+  if !empty(line[0]) && stridx(':# ', line[0]) == -1
     return []
   endif
   " key column > 5
-  if match(l:line, '\v\ {5,}\S') != -1
-    let l:line = trim(l:line)
-    if stridx('#*`-+=&;:.', line[0]) == -1
+  if match(l:line, '\v[: ]\ {4,}\S') != -1
+    if l:line[0] == ':'
+      let l:line = trim(l:line[1:])
+    else
+      let l:line = trim(l:line)
+    endif
+    if stridx('-+=;.:#', line[0]) == -1
       let l:key = matchstr(l:line, '\S\+\ze')
       if l:key == '|'
         let l:key = ''
@@ -443,13 +448,33 @@ function s:ReadLine(num)
   return ['']
 endfunction
 
+function s:SetSyntaxGuide()
+  let [i, l:end] = [0, line('$')]
+  let l:guide = ' '
+  while i <= l:end
+    let i += 1
+    let l:line = getline(i)
+    let l:char = l:line[0]
+    if l:char == '#' || empty(trim(l:line))
+    elseif l:char == '-'
+      let l:guide = ' '
+    elseif match(l:line, '^:\S') == 0
+      let l:guide = ':'
+    elseif match(l:line, '^[^|: ]') == 0
+      let l:guide = '|'
+    elseif l:char != l:guide
+      call setline(i, l:guide.l:line[1:])
+    endif
+  endwhile
+endfunction
+
 function s:SetBoard()
   setl ft=board et ts=4 sts=4 sw=0 nonu
 endfunction
 
 function s:SetSyntax(op=0)
   if a:op || exists("b:Board.syntax")
-    syn match BoardLink "^:links\c\>" contained
+    syn match BoardCfgLinks "^:links\c\>" contained
     let b:Board.syntax = 'on'
   endif
   setl fdm=marker nonu mps=
@@ -848,6 +873,12 @@ function s:FindKey(key)
     let l:help = repeat(' ', l:left).l:help
   endif
   call s:Help.Update(1, l:help)
+endfunction
+
+function s:BufWritePre()
+  if s:Loaded()
+    call s:SetSyntaxGuide()
+  endif
 endfunction
 
 function s:BufWritePost()

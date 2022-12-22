@@ -12,47 +12,52 @@ if exists("b:current_syntax")
   finish
 endif
 
-syn region boardRegion start="^[^#:\- ]\+" end="$\n^[^# ]"me=e-1 transparent contains=
-  \ BoardSection,BoardGroup,BoardLed1,BoardMarker,BoardLed2,BoardLed3,BoardComment,
-  \ BoardSpecial,BoardNote,BoardPlain,BoardEqual,BoardPlus,BoardAmpersand,BoardQuestion,BoardExclamation
+syn region BoardBlock start="^[^#:\- ]" end="$\n^[^# ]"me=e-1 transparent contains=
+  \ BoardSection,BoardGroup,BoardMarker,BoardLed1,BoardLed2,BoardLed3,BoardComment,BoardText,BoardPlain,
+  \ BoardSpecial,BoardPlus,BoardEqual,BoardColon,BoardAmpersand,BoardQuestion,BoardExclamation,BoardEmpty
 
-syn region BoardConfig start="^:" end="$\n^[^# ]"me=e-1 contains=
-  \ BoardConfigType,BoardLink,BoardGroup,BoardMarker,BoardJumper,BoardCommentLine,
-  \ BoardSpecial,BoardNote,BoardPlain,BoardEqual,BoardPlus,BoardAmpersand
+syn region BoardConfig start="^[:]" end="$\n^[^# ]"me=e-1 transparent contains=
+  \ BoardCfgType,BoardCfgLinks,BoardLink,BoardGroup,BoardMarker,BoardCommentLine,BoardPlain,
+  \ BoardSpecial,BoardPlus,BoardEqual,BoardColon,BoardAmpersand,BoardQuestion,BoardExclamation,BoardEmpty
 
-syn match BoardSection "^\S.*$" contained contains=BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
-syn match BoardConfigType "\v^:.*$" contained contains=BoardComment
-syn match BoardGroup "\v^\s{1,4}\S.*$" contained contains=BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
-syn match BoardSpecial "^\s*\*.*$" contained contains=BoardMarker,BoardComment
-syn match BoardNote "^\s*:.*$" contained contains=BoardMarker,BoardComment
-syn match BoardPlus "^\s*+.*$" contained contains=BoardMarker,BoardComment
-syn match BoardEqual "^\s*=.*$" contained contains=BoardMarker,BoardComment
-syn match BoardAmpersand "^\s*&.*$" contained contains=BoardMarker,BoardComment
-syn match BoardQuestion "\v^\s*\?.*$" contained contains=BoardMarker,BoardComment
-syn match BoardExclamation "^\s*!.*$" contained contains=BoardMarker,BoardComment
+syn match BoardSection "^[^#:\- ].*$" contained contains=BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
+syn match BoardCfgType "\v^:\S.*$" contained contains=BoardComment
+syn match BoardGroup "\v^[|: ]\s{1,3}\S.*$" contained contains=BoardGuide,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
+syn match BoardText "\v^[|: ]\s{4,}\S.*$" contained contains=BoardGuide,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
+syn match BoardSpecial "^[|:]\?\s*\*.*$" contained contains=BoardGuide,BoardMarker,BoardComment
+syn match BoardPlus "^[|:]\?\s*+.*$" contained contains=BoardGuide,BoardMarker,BoardComment
+syn match BoardEqual "^[|:]\?\s*=.*$" contained contains=BoardGuide,BoardMarker,BoardComment
+syn match BoardColon "^[|:]\?\s\+:.*$" contained contains=BoardGuide,BoardMarker,BoardComment
+syn match BoardAmpersand "^[|:]\?\s*&.*$" contained contains=BoardGuide,BoardMarker,BoardComment
+syn match BoardQuestion "^[|:]\?\s*?.*$" contained contains=BoardGuide,BoardMarker,BoardComment
+syn match BoardExclamation "^[|:]\?\s*!.*$" contained contains=BoardGuide,BoardMarker,BoardComment
+syn match BoardLink "\v^[: ]\s{4,}\S.*$" contained contains=BoardGuide,BoardJumper
 syn match BoardLed1 "\[[^]]*]" contained contains=BoardBracket
 syn match BoardLed2 "{[^}]*}" contained contains=BoardBracket
 syn match BoardLed3 "\v\<[^\>]*\>" contained contains=BoardBracket
+syn match BoardEmpty "^[|:]\s*$" contained contains=BoardGuide
+syn match BoardGuide "^[|:]" contained
 syn match BoardBracket "[\[\]\{\}\<\>]" contained
 syn match BoardMarker "`[^`]*`" contained
 syn match BoardTodo "\<Todo\>\c" contained
 syn match BoardJumper " \zs[|&]:\=" contained
-syn match BoardComment "#.*$" contains=BoardTodo
-syn match BoardCommentLine "^\s*#.*$" contains=BoardTodo
-syn match BoardPlain "^\s*-.*$"
+syn match BoardComment "#.*$" contained contains=BoardTodo
+syn match BoardCommentLine "^:\?\s*#.*$" contains=BoardGuide,BoardComment
+
+syn match BoardPlain "^[|:]\?\s*-.*$" contains=BoardGuide
 
 hi def link BoardHelp StatusLine
 hi def link BoardSpecial WarningMsg
-hi def link BoardNote String
+hi def link BoardColon String
 hi def link BoardPlus Label
 hi def link BoardEqual Keyword
 hi def link BoardAmpersand MoreMsg
 hi def link BoardQuestion Question
 hi def link BoardExclamation Constant
-hi def link BoardConfig Type
-hi def link BoardConfigType PreProc
+hi def link BoardCfgType PreProc
+hi def link BoardLink Type
+hi def link BoardGuide Comment
 hi def link BoardComment Comment
-hi def link BoardCommentLine Comment
 hi def link BoardJumper Operator
 hi def link BoardTodo Todo
 
