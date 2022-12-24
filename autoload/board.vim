@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.15
+" Version: 1.16
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.15'
+let s:Version = '1.16'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -53,39 +53,60 @@ function s:LoadColors()
   if has('gui_running') || (has('termguicolors') && &termguicolors) || &t_Co >= 256
     if &background == 'dark'
       let l:colors = [
-        \ ['BoardSection', 'ctermfg=219 ctermbg=NONE cterm=bold guifg=#f8a0f8 guibg=NONE    gui=bold'],
-        \ ['BoardLink',    'ctermfg=109 ctermbg=NONE cterm=NONE guifg=#92b6b4 guibg=NONE    gui=NONE'],
-        \ ['BoardGroup',   'ctermfg=147 ctermbg=NONE cterm=bold guifg=#aabcf0 guibg=NONE    gui=bold'],
-        \ ['BoardLed1',    'ctermfg=159 ctermbg=60   cterm=NONE guifg=#a0f0f0 guibg=#585888 gui=NONE'],
-        \ ['BoardLed2',    'ctermfg=225 ctermbg=96   cterm=NONE guifg=#f8d8f8 guibg=#905080 gui=NONE'],
-        \ ['BoardLed3',    'ctermfg=229 ctermbg=94   cterm=NONE guifg=#f0f0a8 guibg=#866c50 gui=NONE'],
-        \ ['BoardBracket', 'ctermfg=243 ctermbg=238  cterm=NONE guifg=#787a78 guibg=#404242 gui=NONE'],
-        \ ['BoardMarker',  'ctermfg=114 ctermbg=NONE cterm=bold guifg=#88c888 guibg=NONE    gui=bold'],
-        \ ['BoardCfgLinks','ctermfg=215 ctermbg=NONE cterm=bold guifg=#f8b868 guibg=NONE    gui=bold'],
+        \ ['BoardSection',    'ctermfg=219 ctermbg=NONE cterm=bold guifg=#f8a0f8 guibg=NONE    gui=bold'],
+        \ ['BoardCfgLinks',   'ctermfg=215 ctermbg=NONE cterm=bold guifg=#f8b868 guibg=NONE    gui=bold'],
+        \ ['BoardGroup',      'ctermfg=147 ctermbg=NONE cterm=bold guifg=#aabcf0 guibg=NONE    gui=bold'],
+        \ ['BoardLink',       'ctermfg=109 ctermbg=NONE cterm=NONE guifg=#98bcbc guibg=NONE    gui=NONE'],
+        \ ['BoardLed1',       'ctermfg=159 ctermbg=60   cterm=NONE guifg=#a0f0f0 guibg=#585888 gui=NONE'],
+        \ ['BoardLed2',       'ctermfg=225 ctermbg=96   cterm=NONE guifg=#f8d8f8 guibg=#905080 gui=NONE'],
+        \ ['BoardLed3',       'ctermfg=229 ctermbg=94   cterm=NONE guifg=#f0f0a8 guibg=#866c50 gui=NONE'],
+        \ ['BoardBracket',    'ctermfg=243 ctermbg=238  cterm=NONE guifg=#787a78 guibg=#404242 gui=NONE'],
+        \ ['BoardMarker',     'ctermfg=114 ctermbg=NONE cterm=bold guifg=#88c888 guibg=NONE    gui=bold'],
+        \ ['BoardGuide',      'ctermfg=59  ctermbg=NONE cterm=NONE guifg=#606060 guibg=NONE    gui=NONE'],
+        \ ['BoardPlus',       'ctermfg=189 ctermbg=NONE cterm=NONE guifg=#cceaf8 guibg=NONE    gui=NONE'],
+        \ ['BoardSpecial',    'ctermfg=179 ctermbg=NONE cterm=bold guifg=#e69f6c guibg=NONE    gui=bold'],
+        \ ['BoardEqual',      'ctermfg=183 ctermbg=NONE cterm=NONE guifg=#e0acf8 guibg=NONE    gui=NONE'],
+        \ ['BoardColon',      'ctermfg=180 ctermbg=NONE cterm=NONE guifg=#cfa080 guibg=NONE    gui=NONE'],
+        \ ['BoardQuestion',   'ctermfg=115 ctermbg=NONE cterm=bold guifg=#98c8a8 guibg=NONE    gui=bold'],
+        \ ['BoardExclamation','ctermfg=187 ctermbg=NONE cterm=NONE guifg=#e6dfa8 guibg=NONE    gui=NONE'],
+        \ ['BoardAmpersand',  'ctermfg=110 ctermbg=NONE cterm=bold guifg=#80bfcf guibg=NONE    gui=bold'],
         \ ]
     else
       let l:colors = [
-        \ ['BoardSection', 'ctermfg=127 ctermbg=NONE cterm=bold guifg=#af00af guibg=NONE    gui=bold'],
-        \ ['BoardLink',    'ctermfg=61  ctermbg=NONE cterm=NONE guifg=#5040a8 guibg=NONE    gui=NONE'],
-        \ ['BoardGroup',   'ctermfg=25  ctermbg=NONE cterm=bold guifg=#2a58b0 guibg=NONE    gui=bold'],
-        \ ['BoardLed1',    'ctermfg=18  ctermbg=195  cterm=NONE guifg=#000078 guibg=#d8f8f8 gui=NONE'],
-        \ ['BoardLed2',    'ctermfg=88  ctermbg=225  cterm=NONE guifg=#780000 guibg=#fcd8fa gui=NONE'],
-        \ ['BoardLed3',    'ctermfg=234 ctermbg=230  cterm=NONE guifg=#282800 guibg=#f8f8d8 gui=NONE'],
-        \ ['BoardBracket', 'ctermfg=248 ctermbg=188  cterm=NONE guifg=#a8a8a8 guibg=#d8d8d8 gui=NONE'],
-        \ ['BoardMarker',  'ctermfg=28  ctermbg=NONE cterm=bold guifg=#008000 guibg=NONE    gui=bold'],
-        \ ['BoardCfgLinks','ctermfg=166 ctermbg=NONE cterm=bold guifg=#d85820 guibg=NONE    gui=bold'],
+        \ ['BoardSection',    'ctermfg=127 ctermbg=NONE cterm=bold guifg=#af00af guibg=NONE     gui=bold'],
+        \ ['BoardCfgLinks',   'ctermfg=166 ctermbg=NONE cterm=bold guifg=#d85820 guibg=NONE     gui=bold'],
+        \ ['BoardGroup',      'ctermfg=25  ctermbg=NONE cterm=bold guifg=#2a58b0 guibg=NONE     gui=bold'],
+        \ ['BoardLink',       'ctermfg=61  ctermbg=NONE cterm=NONE guifg=#5040a8 guibg=NONE     gui=NONE'],
+        \ ['BoardLed1',       'ctermfg=18  ctermbg=195  cterm=NONE guifg=#000078 guibg=#d8f8f8  gui=NONE'],
+        \ ['BoardLed2',       'ctermfg=88  ctermbg=225  cterm=NONE guifg=#780000 guibg=#fcd8fa  gui=NONE'],
+        \ ['BoardLed3',       'ctermfg=234 ctermbg=230  cterm=NONE guifg=#282800 guibg=#f8f8d8  gui=NONE'],
+        \ ['BoardBracket',    'ctermfg=248 ctermbg=188  cterm=NONE guifg=#a8a8a8 guibg=#d8d8d8  gui=NONE'],
+        \ ['BoardMarker',     'ctermfg=28  ctermbg=NONE cterm=bold guifg=#008000 guibg=NONE     gui=bold'],
+        \ ['BoardGuide',      'ctermfg=252 ctermbg=NONE cterm=NONE guifg=#cccccc guibg=NONE     gui=NONE'],
+        \ ['BoardPlus',       'ctermfg=63  ctermbg=NONE cterm=NONE guifg=#5f5fff guibg=NONE     gui=NONE'],
+        \ ['BoardSpecial',    'ctermfg=130 ctermbg=NONE cterm=bold guifg=#a04f00 guibg=NONE     gui=bold'],
+        \ ['BoardEqual',      'ctermfg=91  ctermbg=NONE cterm=NONE guifg=#8200a8 guibg=NONE     gui=NONE'],
+        \ ['BoardColon',      'ctermfg=52  ctermbg=NONE cterm=NONE guifg=#6c2418 guibg=NONE     gui=NONE'],
+        \ ['BoardQuestion',   'ctermfg=29  ctermbg=NONE cterm=bold guifg=#2e8068 guibg=NONE     gui=bold'],
+        \ ['BoardExclamation','ctermfg=172 ctermbg=NONE cterm=NONE guifg=#cf7800 guibg=NONE     gui=NONE'],
+        \ ['BoardAmpersand',  'ctermfg=32  ctermbg=NONE cterm=bold guifg=#2f8fcf guibg=NONE     gui=bold'],
         \ ]
     endif
   else
       let l:colors = [
-        \ ['BoardSection', 'ctermfg=Magenta'],
-        \ ['BoardLink',    'ctermfg=Blue'   ],
-        \ ['BoardGroup',   'ctermfg=Cyan'   ],
-        \ ['BoardLed1',    'ctermfg=White ctermbg=darkCyan'   ],
-        \ ['BoardLed2',    'ctermfg=White ctermbg=darkMagenta'],
-        \ ['BoardLed3',    'ctermfg=White ctermbg=darkYellow' ],
-        \ ['BoardMarker',  'ctermfg=Green'  ],
-        \ ['BoardCfgLinks','ctermfg=Red'    ],
+        \ ['BoardSection',    'ctermfg=Magenta' ],
+        \ ['BoardCfgLinks',   'ctermfg=Red'     ],
+        \ ['BoardGroup',      'ctermfg=Cyan'    ],
+        \ ['BoardLink',       'ctermfg=DarkBlue'],
+        \ ['BoardLed1',       'ctermfg=White ctermbg=darkCyan'   ],
+        \ ['BoardLed2',       'ctermfg=White ctermbg=darkMagenta'],
+        \ ['BoardLed3',       'ctermfg=White ctermbg=darkYellow' ],
+        \ ['BoardMarker',     'ctermfg=Green' ],
+        \ ['BoardGuide',      'ctermfg=Gray'  ],
+        \ ['BoardPlus',       'ctermfg=Blue'  ],
+        \ ['BoardSpecial',    'ctermfg=Red'   ],
+        \ ['BoardQuestion',   'ctermfg=Green' ],
+        \ ['BoardExclamation','ctermfg=Yellow'],
         \ ]
   endif
   for l:c in l:colors
@@ -926,7 +947,7 @@ function board#TermCd()
 endfunction
 
 function board#Complete(arg, line, pos)
-  let l:cmd = ['speed ','stack ','start ','stop']
+  let l:cmd = ['speed ','stack ','start ','stop', 'menu']
   return filter(l:cmd, {i,v -> match(v, '^'.a:arg) == 0})
 endfunction
 

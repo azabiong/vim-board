@@ -2,7 +2,7 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.15 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.16 </h6></p>
 
 This plugin introduces a file type `board` where you can easily write notes,
 and define shortcuts to directories, files, and various commands.
@@ -126,8 +126,8 @@ The plugin uses sections to categorize content. Each section starts at the begin
 and can have different syntax depending on its type.
 
 <div style="display:inline-block">
-<img width="316" alt="default_light" src="https://user-images.githubusercontent.com/83812658/167405420-56456166-21ad-40b2-9eaf-5fadc17bc109.png">
-<img width="316" alt="default_dark" src="https://user-images.githubusercontent.com/83812658/167405505-d204c82c-17b4-4e4a-bfbf-8161dd3cd572.png">
+<img width="315" alt="board_light" src="https://user-images.githubusercontent.com/83812658/209437944-cdfc79bc-819b-4b38-9cf6-71edb80c0eff.png">
+<img width="315" alt="board_dark" src="https://user-images.githubusercontent.com/83812658/209437963-67ea4c14-1da6-40b0-939e-dfa4e6981ad6.png">
 </div><br>
 
 ### :Links Section
@@ -311,7 +311,7 @@ The plugin provides two default color sets and automatically loads one depending
 You can use the native **hi** command to customize colors starting with `Board`, and save them to the configuration file
 or color scheme.
 ```
- BoardHelp  BoardSection  BoardGroup  BoardMarker  BoardSpecial  BoardNote  BoardLed...
+ BoardHelp  BoardSection  BoardGroup  BoardSpecial  BoardMarker  BoardLink  BoardLed...
 ```
 
 **Example**

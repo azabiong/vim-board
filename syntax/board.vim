@@ -32,31 +32,21 @@ syn match BoardAmpersand "^[|:]\?\s*&.*$" contained contains=BoardGuide,BoardMar
 syn match BoardQuestion "^[|:]\?\s*?.*$" contained contains=BoardGuide,BoardMarker,BoardComment
 syn match BoardExclamation "^[|:]\?\s*!.*$" contained contains=BoardGuide,BoardMarker,BoardComment
 syn match BoardLink "\v^[: ]\s{4,}\S.*$" contained contains=BoardGuide,BoardJumper
+syn match BoardEmpty "^[|:]\s*$" contained contains=BoardGuide
 syn match BoardLed1 "\[[^]]*]" contained contains=BoardBracket
 syn match BoardLed2 "{[^}]*}" contained contains=BoardBracket
 syn match BoardLed3 "\v\<[^\>]*\>" contained contains=BoardBracket
-syn match BoardEmpty "^[|:]\s*$" contained contains=BoardGuide
-syn match BoardGuide "^[|:]" contained
 syn match BoardBracket "[\[\]\{\}\<\>]" contained
 syn match BoardMarker "`[^`]*`" contained
+syn match BoardGuide "^[|:]" contained
+syn match BoardCommentLine "^:\?\s*#.*$" contains=BoardGuide,BoardComment
+syn match BoardComment "#.*$" contained contains=BoardTodo
 syn match BoardTodo "\<Todo\>\c" contained
 syn match BoardJumper " \zs[|&]:\=" contained
-syn match BoardComment "#.*$" contained contains=BoardTodo
-syn match BoardCommentLine "^:\?\s*#.*$" contains=BoardGuide,BoardComment
-
 syn match BoardPlain "^[|:]\?\s*-.*$" contains=BoardGuide
 
 hi def link BoardHelp StatusLine
-hi def link BoardSpecial WarningMsg
-hi def link BoardColon String
-hi def link BoardPlus Label
-hi def link BoardEqual Keyword
-hi def link BoardAmpersand MoreMsg
-hi def link BoardQuestion Question
-hi def link BoardExclamation Constant
 hi def link BoardCfgType PreProc
-hi def link BoardLink Type
-hi def link BoardGuide Comment
 hi def link BoardComment Comment
 hi def link BoardJumper Operator
 hi def link BoardTodo Todo

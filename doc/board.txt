@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.15`
+                                                                    `ver 1.16`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -245,7 +245,7 @@ on the current 'background' mode. You can use the native |hi| command to customi
 colors starting with `Board`, and save them to the configuration file or color
 scheme.
 >
-  BoardHelp  BoardSection  BoardGroup  BoardMarker  BoardSpecial  BoardNote
+  BoardHelp  BoardSection  BoardGroup  BoardSpecial  BoardMarker  BoardLink
   BoardLed...
 <
  Example ~
@@ -350,6 +350,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.16~
+    Add default color set
 1.15~
     Add syntax guide characters
     Add more syntax type '&*`'
