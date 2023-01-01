@@ -146,18 +146,19 @@ and can have different syntax depending on its type.
 <summary><b> Commands </b></summary>
 <br>
 
-You can also add additional commands using `|` bar. For example, to update
-the `NERDTree` list after changing the current working directory:
+You can also add additional commands using `|` bar.  
+
+For example, to browse files after changing the current working directory:
 ```vim
-        /p  ~/Languages/Python/ | NERDTreeCWD
+        /p  ~/Languages/Python/ | edit .
 ```
 
-After opening the file, to scroll line 128 to the top:
+After opening the file, to go to the line 128:
 ```vim
-        pn  ~/Languages/Python/notes.py | 128 | normal! zt
+        pn  ~/Languages/Python/notes.py | 128
 ```
 
-Or, you can combine commands to open specific files after changing the directory:
+Or, you can combine more commands together:
 ```vim
         /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 ```
@@ -284,8 +285,8 @@ switch to command-line mode input by adding a colon `:` after the bar.
 
 You can use the `&` symbol to run other links, for example:
 ```vim
-        N   | NERDTreeCWD
-        /d1 ~/Directory/ | &N
+        _N  | NERDTreeCWD
+        /d1 ~/Directory/ | &_N
 ```
 
 #### Stop command
@@ -307,7 +308,7 @@ For more information about commands and options, please refer to:
 
 ## Customizing Colors
 
-The plugin provides two default color sets and automatically loads one depending on the current `background` mode.
+The plugin provides two default color sets that can be automatically loaded depending on the current `background` mode.
 You can use the native **hi** command to customize colors starting with `Board`, and save them to the configuration file
 or color scheme.
 ```

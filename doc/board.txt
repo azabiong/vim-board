@@ -124,16 +124,17 @@ Section ~
  indentation as the `TEXT` field starting at column 6 or higher.
 
  Commands ~
-    You can also add additional commands using `|` bar. For example, to update
-    the `NERDTree` list after changing the current working directory: >
+    You can also add additional commands using `|` bar.
 
-        /p  ~/Languages/Python/ | NERDTreeCWD
-<
-    After opening the file, to scroll line 128 to the top:
+    For example, to browse files after changing the current working directory:
 >
-        pn  ~/Languages/Python/notes.py | 128 | normal! zt
+        /p  ~/Languages/Python/ | edit .
 <
-    Or, you can combine commands to open specific files after changing the directory:
+    After opening the file, to go to the line 128:
+>
+        pn  ~/Languages/Python/notes.py | 128
+<
+    Or, you can combine more commands together:
 >
         /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 <
@@ -240,10 +241,10 @@ Section ~
 ------------------------------------------------------------------------------
 CUSTOMIZING COLORS                                    *Board-Customizing-Colors*
 
-The plugin provides two default color sets and automatically loads one depending
-on the current 'background' mode. You can use the native |hi| command to customize
-colors starting with `Board`, and save them to the configuration file or color
-scheme.
+The plugin provides two default color sets that can be automatically loaded
+depending on the current 'background' mode. You can use the native |hi| command
+to customize colors starting with `Board`, and save them to the configuration
+file or color scheme.
 >
   BoardHelp  BoardSection  BoardGroup  BoardSpecial  BoardMarker  BoardLink
   BoardLed...
