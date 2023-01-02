@@ -53,3 +53,4 @@ hi def link BoardTodo Todo
 
 set cms=#%s
 let b:current_syntax = "board"
+
