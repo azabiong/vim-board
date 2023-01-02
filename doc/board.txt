@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.16`
+                                                                    `ver 1.17`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -134,7 +134,7 @@ Section ~
 >
         pn  ~/Languages/Python/notes.py | 128
 <
-    Or, you can combine more commands together:
+    More commands can be combined together:
 >
         /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 <
@@ -169,14 +169,15 @@ Section ~
         0   ~/dir/second
         0   ~/dir/first
 <
-    You can then use the `0` key to open the bottom item, and then erase or move
-    it when done similar to a `pop` operation. When opening the item in the middle,
-    the native |gf| command would be useful.
+
+    You can use the `0` key to open the bottom item, and then clear or move
+    it when you're done. When opening the item in the middle, the native |gf|
+    command would be useful.
 
     Long key ~
     You only need to enter the unique prefix part of the key. For example, if
-    you define a long key `xylophone` and don't have a key that starts with `xy`,
-    you can open the link with `xy` <Enter>.
+    you define a long key `xylophone` and no key starts with `xy`, you can open
+    the link with `xy` <Enter>.
 
  Path ~
     To easily define a link to a file, the plugin supports copying the current
@@ -188,8 +189,8 @@ Section ~
         CTRL-R b
 <
     When switching to another board stored in the |BoardPath| directory, you can
-    omit the path and specify only the file name. The links defined on the board
-    are automatically loaded when you switch boards using the key.
+    omit the path and specify only the file name. Switching boards using the keys
+    will automatically load the links defined on the board.
 >
         'a  another.board
 <
@@ -229,10 +230,10 @@ Section ~
         s4  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
 <
  Link reference ~
-    You can use the `&` symbol to run other links, for example:
+    You can use the `&` symbol to run other links. For example:
 >
-        N   | NERDTreeCWD
-        /d1 ~/Directory/ | &N
+        _N  | NERDTreeCWD
+        /d1 ~/Directory/ | &_N
 <
  Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
@@ -351,6 +352,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.17~
+    Add indent function
 1.16~
     Add default color set
 1.15~

@@ -158,7 +158,7 @@ After opening the file, to go to the line 128:
         pn  ~/Languages/Python/notes.py | 128
 ```
 
-Or, you can combine more commands together:
+More commands can be combined together:
 ```vim
         /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 ```
@@ -201,14 +201,14 @@ Or, to stack items in something like queue `0`
         0   ~/dir/second
         0   ~/dir/first
 ```
-You can then use the `0` key to open the bottom item, and then erase or move it when done similar to a `pop` operation.
+You can use the `0` key to open the bottom item, and then clear or move it when you're done.  
 When opening the item in the middle, the native `gf` command would be useful.
 
 #### Long key
 
-You only need to enter the unique prefix part of the key. For example, if you
-define a long key `xylophone` and don't have a key that starts with `xy`, you can
-open the link with `xy` <kbd>Enter</kbd>.
+You only need to enter the unique prefix part of the key. For example,
+if you define a long key `xylophone` and no key starts with `xy`, 
+you can open the link with `xy` <kbd>Enter</kbd>.
 
 <br>
 </details>
@@ -226,7 +226,7 @@ To paste the path stored in register `b` in insert mode:
 <br>
 
 When switching to another board stored in the `BoardPath` directory, you can omit the path and specify only the file name.
-The links defined on the board are automatically loaded when you switch boards using the key.
+Switching boards using the keys will automatically load the links defined on the board.
 ```vim
         'a  another.board
 ```
@@ -283,7 +283,7 @@ switch to command-line mode input by adding a colon `:` after the bar.
 
 #### Link reference
 
-You can use the `&` symbol to run other links, for example:
+You can use the `&` symbol to run other links. For example:
 ```vim
         _N  | NERDTreeCWD
         /d1 ~/Directory/ | &_N

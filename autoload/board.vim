@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.16
+" Version: 1.17
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.16'
+let s:Version = '1.17'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -73,23 +73,23 @@ function s:LoadColors()
         \ ]
     else
       let l:colors = [
-        \ ['BoardSection',    'ctermfg=127 ctermbg=NONE cterm=bold guifg=#af00af guibg=NONE     gui=bold'],
-        \ ['BoardCfgLinks',   'ctermfg=166 ctermbg=NONE cterm=bold guifg=#d85820 guibg=NONE     gui=bold'],
-        \ ['BoardGroup',      'ctermfg=25  ctermbg=NONE cterm=bold guifg=#2a58b0 guibg=NONE     gui=bold'],
-        \ ['BoardLink',       'ctermfg=61  ctermbg=NONE cterm=NONE guifg=#5040a8 guibg=NONE     gui=NONE'],
-        \ ['BoardLed1',       'ctermfg=18  ctermbg=195  cterm=NONE guifg=#000078 guibg=#d8f8f8  gui=NONE'],
-        \ ['BoardLed2',       'ctermfg=88  ctermbg=225  cterm=NONE guifg=#780000 guibg=#fcd8fa  gui=NONE'],
-        \ ['BoardLed3',       'ctermfg=234 ctermbg=230  cterm=NONE guifg=#282800 guibg=#f8f8d8  gui=NONE'],
-        \ ['BoardBracket',    'ctermfg=248 ctermbg=188  cterm=NONE guifg=#a8a8a8 guibg=#d8d8d8  gui=NONE'],
-        \ ['BoardMarker',     'ctermfg=28  ctermbg=NONE cterm=bold guifg=#008000 guibg=NONE     gui=bold'],
-        \ ['BoardGuide',      'ctermfg=252 ctermbg=NONE cterm=NONE guifg=#cccccc guibg=NONE     gui=NONE'],
-        \ ['BoardPlus',       'ctermfg=63  ctermbg=NONE cterm=NONE guifg=#5f5fff guibg=NONE     gui=NONE'],
-        \ ['BoardSpecial',    'ctermfg=130 ctermbg=NONE cterm=bold guifg=#a04f00 guibg=NONE     gui=bold'],
-        \ ['BoardEqual',      'ctermfg=91  ctermbg=NONE cterm=NONE guifg=#8200a8 guibg=NONE     gui=NONE'],
-        \ ['BoardColon',      'ctermfg=52  ctermbg=NONE cterm=NONE guifg=#6c2418 guibg=NONE     gui=NONE'],
-        \ ['BoardQuestion',   'ctermfg=29  ctermbg=NONE cterm=bold guifg=#2e8068 guibg=NONE     gui=bold'],
-        \ ['BoardExclamation','ctermfg=172 ctermbg=NONE cterm=NONE guifg=#cf7800 guibg=NONE     gui=NONE'],
-        \ ['BoardAmpersand',  'ctermfg=32  ctermbg=NONE cterm=bold guifg=#2f8fcf guibg=NONE     gui=bold'],
+        \ ['BoardSection',    'ctermfg=127 ctermbg=NONE cterm=bold guifg=#af00af guibg=NONE    gui=bold'],
+        \ ['BoardCfgLinks',   'ctermfg=166 ctermbg=NONE cterm=bold guifg=#d85820 guibg=NONE    gui=bold'],
+        \ ['BoardGroup',      'ctermfg=25  ctermbg=NONE cterm=bold guifg=#2a58b0 guibg=NONE    gui=bold'],
+        \ ['BoardLink',       'ctermfg=61  ctermbg=NONE cterm=NONE guifg=#5040a8 guibg=NONE    gui=NONE'],
+        \ ['BoardLed1',       'ctermfg=18  ctermbg=195  cterm=NONE guifg=#000078 guibg=#d8f8f8 gui=NONE'],
+        \ ['BoardLed2',       'ctermfg=88  ctermbg=225  cterm=NONE guifg=#780000 guibg=#fcd8fa gui=NONE'],
+        \ ['BoardLed3',       'ctermfg=234 ctermbg=230  cterm=NONE guifg=#282800 guibg=#f8f8d8 gui=NONE'],
+        \ ['BoardBracket',    'ctermfg=248 ctermbg=188  cterm=NONE guifg=#a8a8a8 guibg=#d8d8d8 gui=NONE'],
+        \ ['BoardMarker',     'ctermfg=28  ctermbg=NONE cterm=bold guifg=#008000 guibg=NONE    gui=bold'],
+        \ ['BoardGuide',      'ctermfg=252 ctermbg=NONE cterm=NONE guifg=#cccccc guibg=NONE    gui=NONE'],
+        \ ['BoardPlus',       'ctermfg=63  ctermbg=NONE cterm=NONE guifg=#5f5fff guibg=NONE    gui=NONE'],
+        \ ['BoardSpecial',    'ctermfg=130 ctermbg=NONE cterm=bold guifg=#a04f00 guibg=NONE    gui=bold'],
+        \ ['BoardEqual',      'ctermfg=91  ctermbg=NONE cterm=NONE guifg=#8200a8 guibg=NONE    gui=NONE'],
+        \ ['BoardColon',      'ctermfg=52  ctermbg=NONE cterm=NONE guifg=#6c2418 guibg=NONE    gui=NONE'],
+        \ ['BoardQuestion',   'ctermfg=29  ctermbg=NONE cterm=bold guifg=#2e8068 guibg=NONE    gui=bold'],
+        \ ['BoardExclamation','ctermfg=172 ctermbg=NONE cterm=NONE guifg=#cf7800 guibg=NONE    gui=NONE'],
+        \ ['BoardAmpersand',  'ctermfg=32  ctermbg=NONE cterm=bold guifg=#2f8fcf guibg=NONE    gui=bold'],
         \ ]
     endif
   else
@@ -782,6 +782,28 @@ function s:Edit()
   endif
 endfunction
 
+function s:Indent(mode)
+  let l:row = line('.')
+  if a:mode == 'O'
+    let l:row -= 1
+  endif
+  let l:line = getline('.')
+  let l:spaces = len(matchstr(l:line, '\v[|:]?\s*'))
+  let l:keys = ''
+  if a:mode == 'i'
+    let l:col = col('.')
+    let l:left = (l:col > 1) ? l:line[:l:col-2] : ''
+    let l:right = trim(l:line[l:col-1:])
+    call setline('.', l:left)
+    call append('.', repeat(' ', l:spaces).l:right)
+    let l:keys = "\<Esc>j"
+  else
+    call append(l:row, repeat(' ', l:spaces))
+    call cursor(l:row+1, 0)
+  endif
+  call feedkeys(l:keys.'I', 'n')
+endfunction
+
 function s:SelectWin()
   if !empty(&buftype) && &buftype != 'help' && !&modifiable
     for i in range(winnr('$'), 1, -1)
@@ -909,6 +931,9 @@ function s:BufWritePost()
 endfunction
 
 function s:BufReadPost()
+  ino <buffer><CR> <Cmd>call <SID>Indent('i')<CR>
+  nn  <buffer>o    <Cmd>call <SID>Indent('o')<CR>
+  nn  <buffer>O    <Cmd>call <SID>Indent('O')<CR>
   setl nonu
 endfunction
 
