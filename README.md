@@ -188,22 +188,6 @@ Used in the menu and syntax:
 ```
 You can also define the same key differently on each board.
 
-#### 🍏 &nbsp;Tip
-
-When you suddenly have multiple to-do lists, numbering can be useful.
-```vim
-        t1  ~/Todo/file1 | /item | echo 'find item'
-        t2  ~/Todo/dir2/ | echo 'add file2'
-```
-Or, to stack items in something like queue `0`
-```vim
-        0   ~/dir/third
-        0   ~/dir/second
-        0   ~/dir/first
-```
-You can use the `0` key to open the bottom item, and then clear or move it when you're done.  
-When opening the item in the middle, the native `gf` command would be useful.
-
 #### Long key
 
 You only need to enter the unique prefix part of the key. For example,
@@ -225,11 +209,14 @@ To paste the path stored in register `b` in insert mode:
 &nbsp; &nbsp; &nbsp; <kbd>Ctrl</kbd>+<kbd>R</kbd> `b`  
 <br>
 
-When switching to another board stored in the `BoardPath` directory, you can omit the path and specify only the file name.
-Switching boards using the keys will automatically load the links defined on the board.
+#### 🍏 &nbsp;Tip
+
+When switching to another board stored in the `BoardPath` directory,
+you can omit the path and specify only the file name.&nbsp; For example:
 ```vim
         'a  another.board
 ```
+Switching boards using the keys will automatically load the links defined on the board.
 
 <br>
 </details>
@@ -249,7 +236,7 @@ Switching boards using the keys will automatically load the links defined on the
 
 You can also define just a list of commands.
 
-For example, to copy a frequently used string or command to the clipboard:
+For example, to copy a frequently used command or string to the clipboard:
 ```vim
         c1  | let @+ = "copy this string to the clipboard"
 ```

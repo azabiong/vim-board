@@ -157,23 +157,6 @@ Section ~
 
     You can also define the same key differently on each board.
 
-    Tip ~
-    When you suddenly have multiple to-do lists, numbering can be useful.
->
-        t1  ~/Todo/file1 | /item | echo 'find item'
-        t2  ~/Todo/dir2/ | echo 'add file2'
-<
-    Or, to stack items in something like queue `0`
->
-        0   ~/dir/third
-        0   ~/dir/second
-        0   ~/dir/first
-<
-
-    You can use the `0` key to open the bottom item, and then clear or move
-    it when you're done. When opening the item in the middle, the native |gf|
-    command would be useful.
-
     Long key ~
     You only need to enter the unique prefix part of the key. For example, if
     you define a long key `xylophone` and no key starts with `xy`, you can open
@@ -188,12 +171,15 @@ Section ~
 >
         CTRL-R b
 <
+    Tip ~
     When switching to another board stored in the |BoardPath| directory, you can
-    omit the path and specify only the file name. Switching boards using the keys
-    will automatically load the links defined on the board.
+    omit the path and specify only the file name. For example:
 >
         'a  another.board
 <
+    Switching boards using the keys will automatically load the links defined on
+    the board.
+
  Multi-line commands ~
     Multi-line commands can be set using the leading bar `|` character.
 >
@@ -204,7 +190,7 @@ Section ~
  Commands only ~
     You can also define just a list of commands.
 
-    For example, to copy a frequently used string or command to the clipboard:
+    For example, to copy a frequently used command or string to the clipboard:
 >
         c1  | let @+ = "copy this string to the clipboard"
 <
