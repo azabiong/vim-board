@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.17
+" Version: 1.17.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.17'
+let s:Version = '1.17.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -784,21 +784,22 @@ endfunction
 
 function s:Indent(mode)
   let l:row = line('.')
+  let l:col = col('.')
   if a:mode == 'O'
     let l:row -= 1
   endif
   let l:line = getline('.')
-  let l:spaces = len(matchstr(l:line, '\v[|:]?\s*'))
+  let l:indent = empty(trim(l:line)) ? l:col-1 : len(matchstr(l:line, '\v[|:]?\s*'))
+  let l:spaces = repeat(' ', l:indent)
   let l:keys = ''
   if a:mode == 'i'
-    let l:col = col('.')
     let l:left = (l:col > 1) ? l:line[:l:col-2] : ''
     let l:right = trim(l:line[l:col-1:])
     call setline('.', l:left)
-    call append('.', repeat(' ', l:spaces).l:right)
+    call append('.', l:spaces.l:right)
     let l:keys = "\<Esc>j"
   else
-    call append(l:row, repeat(' ', l:spaces))
+    call append(l:row, l:spaces))
     call cursor(l:row+1, 0)
   endif
   call feedkeys(l:keys.'I', 'n')
