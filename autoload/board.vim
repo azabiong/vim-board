@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.17.2
+" Version: 1.18
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.17.2'
+let s:Version = '1.18'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -226,11 +226,12 @@ function s:AddNewBoard()
   echo ''
 endfunction
 
-function s:Switch(key)
+function s:Process(key)
   let l:board = []  " [board, load, prompt]
   let l:current = (&filetype == 'board') ? expand('%:p') : s:Board.current
 
-  if     a:key == '+' | return s:AddNewBoard()
+  if     a:key == '>>'| return s:UnloadLinks()
+  elseif a:key == '+' | return s:AddNewBoard()
   elseif a:key == '-' | let l:board = [s:Board.prev, 0, 1]
   elseif a:key == '=' | let l:board = [s:Board.main, 2, 1]
   elseif a:key == '.' | let l:board = [l:current, 0, 0]
@@ -258,8 +259,9 @@ endfunction
 function s:Restore(base)
   if a:base && s:Board.restore && s:Board.current != s:Board.hold && exists("w:BoardOverlap")
     let l:o = w:BoardOverlap
-    if filereadable(l:o.path) && s:OpenFile(l:o.path)
-      call winrestview(l:o.view)
+    if bufexists(l:o.buf)
+        exe "buf" l:o.buf
+        call winrestview(l:o.view)
     endif
     unlet w:BoardOverlap
   endif
@@ -469,6 +471,19 @@ function s:ReadLine(num)
   return ['']
 endfunction
 
+function s:UnloadLinks()
+  if &filetype != 'board' | return | endif
+  let l:buf = bufnr()
+  if exists("s:Links[".l:buf."]") && !empty(s:Links[l:buf]) && s:Links[l:buf]['#'.l:buf] != '_main_.board'
+    let s:Links[l:buf] = {}
+    if exists("b:Board")
+      call s:SetSyntax(-1)
+      unlet b:Board
+    endif
+  endif
+  call s:Prompt()
+endfunction
+
 function s:SetSyntaxGuide()
   let [i, l:end] = [0, line('$')]
   let l:guide = ' '
@@ -494,7 +509,12 @@ function s:SetBoard()
 endfunction
 
 function s:SetSyntax(op=0)
-  if a:op || exists("b:Board.syntax")
+  if a:op < 0
+    if exists("b:Board.syntax")
+      syn clear BoardCfgLinks
+      unlet b:Board.syntax
+    endif
+  elseif a:op > 0 || exists("b:Board.syntax")
     syn match BoardCfgLinks "^:links\c\>" contained
     let b:Board.syntax = 'on'
   endif
@@ -696,12 +716,12 @@ function s:InputLong(...)
     call s:Restore(1)
   elseif l:key == '.'
     if !l:loaded
-      call s:Switch('==')
+      call s:Process('==')
     else
       setl bl
     endif
   else
-    call s:Switch(l:key)
+    call s:Process(l:key)
   endif
 endfunction
 
@@ -733,7 +753,7 @@ function s:InputShort()
     endif
     if empty(l:key)
       let s:Board.hold = s:Board.current
-      call s:Switch('.')
+      call s:Process('.')
       setl bl
       return
     endif
@@ -748,7 +768,7 @@ function s:InputShort()
     if l:key == ";" || l:key == '.'
       return
     else
-      call s:Switch(l:key)
+      call s:Process(l:key)
     endif
   endif
 endfunction
@@ -768,7 +788,7 @@ function s:InputCheck(...)
     let l:dt = reltimefloat(reltime(s:Input.reltime)) * 1000
     if l:dt >= s:Input.wait
       call feedkeys("\<Esc>", 'n')
-      return timer_start(0, {-> execute("call s:Switch('.?')")})
+      return timer_start(0, {-> execute("call s:Process('.?')")})
     endif
   else
     let s:Input.reltime = reltime()
@@ -806,7 +826,7 @@ function s:Indent(mode)
 endfunction
 
 function s:SelectWin()
-  if !empty(&buftype) && &buftype != 'help' && !&modifiable
+  if !empty(&buftype) && !&modifiable && index(['help', 'terminal'], &buftype) == -1
     for i in range(winnr('$'), 1, -1)
       let l:buf = winbufnr(i)
       if empty(getbufvar(l:buf, '&buftype')) || getbufvar(l:buf, '&modifiable')
@@ -815,11 +835,8 @@ function s:SelectWin()
       endif
     endfor
   endif
-  let l:path = fnamemodify(bufname(), ':p')
-  let l:type = empty(&buftype) || &buftype == 'help'
-  let l:board = fnamemodify(bufname(), ':e') ==? 'board'
-  if filereadable(l:path) && l:type && !l:board
-    let w:BoardOverlap = {'path':l:path, 'view':winsaveview()}
+  if &filetype != 'board'
+    let w:BoardOverlap = {'buf':bufnr(), 'view':winsaveview()}
   endif
 endfunction
 
@@ -898,14 +915,14 @@ function s:FindKey(key)
   let s:Board.keys = 0
   let l:len = len(a:key)
   let l:help = ''
-  if l:len == 1 && stridx('-=+;:.', a:key) != -1
+  if (l:len == 1 && stridx('-=+;:.', a:key) != -1) || (a:key == '>>')
     let s:Board.input = a:key
     let s:Board.keys = 1
     return 1
   elseif l:len
     let l:list = s:GetKeys(a:key)
     let l:len = len(l:list)
-    let s:Board.keys = l:len
+    let s:Board.keys = 1
     if l:len == 1
       if a:key == l:list[0]
         return 1
@@ -955,7 +972,7 @@ function board#Menu()
   if empty(s:Board.main)
     call s:SetMainBoard()
   elseif l:board
-    call s:Switch('.?')
+    call s:Process('.?')
   else
     call s:SetMenuExpand()
     call s:InputShort()
@@ -973,7 +990,7 @@ function board#TermCd()
 endfunction
 
 function board#Complete(arg, line, pos)
-  let l:cmd = ['speed ','stack ','start ','stop', 'menu']
+  let l:cmd = ['speed ','stack ','start ','stop','menu']
   return filter(l:cmd, {i,v -> match(v, '^'.a:arg) == 0})
 endfunction
 

@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.17`
+                                                                    `ver 1.18`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -78,8 +78,8 @@ recently used `board`.
 >
     Board (-)prev(=)main(+)new(;)return  _
 <
-You can enter the key you have defined on the `board`, or switch between boards
-using the following keys:
+You can enter keys you have defined on the `board`, or switch between boards with
+the following keys:
 
         <Enter>   edit current board
          <Esc>    return
@@ -91,11 +91,10 @@ using the following keys:
            -      switch to previous board
            =      switch to main board
            +      add new board
-           .      link current board
            :      command-line mode
 
-For manually opened boards, you can use the `(.)` key to activate links defined
-on the board.
+For manually opened boards, you can activate links by pressing the `.` key.
+To unload links from the board, press `>``>` .
 
 ------------------------------------------------------------------------------
 BOARD SYNTAX                                                      *Board-Syntax*
@@ -137,7 +136,7 @@ Section ~
     More commands can be combined together:
 >
         /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
-<
+<                                                                    *Board-Key*
  Key ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
     characters except those that start with some predefined characters.
@@ -161,7 +160,7 @@ Section ~
     You only need to enter the unique prefix part of the key. For example, if
     you define a long key `xylophone` and no key starts with `xy`, you can open
     the link with `xy` <Enter>.
-
+                                                                   *Board-Path*
  Path ~
     To easily define a link to a file, the plugin supports copying the current
     file's path to a register when the `menu` key is pressed (by default the `b`
@@ -208,18 +207,18 @@ Section ~
         s1  | Board* | r! echo "This is the scratchpad on the Board"
         s2  | Board* | r! curl -sI example.com
 <
+ Link reference ~
+    You can use the `&` symbol to run other links. For example:
+>
+        _N  | NERDTreeCWD
+        /d1 ~/Directory/ | &_N
+<
  Command-line mode ~
     When using the `|` bar character as a shell `pipe` or other meaning, you can
     switch to command-line mode input by adding a colon `:` after the bar.
 >
         s3  | Board* |: r! ls | wc
         s4  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
-<
- Link reference ~
-    You can use the `&` symbol to run other links. For example:
->
-        _N  | NERDTreeCWD
-        /d1 ~/Directory/ | &_N
 <
  Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
@@ -252,8 +251,8 @@ Board* ~
 Board start ~
     Start running another link.
 >
-        C   | echo 'a list of commands'
-        s   | if getcwd() =~ '/name' | Board start &C | endif
+        _C  | echo 'a list of commands'
+        s   | if getcwd() =~ '/name' | Board start &_C | endif
 <                                                                   *Board:stop*
 Board stop ~
     Stop running the current link.
@@ -262,7 +261,6 @@ Board stop ~
 <                                                                   *Board:menu*
 Board menu ~
     Bring up the |Board-Menu|
-
                                                                    *BoardTermCd*
 <Plug>(BoardTermCd) ~
     When using terminal window, synchronize current working directory with Vim
@@ -338,6 +336,9 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.18~
+    Add 'unload links' menu key '>>'
+    Improve buffer switching
 1.17~
     Add indent function
 1.16~

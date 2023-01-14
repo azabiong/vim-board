@@ -2,7 +2,7 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.17 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.18 </h6></p>
 
 This plugin introduces a file type `board` where you can easily write notes,
 and define shortcuts to directories, files, and various commands.
@@ -90,7 +90,7 @@ Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most
 
 <img height="26" alt="menu" src="https://user-images.githubusercontent.com/83812658/164972992-a76fd0b7-a5c8-4403-ab40-690ced07d21d.gif"> <br>
 
-You can enter the key you have defined on the `board`, or switch between boards using the following keys:
+You can enter keys you have defined on the `board`, or switch between boards with the following keys:
 
 <details>
 <summary><b> keys </b></summary>
@@ -108,10 +108,10 @@ You can enter the key you have defined on the `board`, or switch between boards 
   |<kbd>-</kbd>    |switch to previous board|
   |<kbd>=</kbd>    |switch to main board|
   |<kbd>+</kbd>    |add new board|
-  |<kbd>.</kbd>    |link current board|
   |<kbd>:</kbd>    |command-line mode|
 
-> For manually opened boards, you can use the <kbd>.</kbd> key to activate links defined on the board.
+ For manually opened boards, you can activate links by pressing the <kbd>.</kbd> key.  
+ To unload links from the board, press <kbd>></kbd><kbd>></kbd>
 </details>
 <br>
 
@@ -188,7 +188,7 @@ Used in the menu and syntax:
 ```
 You can also define the same key differently on each board.
 
-#### Long key
+#### [ Long key ]
 
 You only need to enter the unique prefix part of the key. For example,
 if you define a long key `xylophone` and no key starts with `xy`, 
@@ -232,7 +232,7 @@ Switching boards using the keys will automatically load the links defined on the
             | echo 'bar'
 ```
 
-#### Commands only
+#### [ Commands only ]
 
 You can also define just a list of commands.
 
@@ -258,7 +258,15 @@ To define some input from the shell tool to the scratchpad, `Board*`:
         s2  | Board* | r! curl -sI example.com
 ```
 
-#### Command-line mode
+#### [ Link reference ]
+
+You can use the `&` symbol to run other links. For example:
+```vim
+        _N  | NERDTreeCWD
+        /d1 ~/Directory/ | &_N
+```
+
+#### [ Command-line mode ]
 
 When using the `|` bar character as a shell `pipe` or other meaning, you can
 switch to command-line mode input by adding a colon `:` after the bar.
@@ -268,15 +276,7 @@ switch to command-line mode input by adding a colon `:` after the bar.
         s4  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
 ```
 
-#### Link reference
-
-You can use the `&` symbol to run other links. For example:
-```vim
-        _N  | NERDTreeCWD
-        /d1 ~/Directory/ | &_N
-```
-
-#### Stop command
+#### [ Stop command ]
 
 To stop a long list of commands while processing, press the `menu` key and
 input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.
