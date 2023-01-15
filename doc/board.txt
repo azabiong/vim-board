@@ -78,7 +78,7 @@ recently used `board`.
 >
     Board (-)prev(=)main(+)new(;)return  _
 <
-You can enter keys you have defined on the `board`, or switch between boards with
+You can enter keys that you defined on the `board`, or switch between boards with
 the following keys:
 
         <Enter>   edit current board
@@ -122,21 +122,6 @@ Section ~
  Each link is a simple space-separated `key-value` pair, and uses the same
  indentation as the `TEXT` field starting at column 6 or higher.
 
- Commands ~
-    You can also add additional commands using `|` bar.
-
-    For example, to browse files after changing the current working directory:
->
-        /p  ~/Languages/Python/ | edit .
-<
-    After opening the file, to go to the line 128:
->
-        pn  ~/Languages/Python/notes.py | 128
-<
-    More commands can be combined together:
->
-        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
-<                                                                    *Board-Key*
  Key ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
     characters except those that start with some predefined characters.
@@ -179,6 +164,21 @@ Section ~
     Switching boards using the keys will automatically load the links defined on
     the board.
 
+ Commands ~
+    You can also add additional commands using `|` bar.
+
+    For example, to browse files after changing the current working directory:
+>
+        /p  ~/Languages/Python/ | edit .
+<
+    After opening the file, to go to the line 128:
+>
+        pn  ~/Languages/Python/notes.py | 128
+<
+    More commands can be combined together:
+>
+        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
+<                                                                    *Board-Key*
  Multi-line commands ~
     Multi-line commands can be set using the leading bar `|` character.
 >

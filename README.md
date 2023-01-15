@@ -90,7 +90,7 @@ Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most
 
 <img height="26" alt="menu" src="https://user-images.githubusercontent.com/83812658/164972992-a76fd0b7-a5c8-4403-ab40-690ced07d21d.gif"> <br>
 
-You can enter keys you have defined on the `board`, or switch between boards with the following keys:
+You can enter keys that you defined on the `board`, or switch between boards with the following keys:
 
 <details>
 <summary><b> keys </b></summary>
@@ -143,30 +143,6 @@ and can have different syntax depending on its type.
  indentation as the `TEXT` field starting at column 6 or higher.
 
 <details>
-<summary><b> Commands </b></summary>
-<br>
-
-You can also add additional commands using `|` bar.  
-
-For example, to browse files after changing the current working directory:
-```vim
-        /p  ~/Languages/Python/ | edit .
-```
-
-After opening the file, to go to the line 128:
-```vim
-        pn  ~/Languages/Python/notes.py | 128
-```
-
-More commands can be combined together:
-```vim
-        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
-```
-
-<br>
-</details>
-
-<details>
 <summary><b> Key </b></summary>
 <br>
 
@@ -217,6 +193,30 @@ you can omit the path and specify only the file name.&nbsp; For example:
         'a  another.board
 ```
 Switching boards using the keys will automatically load the links defined on the board.
+
+<br>
+</details>
+
+<details>
+<summary><b> Commands </b></summary>
+<br>
+
+You can also add additional commands using `|` bar.  
+
+For example, to browse files after changing the current working directory:
+```vim
+        /p  ~/Languages/Python/ | edit .
+```
+
+After opening the file, to go to the line 128:
+```vim
+        pn  ~/Languages/Python/notes.py | 128
+```
+
+More commands can be combined together:
+```vim
+        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
+```
 
 <br>
 </details>
