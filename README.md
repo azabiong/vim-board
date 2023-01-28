@@ -41,7 +41,7 @@ You can use your preferred plugin manager using the string `'azabiong/vim-board'
  Plug 'azabiong/vim-board'
 ```
 <details>
-<summary> &nbsp; or,&nbsp; Vim 8 pack feature: </summary>
+<summary>&nbsp; or,&nbsp; Vim's built-in package feature: </summary>
 <br>
 
 > |Linux, Mac| Windows &nbsp;|
@@ -110,8 +110,8 @@ You can enter keys that you defined on the `board`, or switch between boards wit
   |<kbd>+</kbd>    |add new board|
   |<kbd>:</kbd>    |command-line mode|
 
- For manually opened boards, you can activate links by pressing the <kbd>.</kbd> key.  
- To unload links from the board, press <kbd>></kbd><kbd>></kbd>
+ For manually opened boards, you can activate links on the board by pressing the <kbd>.</kbd> key.  
+ To unload links, press <kbd>></kbd><kbd>></kbd>
 </details>
 <br>
 
@@ -162,13 +162,14 @@ Used in the menu and syntax:
     .  load
     :  command
 ```
-You can also define the same key differently on each board.
 
 #### [ Long key ]
 
 You only need to enter the unique prefix part of the key. For example,
-if you define a long key `xylophone` and no key starts with `xy`, 
-you can open the link with `xy` <kbd>Enter</kbd>.
+if you define a long key `xylophone` and no key starts with `xy`,
+you can open the link with `xy` <kbd>Enter</kbd>.  
+<br>
+You can also define the same key differently on each board.
 
 <br>
 </details>
@@ -192,7 +193,7 @@ you can omit the path and specify only the file name.&nbsp; For example:
 ```vim
         'a  another.board
 ```
-Switching boards using the keys will automatically load the links defined on the board.
+Switching boards using the defined keys will automatically load the links defined on the board.
 
 <br>
 </details>
@@ -201,7 +202,7 @@ Switching boards using the keys will automatically load the links defined on the
 <summary><b> Commands </b></summary>
 <br>
 
-You can also add additional commands using `|` bar.  
+You can add additional commands using `|` bar.  
 
 For example, to browse files after changing the current working directory:
 ```vim

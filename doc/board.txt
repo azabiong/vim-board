@@ -93,8 +93,8 @@ the following keys:
            +      add new board
            :      command-line mode
 
-For manually opened boards, you can activate links by pressing the `.` key.
-To unload links from the board, press `>``>` .
+For manually opened boards, you can activate links on the board by pressing the `.` key.
+To unload links, press `>``>` .
 
 ------------------------------------------------------------------------------
 BOARD SYNTAX                                                      *Board-Syntax*
@@ -139,12 +139,12 @@ Section ~
         .  load
         :  command
 
-    You can also define the same key differently on each board.
-
     Long key ~
     You only need to enter the unique prefix part of the key. For example, if
     you define a long key `xylophone` and no key starts with `xy`, you can open
     the link with `xy` <Enter>.
+
+    You can also define the same key differently on each board.
                                                                    *Board-Path*
  Path ~
     To easily define a link to a file, the plugin supports copying the current
@@ -161,11 +161,11 @@ Section ~
 >
         'a  another.board
 <
-    Switching boards using the keys will automatically load the links defined on
+    Switching boards using the defined keys will automatically load the links defined on
     the board.
 
  Commands ~
-    You can also add additional commands using `|` bar.
+    You can add additional commands using `|` bar.
 
     For example, to browse files after changing the current working directory:
 >
