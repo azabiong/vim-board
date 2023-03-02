@@ -1,7 +1,7 @@
 " board file syntax
 "
 "  comment: #
-"  special: *+=&?!
+"  special: *+=&?!:
 "    plain: -
 " surround: [] {} <> ``
 "  section: column 1
@@ -17,7 +17,7 @@ syn region BoardBlock start="^[^#:\- ]" end="$\n^[^# ]"me=e-1 transparent contai
   \ BoardSpecial,BoardPlus,BoardEqual,BoardColon,BoardAmpersand,BoardQuestion,BoardExclamation,BoardEmpty
 
 syn region BoardConfig start="^[:]" end="$\n^[^# ]"me=e-1 transparent contains=
-  \ BoardCfgType,BoardCfgLinks,BoardLink,BoardGroup,BoardMarker,BoardCommentLine,BoardPlain,
+  \ BoardCfgType,BoardCfgLinks,BoardLink,BoardGroup,BoardMarker,BoardComment,BoardPlain,
   \ BoardSpecial,BoardPlus,BoardEqual,BoardColon,BoardAmpersand,BoardQuestion,BoardExclamation,BoardEmpty
 
 syn match BoardSection "^[^#:\- ].*$" contained contains=BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
@@ -39,10 +39,9 @@ syn match BoardLed3 "\v\<[^\>]*\>" contained contains=BoardBracket
 syn match BoardBracket "[\[\]\{\}\<\>]" contained
 syn match BoardMarker "`[^`]*`" contained
 syn match BoardGuide "^[|:]" contained
-syn match BoardCommentLine "^:\?\s*#.*$" contains=BoardGuide,BoardComment
-syn match BoardComment "#.*$" contained contains=BoardTodo
 syn match BoardTodo "\<Todo\>\c" contained
 syn match BoardJumper " \zs[|&]:\=" contained
+syn match BoardComment "\v(^[|:]? *| +)#.*$" contains=BoardGuide,BoardTodo
 syn match BoardPlain "^[|:]\?\s*-.*$" contains=BoardGuide
 
 hi def link BoardHelp StatusLine

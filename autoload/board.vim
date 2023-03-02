@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.18
+" Version: 1.18.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.18'
+let s:Version = '1.18.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -206,7 +206,7 @@ function s:AddNewBoard()
     redraw
   endif
   echohl BoardGroup
-  let l:file = trim(input('  New board name: '))
+  let l:file = trim(input(' New board name: '))
   echohl None
   echo ''
   if empty(l:file) | return | endif
@@ -260,8 +260,8 @@ function s:Restore(base)
   if a:base && s:Board.restore && s:Board.current != s:Board.hold && exists("w:BoardOverlap")
     let l:o = w:BoardOverlap
     if bufexists(l:o.buf)
-        exe "buf" l:o.buf
-        call winrestview(l:o.view)
+      exe "buf" l:o.buf
+      call winrestview(l:o.view)
     endif
     unlet w:BoardOverlap
   endif
