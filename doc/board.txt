@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.18`
+                                                                    `ver 1.19`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -44,13 +44,13 @@ Feature 2~
  You can easily define shortcuts to directories, files, and commands on the board
  using simple `key-value` pairs. For example:
 >
-      /t  ~/Documents/Terms/
-      v   ~/.vimrc
+      \t  ~/Documents/Terms/
+       v  ~/.vimrc
 <
  Immediately after saving, you can use the following key sequences to change the
  current working directory, or open the file:
 >
-      Key /t
+      Key \t
       Key v
 <
 ------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ the following keys:
 
         <Enter>   edit current board
          <Esc>    return
-           ;      return
+           ;      return `optional`
         <Space>   scroll down
          <Down>   scroll down
           <Up>    scroll up
@@ -92,6 +92,7 @@ the following keys:
            =      switch to main board
            +      add new board
            :      command-line mode
+           /      search `optional`
 
 For manually opened boards, you can activate links on the board by pressing the `.` key.
 To unload links, press `>``>` .
@@ -99,8 +100,8 @@ To unload links, press `>``>` .
 ------------------------------------------------------------------------------
 BOARD SYNTAX                                                      *Board-Syntax*
 
-The `board` file syntax is simple. You can use indentation and some leading
-characters to mark each item differently.
+The plugin uses `.board` and `.bd` as file extensions, and the file syntax is simple.
+Each item can be marked differently with indentation and some leading characters.
 
 Section ~
 
@@ -116,25 +117,24 @@ Section ~
  The plugin loads the shortcut links defined in this section. The following
  example defines two links:
 >
-        /p  ~/Languages/Python/
+        \p  ~/Languages/Python/
         pn  ~/Languages/Python/notes.py
 <
  Each link is a simple space-separated `key-value` pair, and uses the same
  indentation as the `TEXT` field starting at column 6 or higher.
-
+                                                                     *Board-Key*
  Key ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
     characters except those that start with some predefined characters.
 
     Available leading characters:~
 
-        ~`!@$%^&*_()[]{}<>'",/? 0-9 a-z A-Z and Unicode characters
+        ~`!@$%^&*_()[]{}<>'";,\/? 0-9 a-z A-Z and Unicode characters
 
     Used in the menu and syntax:~
 
-        ;  return       #  comment
-        -  previous     |  command
-        =  main
+        -  previous     #  comment
+        =  main         |  command
         +  new
         .  load
         :  command
@@ -145,7 +145,7 @@ Section ~
     the link with `xy` <Enter>.
 
     You can also define the same key differently on each board.
-                                                                   *Board-Path*
+                                                                    *Board-Path*
  Path ~
     To easily define a link to a file, the plugin supports copying the current
     file's path to a register when the `menu` key is pressed (by default the `b`
@@ -161,15 +161,15 @@ Section ~
 >
         'a  another.board
 <
-    Switching boards using the defined keys will automatically load the links defined on
-    the board.
+    Switching boards using the defined keys will automatically load the links
+    defined on the board.
 
  Commands ~
-    You can add additional commands using `|` bar.
+    Additional commands can be added using the `|` bar character.
 
     For example, to browse files after changing the current working directory:
 >
-        /p  ~/Languages/Python/ | edit .
+        \p  ~/Languages/Python/ | edit .
 <
     After opening the file, to go to the line 128:
 >
@@ -177,19 +177,14 @@ Section ~
 <
     More commands can be combined together:
 >
-        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
-<                                                                    *Board-Key*
- Multi-line commands ~
-    Multi-line commands can be set using the leading bar `|` character.
->
-        bar ~/directory/or_file
-            | echo 'foo'
-            | echo 'bar'
+        \d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 <
  Commands only ~
-    You can also define just a list of commands.
+    You can also define just a list of commands without specifying a file or
+    directory.
 
-    For example, to copy a frequently used command or string to the clipboard:
+    For example, to define a command that copies frequently used commands or
+    strings to the clipboard:
 >
         c1  | let @+ = "copy this string to the clipboard"
 <
@@ -207,11 +202,18 @@ Section ~
         s1  | Board* | r! echo "This is the scratchpad on the Board"
         s2  | Board* | r! curl -sI example.com
 <
+ Multi-line commands ~
+    Multi-line commands can be set using the leading bar `|` character.
+>
+        bar ~/directory/or_file
+            | echo 'foo'
+            | echo 'bar'
+<
  Link reference ~
-    You can use the `&` symbol to run other links. For example:
+    You can refer to other links by using the `&` symbol. For example:
 >
         _N  | NERDTreeCWD
-        /d1 ~/Directory/ | &_N
+        \d1 ~/Directory/ | &_N
 <
  Command-line mode ~
     When using the `|` bar character as a shell `pipe` or other meaning, you can
@@ -336,6 +338,9 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.19~
+    Support file extension *.bd
+    Support optional search key '/'
 1.18~
     Add 'unload links' menu key '>>'
     Improve buffer switching

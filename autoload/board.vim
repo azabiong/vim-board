@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.18.2
+" Version: 1.19
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.18.2'
+let s:Version = '1.19'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -28,11 +28,11 @@ let s:Sentence = ['if', 'for', 'while']
 
 aug Board
   au!
-  au BufRead,BufNewFile *.board set ft=board
-  au BufWritePre        *.board call <SID>BufWritePre()
-  au BufWritePost       *.board call <SID>BufWritePost()
-  au BufReadPost        *.board call <SID>BufReadPost()
-  au ColorScheme        *       call <SID>ColorScheme()
+  au BufRead,BufNewFile *.board,*.bd set ft=board
+  au BufWritePre        *.board,*.bd call <SID>BufWritePre()
+  au BufWritePost       *.board,*.bd call <SID>BufWritePost()
+  au BufReadPost        *.board,*.bd call <SID>BufReadPost()
+  au ColorScheme        *            call <SID>ColorScheme()
 aug END
 
 function s:Load()
@@ -211,7 +211,7 @@ function s:AddNewBoard()
   echo ''
   if empty(l:file) | return | endif
 
-  let l:file = (l:file =~ '\.board$') ? l:file : l:file.'.board'
+  let l:file = (l:file =~? '\v\.(board|bd)$') ? l:file : l:file.'.board'
   let l:file = s:Board.path.'/'.l:file
   if !filereadable(l:file)
     exe "edit" l:file
@@ -224,6 +224,10 @@ function s:AddNewBoard()
   call s:OpenFile(l:file, 2)
   call s:Edit()
   echo ''
+endfunction
+
+function s:BoardFile(path)
+  return index(['board', 'bd'], tolower(fnamemodify(a:path, ':e'))) != -1
 endfunction
 
 function s:Process(key)
@@ -297,7 +301,7 @@ function s:RunLink(key)
       endif
     endif
     call s:SelectWin()
-    if fnamemodify(l:path, ':e') ==? 'board'
+    if s:BoardFile(l:path)
       if s:OpenFile(l:path, 2) && l:base && !len(l:link.command)
         call s:Prompt()
         return 1
@@ -336,7 +340,7 @@ function s:OpenFile(path, load=0)
   if bufnr(s:Board.hold) != l:buf
     let s:Board.hold = ''
   endif
-  if fnamemodify(a:path, ':e') ==? 'board'
+  if s:BoardFile(a:path)
     call s:SetOrder(a:path)
     if a:load
       call s:SetBoard()
@@ -457,7 +461,7 @@ function s:ReadLine(num)
     else
       let l:line = trim(l:line)
     endif
-    if stridx('-+=;.:#', line[0]) == -1
+    if stridx('-+=.:#', line[0]) == -1
       let l:key = matchstr(l:line, '\S\+\ze')
       if l:key == '|'
         let l:key = ''
@@ -661,7 +665,7 @@ function s:Prompt()
 endfunction
 
 function s:InputLong(...)
-  let l:menu = ' Board (-)prev(=)main(+)new(;)return'
+  let l:menu = ' Board (-)prev(=)main(+)new'
   let l:loaded = s:Loaded()
   if !l:loaded
     let l:menu .= '(.)link'
@@ -708,9 +712,9 @@ function s:InputLong(...)
     let l:key = ';'
   endif
 
-  if l:key == ':'
+  if l:key == ':' || l:key == '/'
     let s:Board.hold = ''
-    return feedkeys(':', 'n')
+    return feedkeys(l:key)
   elseif l:key == ";"
     let s:Board.hold = ''
     call s:Restore(1)
@@ -761,8 +765,8 @@ function s:InputShort()
     let l:key = ';'
   endif
 
-  if l:key == ':'
-    return feedkeys(':', 'n')
+  if l:key == ':' || l:key == '/'
+    return feedkeys(l:key)
   else
     redraw | echo ''
     if l:key == ";" || l:key == '.'
@@ -915,7 +919,7 @@ function s:FindKey(key)
   let s:Board.keys = 0
   let l:len = len(a:key)
   let l:help = ''
-  if (l:len == 1 && stridx('-=+;:.', a:key) != -1) || (a:key == '>>')
+  if (l:len == 1 && stridx('-=+:.', a:key) != -1) || (a:key == '>>')
     let s:Board.input = a:key
     let s:Board.keys = 1
     return 1
@@ -928,6 +932,10 @@ function s:FindKey(key)
         return 1
       endif
       let s:Board.input = l:list[0]
+    elseif !l:len && (a:key == '/' || a:key == ';')
+      let s:Board.input = a:key
+      let s:Board.keys = 1
+      return 1
     endif
     let l:help = join(l:list, '  ')
     let l:left = max([len(s:Board.menu) - len(l:help)/2 + 1, 7])
@@ -962,7 +970,7 @@ endfunction
 function board#Menu()
   let l:reg = g:BoardRegister[0]
   let l:buf = bufname()
-  let l:board = fnamemodify(l:buf, ':e') ==? 'board'
+  let l:board = s:BoardFile(l:buf)
   if match(l:reg, '[a-z]') != -1
     call setreg(l:reg, fnamemodify(l:buf, ':~'))
   endif

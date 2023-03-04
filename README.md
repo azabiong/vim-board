@@ -2,7 +2,7 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.18 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.19 </h6></p>
 
 This plugin introduces a file type `board` where you can easily write notes,
 and define shortcuts to directories, files, and various commands.
@@ -22,13 +22,13 @@ and define shortcuts to directories, files, and various commands.
 > You can easily define shortcuts to directories, files, and commands on the board using simple **key-value** pairs.
 > For example:
 > ```
->   /t  ~/Documents/Terms/
->   v   ~/.vimrc
+>   \t  ~/Documents/Terms/
+>    v  ~/.vimrc
 > ```
 > Immediately after saving, you can use the following key sequences to change the
 > current working directory, or open the file:
 >
-> &nbsp; &nbsp; &nbsp; `Key` `/t`
+> &nbsp; &nbsp; &nbsp; `Key` `\t`
 >
 > &nbsp; &nbsp; &nbsp; `Key` `v`
 
@@ -100,7 +100,7 @@ You can enter keys that you defined on the `board`, or switch between boards wit
   |:--:|:--|
   |<kbd>Enter</kbd>|edit current board|
   |<kbd>Esc</kbd>  |return|
-  |<kbd>;</kbd>    |return|
+  |<kbd>;</kbd>    |return (optional)|
   |<kbd>Space</kbd>|scroll down|
   |<kbd>↓</kbd>    |scroll down|
   |<kbd>↑</kbd>    |scroll up|
@@ -109,6 +109,7 @@ You can enter keys that you defined on the `board`, or switch between boards wit
   |<kbd>=</kbd>    |switch to main board|
   |<kbd>+</kbd>    |add new board|
   |<kbd>:</kbd>    |command-line mode|
+  |<kbd>/</kbd>    |search (optional)|
 
  For manually opened boards, you can activate links on the board by pressing the <kbd>.</kbd> key.  
  To unload links, press <kbd>></kbd><kbd>></kbd>
@@ -117,8 +118,8 @@ You can enter keys that you defined on the `board`, or switch between boards wit
 
 ## Syntax
 
-The `board` file syntax is simple. You can use indentation and some leading characters
-to mark each item differently.
+The plugin uses `.board` and `.bd` as file extensions, and the file syntax is simple.  
+Each item can be marked differently with indentation and some leading characters.
 
 ### Section
 
@@ -135,7 +136,7 @@ and can have different syntax depending on its type.
  The plugin loads the shortcut links defined in this section. The following example defines
  two links:
  ```
-        /p  ~/Languages/Python/
+        \p  ~/Languages/Python/
         pn  ~/Languages/Python/notes.py
  ```
 
@@ -151,19 +152,18 @@ characters except those that start with some predefined characters.
 
 Available leading characters:
 ```
-    ~`!@$%^&*_()[]{}<>'",/? 0-9 a-z A-Z and Unicode characters
+    ~`!@$%^&*_()[]{}<>'";,\/? 0-9 a-z A-Z and Unicode characters
 ```
 Used in the menu and syntax:
 ```
-    ;  return       #  comment
-    -  previous     |  command
-    =  main
+    -  previous     #  comment 
+    =  main         |  command 
     +  new
     .  load
     :  command
 ```
 
-#### [ Long key ]
+### Long key
 
 You only need to enter the unique prefix part of the key. For example,
 if you define a long key `xylophone` and no key starts with `xy`,
@@ -202,11 +202,11 @@ Switching boards using the defined keys will automatically load the links define
 <summary><b> Commands </b></summary>
 <br>
 
-You can add additional commands using `|` bar.  
+Additional commands can be added using the `|` bar character.  
 
 For example, to browse files after changing the current working directory:
 ```vim
-        /p  ~/Languages/Python/ | edit .
+        \p  ~/Languages/Python/ | edit .
 ```
 
 After opening the file, to go to the line 128:
@@ -216,39 +216,25 @@ After opening the file, to go to the line 128:
 
 More commands can be combined together:
 ```vim
-        /d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
+        \d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 ```
 
-<br>
-</details>
+### Commands only 
 
-<details>
-<summary><b> Command list </b></summary>
-<br>
+You can also define just a list of commands without specifying a file or directory.
 
-**Multi-line commands** &nbsp;can be set using the leading bar `|` character.
-```vim
-        bar ~/directory/or_file
-            | echo 'foo'
-            | echo 'bar'
-```
-
-#### [ Commands only ]
-
-You can also define just a list of commands.
-
-For example, to copy a frequently used command or string to the clipboard:
+For example, to define a command that copies frequently used commands or strings to the clipboard:
 ```vim
         c1  | let @+ = "copy this string to the clipboard"
 ```
 
 To define a substitution command:
-```vi
+```vim
         sub | %s/Foo/Bar/gc
 ```
 
 To define a set of temporary key-maps:
-```vi
+```vim
         key | nn f0 <Cmd>echo 0<CR>
             | nn f9 <Cmd>echo 9<CR>
 ```
@@ -259,15 +245,24 @@ To define some input from the shell tool to the scratchpad, `Board*`:
         s2  | Board* | r! curl -sI example.com
 ```
 
-#### [ Link reference ]
+### Multi-line commands
 
-You can use the `&` symbol to run other links. For example:
+Multi-line commands &nbsp;can be set using the leading bar `|` character.
 ```vim
-        _N  | NERDTreeCWD
-        /d1 ~/Directory/ | &_N
+        bar ~/directory/or_file
+            | echo 'foo'
+            | echo 'bar'
 ```
 
-#### [ Command-line mode ]
+### Link reference
+
+You can refer to other links by using the `&` symbol. For example:
+```vim
+        _N  | NERDTreeCWD
+        \d1 ~/Directory/ | &_N
+```
+
+### Command-line mode
 
 When using the `|` bar character as a shell `pipe` or other meaning, you can
 switch to command-line mode input by adding a colon `:` after the bar.
@@ -277,7 +272,7 @@ switch to command-line mode input by adding a colon `:` after the bar.
         s4  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
 ```
 
-#### [ Stop command ]
+### Stop command
 
 To stop a long list of commands while processing, press the `menu` key and
 input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.
