@@ -21,9 +21,9 @@ syn region BoardConfig start="^[:]" end="$\n^[^# ]"me=e-1 transparent contains=
   \ BoardSpecial,BoardPlus,BoardEqual,BoardColon,BoardAmpersand,BoardQuestion,BoardExclamation,BoardEmpty
 
 syn match BoardSection "^[^#:\- ].*$" contained contains=BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
+syn match BoardGroup "\v^[|: ] {,3}\S.*$" contained contains=BoardGuide,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
+syn match BoardText "\v^[|: ] {4,}\S.*$" contained contains=BoardGuide,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
 syn match BoardCfgType "\v^:\S.*$" contained contains=BoardComment
-syn match BoardGroup "\v^[|: ]\s{1,3}\S.*$" contained contains=BoardGuide,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
-syn match BoardText "\v^[|: ]\s{4,}\S.*$" contained contains=BoardGuide,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
 syn match BoardSpecial "^[|:]\?\s*\*.*$" contained contains=BoardGuide,BoardMarker,BoardComment
 syn match BoardPlus "^[|:]\?\s*+.*$" contained contains=BoardGuide,BoardMarker,BoardComment
 syn match BoardEqual "^[|:]\?\s*=.*$" contained contains=BoardGuide,BoardMarker,BoardComment
@@ -31,7 +31,7 @@ syn match BoardColon "^[|:]\?\s\+:.*$" contained contains=BoardGuide,BoardMarker
 syn match BoardAmpersand "^[|:]\?\s*&.*$" contained contains=BoardGuide,BoardMarker,BoardComment
 syn match BoardQuestion "^[|:]\?\s*?.*$" contained contains=BoardGuide,BoardMarker,BoardComment
 syn match BoardExclamation "^[|:]\?\s*!.*$" contained contains=BoardGuide,BoardMarker,BoardComment
-syn match BoardLink "\v^[: ]\s{4,}\S.*$" contained contains=BoardGuide,BoardJumper
+syn match BoardLink "\v^[: ] {4,}\S.*$" contained contains=BoardGuide,BoardJumper
 syn match BoardEmpty "^[|:]\s*$" contained contains=BoardGuide
 syn match BoardLed1 "\[[^]]*]" contained contains=BoardBracket
 syn match BoardLed2 "{[^}]*}" contained contains=BoardBracket
