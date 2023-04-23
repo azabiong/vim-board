@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.19
+" Version: 1.19.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,9 +14,9 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.19'
+let s:Version = '1.19.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
-               \ menu:'', restore:0, input:'', change:'', keys:0, enter:0,
+               \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
@@ -63,12 +63,12 @@ function s:LoadColors()
         \ ['BoardBracket',    'ctermfg=243 ctermbg=238  cterm=NONE guifg=#787a78 guibg=#404242 gui=NONE'],
         \ ['BoardMarker',     'ctermfg=114 ctermbg=NONE cterm=bold guifg=#88c888 guibg=NONE    gui=bold'],
         \ ['BoardGuide',      'ctermfg=59  ctermbg=NONE cterm=NONE guifg=#606060 guibg=NONE    gui=NONE'],
-        \ ['BoardPlus',       'ctermfg=189 ctermbg=NONE cterm=NONE guifg=#cceaf8 guibg=NONE    gui=NONE'],
+        \ ['BoardPlus',       'ctermfg=189 ctermbg=NONE cterm=NONE guifg=#cceaf8 guibg=NONE    gui=bold'],
         \ ['BoardSpecial',    'ctermfg=179 ctermbg=NONE cterm=bold guifg=#e69f6c guibg=NONE    gui=bold'],
         \ ['BoardEqual',      'ctermfg=183 ctermbg=NONE cterm=NONE guifg=#e0acf8 guibg=NONE    gui=NONE'],
         \ ['BoardColon',      'ctermfg=180 ctermbg=NONE cterm=NONE guifg=#cfa080 guibg=NONE    gui=NONE'],
         \ ['BoardQuestion',   'ctermfg=115 ctermbg=NONE cterm=bold guifg=#98c8a8 guibg=NONE    gui=bold'],
-        \ ['BoardExclamation','ctermfg=187 ctermbg=NONE cterm=NONE guifg=#e6dfa8 guibg=NONE    gui=NONE'],
+        \ ['BoardExclamation','ctermfg=187 ctermbg=NONE cterm=bold guifg=#e6dfa8 guibg=NONE    gui=bold'],
         \ ['BoardAmpersand',  'ctermfg=110 ctermbg=NONE cterm=bold guifg=#80bfcf guibg=NONE    gui=bold'],
         \ ]
     else
@@ -83,12 +83,12 @@ function s:LoadColors()
         \ ['BoardBracket',    'ctermfg=248 ctermbg=188  cterm=NONE guifg=#a8a8a8 guibg=#d8d8d8 gui=NONE'],
         \ ['BoardMarker',     'ctermfg=28  ctermbg=NONE cterm=bold guifg=#008000 guibg=NONE    gui=bold'],
         \ ['BoardGuide',      'ctermfg=252 ctermbg=NONE cterm=NONE guifg=#cccccc guibg=NONE    gui=NONE'],
-        \ ['BoardPlus',       'ctermfg=63  ctermbg=NONE cterm=NONE guifg=#5f5fff guibg=NONE    gui=NONE'],
+        \ ['BoardPlus',       'ctermfg=63  ctermbg=NONE cterm=NONE guifg=#5f5fff guibg=NONE    gui=bold'],
         \ ['BoardSpecial',    'ctermfg=130 ctermbg=NONE cterm=bold guifg=#a04f00 guibg=NONE    gui=bold'],
         \ ['BoardEqual',      'ctermfg=91  ctermbg=NONE cterm=NONE guifg=#8200a8 guibg=NONE    gui=NONE'],
         \ ['BoardColon',      'ctermfg=52  ctermbg=NONE cterm=NONE guifg=#6c2418 guibg=NONE    gui=NONE'],
         \ ['BoardQuestion',   'ctermfg=29  ctermbg=NONE cterm=bold guifg=#2e8068 guibg=NONE    gui=bold'],
-        \ ['BoardExclamation','ctermfg=172 ctermbg=NONE cterm=NONE guifg=#cf7800 guibg=NONE    gui=NONE'],
+        \ ['BoardExclamation','ctermfg=173 ctermbg=NONE cterm=bold guifg=#d87860 guibg=NONE    gui=bold'],
         \ ['BoardAmpersand',  'ctermfg=32  ctermbg=NONE cterm=bold guifg=#2f8fcf guibg=NONE    gui=bold'],
         \ ]
     endif
@@ -522,7 +522,7 @@ function s:SetSyntax(op=0)
     syn match BoardCfgLinks "^:links\c\>" contained
     let b:Board.syntax = 'on'
   endif
-  setl fdm=marker nonu mps=
+  setl fdm=marker nonu
 endfunction
 
 function s:SetSpeed(freq)
@@ -691,6 +691,7 @@ function s:InputLong(...)
   cno <buffer><PageUp>    <Cmd>call <SID>Scroll('^')<CR><C-R><Esc>
   cno <buffer><expr><C-C> <SID>Stop()
   cno <buffer><expr><CR>  <SID>Enter()
+  cno <buffer><expr><C-J> <SID>Enter()
 
   call inputsave()
   echohl BoardGroup
@@ -709,13 +710,13 @@ function s:InputLong(...)
       return
     endif
   else
-    let l:key = ';'
+    let [l:key, s:Board.match] = [';', 0]
   endif
 
-  if l:key == ':' || l:key == '/'
+  if l:key == ':' || (l:key == '/' && !s:Board.match)
     let s:Board.hold = ''
     return feedkeys(l:key)
-  elseif l:key == ";"
+  elseif l:key == ';' && !s:Board.match
     let s:Board.hold = ''
     call s:Restore(1)
   elseif l:key == '.'
@@ -738,6 +739,7 @@ function s:InputShort()
     au CmdlineChanged * call s:CmdlineChanged(0)
   aug END
   cno <buffer><expr><C-C> <SID>Stop()
+  cno <buffer><expr><C-J> <SID>Enter()
   cno <buffer><expr><CR>  <SID>Enter()
   cno <buffer><nowait><Esc> <Esc>
 
@@ -762,14 +764,14 @@ function s:InputShort()
       return
     endif
   else
-    let l:key = ';'
+    let [l:key, s:Board.match] = [';', 0]
   endif
 
-  if l:key == ':' || l:key == '/'
+  if l:key == ':' || (l:key == '/' && !s:Board.match)
     return feedkeys(l:key)
   else
     redraw | echo ''
-    if l:key == ";" || l:key == '.'
+    if l:key == '.' || (l:key == ';' && !s:Board.match)
       return
     else
       call s:Process(l:key)
@@ -783,6 +785,7 @@ function s:InputInit(restore, menu)
   let s:Board.change = ''
   let s:Board.keys = 0
   let s:Board.enter = 0
+  let s:Board.match = 0
   let s:Board.menu = a:menu
 endfunction
 
@@ -917,6 +920,7 @@ function s:FindKey(key)
   let s:Board.change = a:key
   let s:Board.input = ''
   let s:Board.keys = 0
+  let s:Board.match = 0
   let l:len = len(a:key)
   let l:help = ''
   if (l:len == 1 && stridx('-=+:.', a:key) != -1) || (a:key == '>>')
@@ -924,18 +928,17 @@ function s:FindKey(key)
     let s:Board.keys = 1
     return 1
   elseif l:len
-    let l:list = s:GetKeys(a:key)
-    let l:len = len(l:list)
     let s:Board.keys = 1
-    if l:len == 1
+    let l:list = s:GetKeys(a:key)
+    let s:Board.match = len(l:list)
+    if !s:Board.match && (a:key == '/' || a:key == ';')
+      let s:Board.input = a:key
+      return 1
+    elseif s:Board.match == 1
       if a:key == l:list[0]
         return 1
       endif
       let s:Board.input = l:list[0]
-    elseif !l:len && (a:key == '/' || a:key == ';')
-      let s:Board.input = a:key
-      let s:Board.keys = 1
-      return 1
     endif
     let l:help = join(l:list, '  ')
     let l:left = max([len(s:Board.menu) - len(l:help)/2 + 1, 7])
