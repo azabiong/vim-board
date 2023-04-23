@@ -74,7 +74,7 @@ default shortcut is a single quote and space if available.
 ```lua
   vim.g.BoardPath = '~/.vim/after/vim-board'
 
-  vim.api.nvim_set_keymap('n', "'<Space>", '<Plug>(BoardMenu)', {})
+  vim.keymap.set('n', "'<Space>", '<Plug>(BoardMenu)')
 ```
 </details>
 

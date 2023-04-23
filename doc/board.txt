@@ -272,7 +272,7 @@ Board menu ~
 <
     nvim .lua
 >
-      vim.api.nvim_set_keymap('t', '<C-\\><C-\\>', '<Plug>(BoardTermCd)', {})
+      vim.keymap.set('t', '<C-\\><C-\\>', '<Plug>(BoardTermCd)')
 <
                                                                    *Board:speed*
 Board speed ~
