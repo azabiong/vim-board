@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.20
+" Version: 1.20.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.20'
+let s:Version = '1.20.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -489,6 +489,7 @@ endfunction
 
 function s:SetBoard()
   setl ft=board et ts=4 sts=4 sw=0 nonu
+  syn sync minlines=200
 endfunction
 
 function s:SetSyntax(op=0)
