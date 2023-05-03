@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.19.2
+" Version: 1.20
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.19.2'
+let s:Version = '1.20'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -29,14 +29,13 @@ let s:Sentence = ['if', 'for', 'while']
 aug Board
   au!
   au BufRead,BufNewFile *.board,*.bd set ft=board
-  au BufWritePre        *.board,*.bd call <SID>BufWritePre()
-  au BufWritePost       *.board,*.bd call <SID>BufWritePost()
   au BufReadPost        *.board,*.bd call <SID>BufReadPost()
+  au BufWritePost       *.board,*.bd call <SID>BufWritePost()
   au ColorScheme        *            call <SID>ColorScheme()
 aug END
 
 function s:Load()
-  if exists("s:Loaded") | return | endif
+  if exists("s:Ready") | return | endif
 
   call s:LoadColors()
   if exists("*popup_create")
@@ -46,7 +45,7 @@ function s:Load()
   else
     let s:Help.Update = function('s:Nop')
   endif
-  let s:Loaded = 1
+  let s:Ready = 1
 endfunction
 
 function s:LoadColors()
@@ -488,26 +487,6 @@ function s:UnloadLinks()
   call s:Prompt()
 endfunction
 
-function s:SetSyntaxGuide()
-  let [i, l:end] = [0, line('$')]
-  let l:guide = ' '
-  while i <= l:end
-    let i += 1
-    let l:line = getline(i)
-    let l:char = l:line[0]
-    if l:char == '#' || empty(trim(l:line))
-    elseif l:char == '-'
-      let l:guide = ' '
-    elseif match(l:line, '^:\S') == 0
-      let l:guide = ':'
-    elseif match(l:line, '^[^|: ]') == 0
-      let l:guide = '|'
-    elseif l:char != l:guide
-      call setline(i, l:guide.l:line[1:])
-    endif
-  endwhile
-endfunction
-
 function s:SetBoard()
   setl ft=board et ts=4 sts=4 sw=0 nonu
 endfunction
@@ -523,6 +502,18 @@ function s:SetSyntax(op=0)
     let b:Board.syntax = 'on'
   endif
   setl fdm=marker nonu
+endfunction
+
+function s:SetSyntaxGuide()
+  let [i, l:end] = [0, line('$')]
+  while i <= l:end
+    let i += 1
+    let l:line = getline(i)
+    let l:char = l:line[0]
+    if l:char == '|' || (l:char == ':' && l:line !~ '^:\w')
+      call setline(i, ' '.l:line[1:])
+    endif
+  endwhile
 endfunction
 
 function s:SetSpeed(freq)
@@ -692,6 +683,7 @@ function s:InputLong(...)
   cno <buffer><expr><C-C> <SID>Stop()
   cno <buffer><expr><CR>  <SID>Enter()
   cno <buffer><expr><C-J> <SID>Enter()
+  exe 'cno <buffer>'.&cedit '<Nop>'
 
   call inputsave()
   echohl BoardGroup
@@ -742,6 +734,7 @@ function s:InputShort()
   cno <buffer><expr><C-J> <SID>Enter()
   cno <buffer><expr><CR>  <SID>Enter()
   cno <buffer><nowait><Esc> <Esc>
+  exe 'cno <buffer>'.&cedit '<Nop>'
 
   let s:Input.reltime = reltime()
   let s:Input.timer = timer_start(s:Input.interval, function('s:InputCheck'))
@@ -809,29 +802,6 @@ function s:Edit()
   endif
 endfunction
 
-function s:Indent(mode)
-  let l:row = line('.')
-  let l:col = col('.')
-  if a:mode == 'O'
-    let l:row -= 1
-  endif
-  let l:line = getline('.')
-  let l:indent = empty(trim(l:line)) ? l:col-1 : len(matchstr(l:line, '\v[|:]?\s*'))
-  let l:spaces = repeat(' ', l:indent)
-  let l:keys = ''
-  if a:mode == 'i'
-    let l:left = (l:col > 1) ? l:line[:l:col-2] : ''
-    let l:right = trim(l:line[l:col-1:])
-    call setline('.', l:left)
-    call append('.', l:spaces.l:right)
-    let l:keys = "\<Esc>j"
-  else
-    call append(l:row, l:spaces))
-    call cursor(l:row+1, 0)
-  endif
-  call feedkeys(l:keys.'I', 'n')
-endfunction
-
 function s:SelectWin()
   if !empty(&buftype) && !&modifiable && index(['help', 'terminal'], &buftype) == -1
     for i in range(winnr('$'), 1, -1)
@@ -871,6 +841,7 @@ function s:CmdlineLeave(board)
     cu <buffer><C-C>
     cu <buffer><CR>
     cu <buffer><Esc>
+    exe 'cu <buffer>'.&cedit
   endif
   call s:Help.Update(0)
 endfunction
@@ -947,10 +918,10 @@ function s:FindKey(key)
   call s:Help.Update(1, l:help)
 endfunction
 
-function s:BufWritePre()
-  if s:Loaded()
-    call s:SetSyntaxGuide()
-  endif
+function s:BufReadPost()
+  call s:SetSyntaxGuide()
+  syn sync minlines=200
+  setl nonu
 endfunction
 
 function s:BufWritePost()
@@ -959,20 +930,14 @@ function s:BufWritePost()
   endif
 endfunction
 
-function s:BufReadPost()
-  ino <buffer><CR> <Cmd>call <SID>Indent('i')<CR>
-  nn  <buffer>o    <Cmd>call <SID>Indent('o')<CR>
-  nn  <buffer>O    <Cmd>call <SID>Indent('O')<CR>
-  setl nonu
-endfunction
-
 function s:ColorScheme()
   call s:LoadColors()
 endfunction
 
 function board#Menu()
-  let l:reg = g:BoardRegister[0]
   let l:buf = bufname()
+  if l:buf == '[Command Line]' | return | endif
+  let l:reg = g:BoardRegister[0]
   let l:board = s:BoardFile(l:buf)
   if match(l:reg, '[a-z]') != -1
     call setreg(l:reg, fnamemodify(l:buf, ':~'))

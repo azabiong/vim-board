@@ -36,19 +36,23 @@ syn match BoardEmpty "^[|:]\s*$" contained contains=BoardGuide
 syn match BoardLed1 "\[[^]]*]" contained contains=BoardBracket
 syn match BoardLed2 "{[^}]*}" contained contains=BoardBracket
 syn match BoardLed3 "\v\<[^\>]*\>" contained contains=BoardBracket
+syn match BoardMarker "`[^`]*`" contained contains=BoardBacktick
 syn match BoardBracket "[\[\]\{\}\<\>]" contained
-syn match BoardMarker "`[^`]*`" contained
+syn match BoardBacktick "`" contained
 syn match BoardGuide "^[|:]" contained
 syn match BoardTodo "\<Todo\>\c" contained
 syn match BoardJumper " \zs[|&]:\=" contained
-syn match BoardComment "\v(^[|:]? *| +)#.*$" contains=BoardGuide,BoardTodo
 syn match BoardPlain "^[|:]\?\s*-.*$" contains=BoardGuide
+syn match BoardComment "\v(^[|:]? *| +)#.*$" contained contains=BoardGuide,BoardTodo
+syn match BoardCommentLine "^\s*#.*$"
 
 hi def link BoardHelp StatusLine
 hi def link BoardCfgType PreProc
-hi def link BoardComment Comment
 hi def link BoardJumper Operator
+hi def link BoardBacktick BoardGuide
 hi def link BoardTodo Todo
+hi def link BoardComment Comment
+hi def link BoardCommentLine Comment
 
 set cms=#%s
 let b:current_syntax = "board"
