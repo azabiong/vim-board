@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.20.2
+" Version: 1.20.3
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
 
-let s:Version = '1.20.2'
+let s:Version = '1.20.3'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -31,7 +31,7 @@ aug Board
   au BufRead,BufNewFile *.board,*.bd set ft=board
   au BufReadPost        *.board,*.bd call <SID>BufReadPost()
   au BufWritePost       *.board,*.bd call <SID>BufWritePost()
-  au ColorScheme        *            call <SID>ColorScheme()
+  au ColorScheme        * call <SID>ColorScheme()
 aug END
 
 function s:Load()
@@ -62,7 +62,7 @@ function s:LoadColors()
         \ ['BoardBracket',    'ctermfg=243 ctermbg=238  cterm=NONE guifg=#787a78 guibg=#404242 gui=NONE'],
         \ ['BoardMarker',     'ctermfg=114 ctermbg=NONE cterm=bold guifg=#88c888 guibg=NONE    gui=bold'],
         \ ['BoardGuide',      'ctermfg=59  ctermbg=NONE cterm=NONE guifg=#606060 guibg=NONE    gui=NONE'],
-        \ ['BoardPlus',       'ctermfg=189 ctermbg=NONE cterm=NONE guifg=#cceaf8 guibg=NONE    gui=bold'],
+        \ ['BoardPlus',       'ctermfg=189 ctermbg=NONE cterm=bold guifg=#cceaf8 guibg=NONE    gui=bold'],
         \ ['BoardSpecial',    'ctermfg=179 ctermbg=NONE cterm=bold guifg=#e69f6c guibg=NONE    gui=bold'],
         \ ['BoardEqual',      'ctermfg=183 ctermbg=NONE cterm=NONE guifg=#e0acf8 guibg=NONE    gui=NONE'],
         \ ['BoardColon',      'ctermfg=180 ctermbg=NONE cterm=NONE guifg=#cfa080 guibg=NONE    gui=NONE'],
@@ -82,7 +82,7 @@ function s:LoadColors()
         \ ['BoardBracket',    'ctermfg=248 ctermbg=188  cterm=NONE guifg=#a8a8a8 guibg=#d8d8d8 gui=NONE'],
         \ ['BoardMarker',     'ctermfg=28  ctermbg=NONE cterm=bold guifg=#008000 guibg=NONE    gui=bold'],
         \ ['BoardGuide',      'ctermfg=252 ctermbg=NONE cterm=NONE guifg=#cccccc guibg=NONE    gui=NONE'],
-        \ ['BoardPlus',       'ctermfg=63  ctermbg=NONE cterm=NONE guifg=#5f5fff guibg=NONE    gui=bold'],
+        \ ['BoardPlus',       'ctermfg=63  ctermbg=NONE cterm=bold guifg=#5f5fff guibg=NONE    gui=bold'],
         \ ['BoardSpecial',    'ctermfg=130 ctermbg=NONE cterm=bold guifg=#a04f00 guibg=NONE    gui=bold'],
         \ ['BoardEqual',      'ctermfg=91  ctermbg=NONE cterm=NONE guifg=#8200a8 guibg=NONE    gui=NONE'],
         \ ['BoardColon',      'ctermfg=52  ctermbg=NONE cterm=NONE guifg=#6c2418 guibg=NONE    gui=NONE'],
