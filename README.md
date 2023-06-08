@@ -4,12 +4,11 @@
 
 <p><h6> &nbsp;&nbsp; ver 1.20 </h6></p>
 
-This plugin introduces a file type `board` where you can easily write notes,
-and define shortcuts to directories, files, and various commands.
+This plugin introduces a file type `board` where you can write quick notes and shortcuts to files, directories and some commands.
 
 #### Feature 1
 
-> After assigning a `Key` to the plugin, you can take quick notes on the board at any time while editing using:
+> After setting up a `Key`, you can bring up the board at any time during editing using:
 >
 > &nbsp; &nbsp; &nbsp; `Key` <kbd>Enter</kbd>
 >
@@ -69,7 +68,7 @@ default shortcut is a single quote and space if available.
 ```
 
 <details>
-<summary><b>&nbsp; nvim &nbsp;.lua </b></summary>
+<summary><b>&nbsp; lua </b></summary>
 
 ```lua
   vim.g.BoardPath = '~/.vim/after/vim-board'

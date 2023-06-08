@@ -25,13 +25,12 @@ CONTENTS                                                            *Vim-Board*
 ------------------------------------------------------------------------------
 INTRODUCTION                                                *Board-Introduction*
 
-This plugin introduces a file type `board` where you can easily write notes, and
-define shortcuts to directories, files, and various commands.
+This plugin introduces a file type `board` where you can write quick notes, some
+shortcuts to files and directories and commands.
 
-Feature 1~
+Feature 1 ~
 
- After assigning a '`Key`' to the plugin, you can take quick notes on the board
- at any time while editing using:
+ After setting up a `Key`, you can bring up the board at any time during editing using:
 >
       Key Enter
 <
@@ -39,7 +38,7 @@ Feature 1~
 >
       Key Esc
 <
-Feature 2~
+Feature 2 ~
 
  You can easily define shortcuts to directories, files, and commands on the board
  using simple `key-value` pairs. For example:
@@ -83,7 +82,7 @@ the following keys:
 
         <Enter>   edit current board
          <Esc>    return
-           ;      return `optional`
+           ;      return `(optional)`
         <Space>   scroll down
          <Down>   scroll down
           <Up>    scroll up
@@ -92,7 +91,7 @@ the following keys:
            =      switch to main board
            +      add new board
            :      command-line mode
-           /      search `optional`
+           /      search `(optional)`
 
 For manually opened boards, you can activate links on the board by pressing the `.` key.
 To unload links, press `>``>` .
@@ -127,11 +126,11 @@ Section ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
     characters except those that start with some predefined characters.
 
-    Available leading characters:~
+    Available leading characters: ~
 
         ~`!@$%^&*_()[]{}<>'";,\/? 0-9 a-z A-Z and Unicode characters
 
-    Used in the menu and syntax:~
+    Used in the menu and syntax: ~
 
         -  previous     #  comment
         =  main         |  command
@@ -270,7 +269,7 @@ Board menu ~
 >
       tmap <C-\><C-\>  <Plug>(BoardTermCd)
 <
-    nvim .lua
+    lua
 >
       vim.keymap.set('t', '<C-\\><C-\\>', '<Plug>(BoardTermCd)')
 <
