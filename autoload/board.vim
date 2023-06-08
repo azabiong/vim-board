@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.20.3
+" Version: 1.20.4
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -12,16 +12,16 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
-let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 225)
+let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.20.3'
+let s:Version = '1.20.4'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
                \ scratch:#{ pad:-1, name:' Board* '},
                \ }
 let s:Links = #{ bufnr:{'key':'path'}, order:[] }
-let s:Input = #{ timer:0, interval:25, wait:225, reltime:0 }
+let s:Input = #{ timer:0, interval:20, wait:220, reltime:0 }
 let s:Help  = #{ Update:'', win:0, buf:-1 }
 let s:KeyMap = {'+':"4\<C-E>", '-':"4\<C-Y>", 'v':"\<C-F>", '^':"\<C-B>"}
 let s:Sentence = ['if', 'for', 'while']
