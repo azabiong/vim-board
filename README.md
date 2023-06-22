@@ -88,7 +88,7 @@ Now, save the changes and reload the plugin.
 
 Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most recently used `board`.
 
-<img height="26" alt="menu" src="https://user-images.githubusercontent.com/83812658/164972992-a76fd0b7-a5c8-4403-ab40-690ced07d21d.gif"> <br>
+<img height="26" alt="menu" src="https://github.com/azabiong/vim-board/assets/83812658/b3958bdf-f6b9-4f2c-84f0-6de6054ad35b">
 
 You can enter keys defined on the `board`, or switch between boards using the following keys:
 
