@@ -21,15 +21,15 @@ Section
     [  one  ]  {  two  }  < three >
 
     # simple checklist, or Todo
-    o  active item
-    -  inactive or done
-    +  new item
-    *  special
-    =  description
-    :  explanation
-    ?  question
-    !  notice
-    &  more
+    o active item
+    - inactive or done
+    + new item
+    * special
+    = description
+    : explanation
+    ? question
+    ! notice
+    & more
         T E X`T`
 
 - Plain Text Section (with a hyphen)

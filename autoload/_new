@@ -35,13 +35,13 @@ vim-board
 
 S [E]{C}<T>`I`O N
     # simple checklist, or Todo
-    o  active item
-    -  inactive or done
-    +  new item
-    *  special
-    =  description
-    :  explanation
-    ?  question
-    !  notice
-    &  more
+    o active item
+    - inactive or done
+    + new item
+    * special
+    = description
+    : explanation
+    ? question
+    ! notice
+    & more
         T E X`T`
