@@ -4,7 +4,8 @@
 
 <p><h6> &nbsp;&nbsp; ver 1.20 </h6></p>
 
-This plugin introduces a file type `board` where you can write quick notes and shortcuts to files, directories and some commands.
+This plugin introduces a file type `board` where you can write quick notes and some shortcuts to files,
+directories and additional commands.
 
 #### Feature 1
 
@@ -89,7 +90,7 @@ Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most
 
 <img height="26" alt="menu" src="https://user-images.githubusercontent.com/83812658/164972992-a76fd0b7-a5c8-4403-ab40-690ced07d21d.gif"> <br>
 
-You can enter keys that you defined on the `board`, or switch between boards with the following keys:
+You can enter keys defined on the `board`, or switch between boards using the following keys:
 
 <details>
 <summary><b> keys </b></summary>
@@ -109,9 +110,9 @@ You can enter keys that you defined on the `board`, or switch between boards wit
   |<kbd>+</kbd>    |add new board|
   |<kbd>:</kbd>    |command-line mode|
   |<kbd>/</kbd>    |search (optional)|
+  |<kbd>.</kbd>    |load links|
+  |<kbd>></kbd><kbd>></kbd> |unload links|
 
- For manually opened boards, you can activate links on the board by pressing the <kbd>.</kbd> key.  
- To unload links, press <kbd>></kbd><kbd>></kbd>
 </details>
 <br>
 
@@ -162,13 +163,13 @@ Used in the menu and syntax:
     :  command
 ```
 
-### Long key
+The same key can be defined differently on each board.  
 
-You only need to enter the unique prefix part of the key. For example,
-if you define a long key `xylophone` and no key starts with `xy`,
+### Long keys
+
+Long keys can be activated by typing only the unique prefix portion of the key.
+For example, if you define a long key `xylophone` and no key starts with `xy`,
 you can open the link with `xy` <kbd>Enter</kbd>.  
-<br>
-You can also define the same key differently on each board.
 
 <br>
 </details>
@@ -255,7 +256,7 @@ Multi-line commands &nbsp;can be set using the leading bar `|` character.
 
 ### Link reference
 
-You can refer to other links by using the `&` symbol. For example:
+You can refer to other links using the `&` symbol. For example:
 ```vim
         _N  | NERDTreeCWD
         \d1 ~/Directory/ | &_N

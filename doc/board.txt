@@ -25,8 +25,8 @@ CONTENTS                                                            *Vim-Board*
 ------------------------------------------------------------------------------
 INTRODUCTION                                                *Board-Introduction*
 
-This plugin introduces a file type `board` where you can write quick notes, some
-shortcuts to files and directories and commands.
+This plugin introduces a file type `board` where you can write quick notes and
+some shortcuts to files, directories and additional commands.
 
 Feature 1 ~
 
@@ -75,10 +75,10 @@ MENU                                                                *Board-Menu*
 Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most
 recently used `board`.
 >
-    Board (-)prev(=)main(+)new(;)return  _
+    Board (-)prev(=)main(+)new  _
 <
-You can enter keys that you defined on the `board`, or switch between boards with
-the following keys:
+You can enter keys defined on the `board`, or switch between boards using the
+following keys:
 
         <Enter>   edit current board
          <Esc>    return
@@ -92,9 +92,8 @@ the following keys:
            +      add new board
            :      command-line mode
            /      search `(optional)`
-
-For manually opened boards, you can activate links on the board by pressing the `.` key.
-To unload links, press `>``>` .
+           .      load links
+           >>     unload links
 
 ------------------------------------------------------------------------------
 BOARD SYNTAX                                                      *Board-Syntax*
@@ -138,12 +137,12 @@ Section ~
         .  load
         :  command
 
-    Long key ~
-    You only need to enter the unique prefix part of the key. For example, if
-    you define a long key `xylophone` and no key starts with `xy`, you can open
-    the link with `xy` <Enter>.
+    The same key can be defined differently on each board.
 
-    You can also define the same key differently on each board.
+    Long keys ~
+    Long keys can be activated by typing only the unique prefix portion of the key.
+    For example, if you define a long key `xylophone` and no key starts with `xy`,
+    you can open the link with `xy` <Enter>.
                                                                     *Board-Path*
  Path ~
     To easily define a link to a file, the plugin supports copying the current
@@ -209,7 +208,7 @@ Section ~
             | echo 'bar'
 <
  Link reference ~
-    You can refer to other links by using the `&` symbol. For example:
+    You can refer to other links using the `&` symbol. For example:
 >
         _N  | NERDTreeCWD
         \d1 ~/Directory/ | &_N
