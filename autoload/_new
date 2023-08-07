@@ -25,15 +25,13 @@ _
 
 
 # syntax example
-vim-board
-    * Command processing `100 Hz`
-    & Low power LED
+Section
+    Group :brief `marker` # comment
+        T E X`T`
+
+    * surround type `marker`
     [  LED-1  ]  {  LED-2  }  <  LED-3  >
 
-- Plain Text Section (with a hyphen)
-    * plain text
-
-S [E]{C}<T>`I`O N
     # simple checklist, or Todo
     o active item
     - inactive or done
@@ -44,4 +42,7 @@ S [E]{C}<T>`I`O N
     ? question
     ! notice
     & more
-        T E X`T`
+
+- Plain Text Section (with a hyphen)
+    * plain text
+

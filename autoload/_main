@@ -30,6 +30,8 @@ Section
     ? question
     ! notice
     & more
+
+    Group :brief `marker` # comment
         T E X`T`
 
 - Plain Text Section (with a hyphen)
