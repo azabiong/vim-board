@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.20.4
+" Version: 1.21
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.20.4'
+let s:Version = '1.21'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -286,7 +286,7 @@ function s:RunLink(key)
     call s:Restore(l:base)
   elseif isdirectory(l:path)
     if &lazyredraw | redraw | endif
-    exe "cd" l:path
+    exe "tcd" l:path
     call s:Restore(l:base)
     echohl BoardGroup | echo ' '.l:info | echohl None
   else
@@ -295,7 +295,7 @@ function s:RunLink(key)
     else
       let l:path = s:Board.path.'/'.l:path
       if !filereadable(l:path)
-        call s:Warning(' * Path not found  '.l:info.' ('.l:link.board.'  '.a:key.')')
+        call s:Warning(' * Path not found ('.l:link.board.'  '.a:key.') '.l:info)
         return 0
       endif
     endif
@@ -813,7 +813,7 @@ function s:SelectWin()
       endif
     endfor
   endif
-  if &filetype != 'board'
+  if &filetype != 'board' && !empty(bufname())
     let w:BoardOverlap = {'buf':bufnr(), 'view':winsaveview()}
   endif
 endfunction
