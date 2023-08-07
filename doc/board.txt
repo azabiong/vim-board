@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.20`
+                                                                     `ver 1.21`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -336,6 +336,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.21
+    Add syntax type :brief
 1.20~
     Improve syntax, option menu key
 1.19~
@@ -350,7 +352,7 @@ LOG                                                                  *Board-Log*
     Add default color set
 1.15~
     Add syntax guide characters
-    Add more syntax type '&*`'
+    Add syntax type &*`
 1.12~
     Support inline comment
     Add syntax type '?!'
