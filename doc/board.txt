@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                     `ver 1.21`
+                                                                     `ver 1.22`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Menu                  |Board-Menu|
@@ -208,7 +208,8 @@ Section ~
             | echo 'bar'
 <
  Link reference ~
-    You can refer to other links using the `&` symbol. For example:
+    Links that have already been defined can be referenced using the '&' symbol.
+    For example:
 >
         _N  | NERDTreeCWD
         \d1 ~/Directory/ | &_N
@@ -336,7 +337,9 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.21
+1.22~
+    Imporve syntax combination
+1.21~
     Add syntax type :brief
 1.20~
     Improve syntax, option menu key

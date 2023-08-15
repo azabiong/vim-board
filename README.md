@@ -2,10 +2,10 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.21 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.22 </h6></p>
 
-This plugin introduces a file type `board` where you can write quick notes and some shortcuts to files,
-directories and additional commands.
+This plugin introduces a file type `board` where you can write quick notes and some shortcuts to
+files, directories and additional commands.
 
 #### Feature 1
 
@@ -256,7 +256,7 @@ Multi-line commands &nbsp;can be set using the leading bar `|` character.
 
 ### Link reference
 
-You can refer to other links using the `&` symbol. For example:
+Links that have already been defined can be referenced using the '&' symbol. for example:
 ```vim
         _N  | NERDTreeCWD
         \d1 ~/Directory/ | &_N
