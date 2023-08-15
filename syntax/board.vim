@@ -25,13 +25,14 @@ syn match BoardSection "^[^#:\- ].*$" contained contains=BoardLed1,BoardLed2,Boa
 syn match BoardGroup "\v^[|: ] {,3}\S.*$" contained contains=BoardGuide,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
 syn match BoardText "\v^[|: ] {4,}\S.*$" contained contains=BoardGuide,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
 syn match BoardCfgType "\v^:\S.*$" contained contains=BoardBrief,BoardComment
-syn match BoardSpecial "^[|:]\?\s*\*.*$" contained contains=BoardGuide,BoardSign,BoardMarker,BoardBrief,BoardComment
-syn match BoardPlus "^[|:]\?\s*+.*$" contained contains=BoardGuide,BoardSign,BoardMarker,BoardBrief,BoardComment
-syn match BoardEqual "^[|:]\?\s*=.*$" contained contains=BoardGuide,BoardSign,BoardMarker,BoardBrief,BoardComment
-syn match BoardColon "^[|:]\?\s\+:.*$" contained contains=BoardGuide,BoardSign,BoardMarker,BoardBrief,BoardComment
-syn match BoardAmpersand "^[|:]\?\s*&.*$" contained contains=BoardGuide,BoardSign,BoardMarker,BoardBrief,BoardComment
-syn match BoardQuestion "^[|:]\?\s*?.*$" contained contains=BoardGuide,BoardSign,BoardMarker,BoardBrief,BoardComment
-syn match BoardExclamation "^[|:]\?\s*!.*$" contained contains=BoardGuide,BoardSign,BoardMarker,BoardBrief,BoardComment
+syn match BoardSpecial "^[|:]\?\s*\*.*$" contained contains=BoardGuide,BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
+syn match BoardPlus "^[|:]\?\s*+.*$" contained contains=BoardGuide,BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
+syn match BoardEqual "^[|:]\?\s*=.*$" contained contains=BoardGuide,BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
+syn match BoardColon "^[|:]\?\s\+:.*$" contained contains=BoardGuide,BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
+syn match BoardAmpersand "^[|:]\?\s*&.*$" contained contains=BoardGuide,BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
+syn match BoardQuestion "^[|:]\?\s*?.*$" contained contains=BoardGuide,BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
+syn match BoardExclamation "^[|:]\?\s*!.*$" contained contains=BoardGuide,BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
+syn match BoardBrief " :.*$" contained contains=BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
 syn match BoardLink "\v^[: ] {4,}\S.*$" contained contains=BoardGuide,BoardJumper
 syn match BoardEmpty "^[|:]\s*$" contained contains=BoardGuide
 syn match BoardLed1 "\[[^]]*]" contained contains=BoardBracket
@@ -45,7 +46,6 @@ syn match BoardGuide "^[|:]" contained
 syn match BoardTodo "\<Todo\>\c" contained
 syn match BoardJumper " \zs[|&]:\=" contained
 syn match BoardPlain "^[|:]\?\s*-.*$" contains=BoardGuide
-syn match BoardBrief " :[^\[\{\<`]*" contained contains=BoardSign,BoardComment
 syn match BoardComment "\v(^[|:]? *| +)#.*$" contained contains=BoardGuide,BoardTodo
 syn match BoardCommentLine "^\s*#.*$"
 
