@@ -22,13 +22,13 @@ files, directories and additional commands.
 > You can easily define shortcuts to directories, files, and commands on the board using simple **key-value** pairs.
 > For example:
 > ```
->   \t  ~/Documents/Terms/
->    v  ~/.vimrc
+>   \dt  ~/Documents/Terms/
+>    v   ~/.vimrc
 > ```
 > Immediately after saving, you can use the following key sequences to change the
 > current working directory, or open the file:
 >
-> &nbsp; &nbsp; &nbsp; `Key` `\t`
+> &nbsp; &nbsp; &nbsp; `Key` `\dt`
 >
 > &nbsp; &nbsp; &nbsp; `Key` `v`
 
@@ -136,8 +136,8 @@ and can have different syntax depending on its type.
  The plugin loads the shortcut links defined in this section. The following example defines
  two links:
  ```
-        \p  ~/Languages/Python/
-        pn  ~/Languages/Python/notes.py
+      \py  ~/Languages/Python/
+       pn  ~/Languages/Python/notes.py
  ```
 
  Each link is a simple space-separated **key-value** pair, and uses the same
@@ -191,7 +191,7 @@ To paste the path stored in register `b` in insert mode:
 When switching to another board stored in the `BoardPath` directory,
 you can omit the path and specify only the file name.&nbsp; For example:
 ```vim
-        'a  another.board
+      'a  another.board
 ```
 Switching boards using the defined keys will automatically load the links defined on the board.
 
@@ -206,17 +206,17 @@ Additional commands can be added using the `|` bar character.
 
 For example, to browse files after changing the current working directory:
 ```vim
-        \p  ~/Languages/Python/ | edit .
+      \py  ~/Languages/Python/ | edit .
 ```
 
 After opening the file, to go to the line 128:
 ```vim
-        pn  ~/Languages/Python/notes.py | 128
+       pn  ~/Languages/Python/notes.py | 128
 ```
 
 More commands can be combined together:
 ```vim
-        \d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
+      \d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 ```
 
 ### Commands only 
@@ -225,41 +225,41 @@ You can also define just a list of commands without specifying a file or directo
 
 For example, to define a command that copies frequently used commands or strings to the clipboard:
 ```vim
-        c1  | let @+ = "copy this string to the clipboard"
+      cs1 | let @+ = "copy this string to the clipboard"
 ```
 
 To define a substitution command:
 ```vim
-        sub | %s/Foo/Bar/gc
+      ss  | %s/Foo/Bar/gc
 ```
 
 To define a set of temporary key-maps:
 ```vim
-        key | nn f0 <Cmd>echo 0<CR>
-            | nn f9 <Cmd>echo 9<CR>
+      key | nn f0 <Cmd>echo 0<CR>
+          | nn f9 <Cmd>echo 9<CR>
 ```
 
 To define some input from the shell tool to the scratchpad, `Board*`:
 ```vim
-        s1  | Board* | r! echo "This is the scratchpad on the Board"
-        s2  | Board* | r! curl -sI example.com
+      sh1 | Board* | r! echo "This is the scratchpad on the Board"
+      sh2 | Board* | r! curl -sI example.com
 ```
 
 ### Multi-line commands
 
 Multi-line commands &nbsp;can be set using the leading bar `|` character.
 ```vim
-        bar ~/directory/or_file
-            | echo 'foo'
-            | echo 'bar'
+      bar ~/directory/or_file
+          | echo 'foo'
+          | echo 'bar'
 ```
 
 ### Link reference
 
 Links that have already been defined can be referenced using the '&' symbol. for example:
 ```vim
-        _N  | NERDTreeCWD
-        \d1 ~/Directory/ | &_N
+      _N  | NERDTreeCWD
+      \d1 ~/Directory/ | &_N
 ```
 
 ### Command-line mode
@@ -268,8 +268,8 @@ When using the `|` bar character as a shell `pipe` or other meaning, you can
 switch to command-line mode input by adding a colon `:` after the bar.
 
 ```vim
-        s3  | Board* |: r! ls | wc
-        s4  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
+      sh3 | Board* |: r! ls | wc
+      sh4 | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit }'
 ```
 
 ### Stop command

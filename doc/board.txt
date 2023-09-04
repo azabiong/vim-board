@@ -43,13 +43,13 @@ Feature 2 ~
  You can easily define shortcuts to directories, files, and commands on the board
  using simple `key-value` pairs. For example:
 >
-      \t  ~/Documents/Terms/
-       v  ~/.vimrc
+      \dt  ~/Documents/Terms/
+       v   ~/.vimrc
 <
  Immediately after saving, you can use the following key sequences to change the
  current working directory, or open the file:
 >
-      Key \t
+      Key \dt
       Key v
 <
 ------------------------------------------------------------------------------
@@ -115,8 +115,8 @@ Section ~
  The plugin loads the shortcut links defined in this section. The following
  example defines two links:
 >
-        \p  ~/Languages/Python/
-        pn  ~/Languages/Python/notes.py
+        \py  ~/Languages/Python/
+         pn  ~/Languages/Python/notes.py
 <
  Each link is a simple space-separated `key-value` pair, and uses the same
  indentation as the `TEXT` field starting at column 6 or higher.
@@ -167,15 +167,15 @@ Section ~
 
     For example, to browse files after changing the current working directory:
 >
-        \p  ~/Languages/Python/ | edit .
+        \py  ~/Languages/Python/ | edit .
 <
     After opening the file, to go to the line 128:
 >
-        pn  ~/Languages/Python/notes.py | 128
+         pn  ~/Languages/Python/notes.py | 128
 <
     More commands can be combined together:
 >
-        \d1 ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
+        \d1  ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 <
  Commands only ~
     You can also define just a list of commands without specifying a file or
@@ -184,11 +184,11 @@ Section ~
     For example, to define a command that copies frequently used commands or
     strings to the clipboard:
 >
-        c1  | let @+ = "copy this string to the clipboard"
+        cs1 | let @+ = "copy this string to the clipboard"
 <
     To define a substitution command:
 >
-        sub | %s/Foo/Bar/gc
+        ss  | %s/Foo/Bar/gc
 <
     To define a set of temporary key-maps:
 >
@@ -197,8 +197,8 @@ Section ~
 <
     To define some input from the shell tool to the scratchpad, `Board*`:
 >
-        s1  | Board* | r! echo "This is the scratchpad on the Board"
-        s2  | Board* | r! curl -sI example.com
+        sh1 | Board* | r! echo "This is the scratchpad on the Board"
+        sh2 | Board* | r! curl -sI example.com
 <
  Multi-line commands ~
     Multi-line commands can be set using the leading bar `|` character.
@@ -218,8 +218,8 @@ Section ~
     When using the `|` bar character as a shell `pipe` or other meaning, you can
     switch to command-line mode input by adding a colon `:` after the bar.
 >
-        s3  | Board* |: r! ls | wc
-        s4  | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
+        sh3 | Board* |: r! ls | wc
+        sh4 | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
 <
  Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
@@ -253,12 +253,12 @@ Board start ~
     Start running another link.
 >
         _C  | echo 'a list of commands'
-        s   | if getcwd() =~ '/name' | Board start &_C | endif
+         s  | if getcwd() =~ '/name' | Board start &_C | endif
 <                                                                   *Board:stop*
 Board stop ~
     Stop running the current link.
 >
-        0   | lua if 0 then vim.cmd('Board stop') end | echo 'no output'
+         0  | lua if 0 then vim.cmd('Board stop') end | echo 'no output'
 <                                                                   *Board:menu*
 Board menu ~
     Bring up the |Board-Menu|
@@ -338,7 +338,7 @@ like to add, please feel free to open an issue.
 LOG                                                                  *Board-Log*
 
 1.22~
-    Imporve syntax combination
+    Improve syntax combination
 1.21~
     Add syntax type :brief
 1.20~
