@@ -11,11 +11,12 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                     `ver 1.22`
+                                                                     `ver 1.25`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
-                  Menu                  |Board-Menu|
                   Syntax                |Board-Syntax|
+                  Menu                  |Board-Menu|
+                  Links                 |Board-Links|
                   Customizing Colors    |Board-Customizing-Colors|
                   Commands              |Board-Commands|
                   Options               |Board-Options|
@@ -28,29 +29,16 @@ INTRODUCTION                                                *Board-Introduction*
 This plugin introduces a file type `board` where you can write quick notes and
 some shortcuts to files, directories and additional commands.
 
-Feature 1 ~
+Feature ~
 
- After setting up a `Key`, you can bring up the board at any time during editing using:
+ After setting a custom `Key`, you can use the following key sequence to bring up
+ the board:
 >
       Key Enter
 <
  and to return:
 >
       Key Esc
-<
-Feature 2 ~
-
- You can easily define shortcuts to directories, files, and commands on the board
- using simple `key-value` pairs. For example:
->
-      \dt  ~/Documents/Terms/
-       v   ~/.vimrc
-<
- Immediately after saving, you can use the following key sequences to change the
- current working directory, or open the file:
->
-      Key \dt
-      Key v
 <
 ------------------------------------------------------------------------------
 CONFIGURATION                                              *Board-Configuration*
@@ -66,8 +54,21 @@ The plugin default shortcut is `a single quote and space` if available.
     nmap '<Space> <Plug>(BoardMenu)
 <
 Now, save the changes and reload the plugin.
+
+------------------------------------------------------------------------------
+SYNTAX                                                            *Board-Syntax*
+
+The plugin uses `.board` and `.bd` as file extensions, and the syntax is simple.
+Each item can be marked differently with indentation and some leading characters.
+
+Section ~
+
+ The plugin uses sections to categorize content. Each section starts at the
+ beginning of a line, and can have different syntax depending on its type.
 >
- At this point, you can try out the features in the introduction section above.
+  Section
+      Group
+          TEXT
 <
 ------------------------------------------------------------------------------
 MENU                                                                *Board-Menu*
@@ -92,29 +93,16 @@ following keys:
            +      add new board
            :      command-line mode
            /      search `(optional)`
-           .      load links
-           >>     unload links
+           <      load links
+           >      unload links
 
 ------------------------------------------------------------------------------
-BOARD SYNTAX                                                      *Board-Syntax*
-
-The plugin uses `.board` and `.bd` as file extensions, and the file syntax is simple.
-Each item can be marked differently with indentation and some leading characters.
-
-Section ~
-
- The plugin uses sections to categorize content. Each section starts at the
- beginning of a line, and can have different syntax depending on its type.
->
-  Section
-      Group
-          TEXT
-<
-:Links section ~
+:LINKS SECTION                                                     *Board-Links*
 
  The plugin loads the shortcut links defined in this section. The following
  example defines two links:
 >
+ :Links
         \py  ~/Languages/Python/
          pn  ~/Languages/Python/notes.py
 <
@@ -127,14 +115,15 @@ Section ~
 
     Available leading characters: ~
 
-        ~`!@$%^&*_()[]{}<>'";,\/? 0-9 a-z A-Z and Unicode characters
+        ~!@$%^&*_()[]{}'`";,.\/? 0-9 a-z A-Z and Unicode characters
 
     Used in the menu and syntax: ~
 
         -  previous     #  comment
         =  main         |  command
         +  new
-        .  load
+        <  load
+        >  unload
         :  command
 
     The same key can be defined differently on each board.
@@ -184,7 +173,7 @@ Section ~
     For example, to define a command that copies frequently used commands or
     strings to the clipboard:
 >
-        cs1 | let @+ = "copy this string to the clipboard"
+        s1  | let @+ = "copy this string to the clipboard"
 <
     To define a substitution command:
 >
@@ -248,32 +237,21 @@ Board ~
 
 Board* ~
     Open the scratchpad. This can be useful when combined with shell commands.
+                                                                    *Board:menu*
+Board menu ~
+    Bring up the |Board-Menu|
                                                                    *Board:start*
 Board start ~
     Start running another link.
 >
         _C  | echo 'a list of commands'
-         s  | if getcwd() =~ '/name' | Board start &_C | endif
-<                                                                   *Board:stop*
+         c  | if getcwd() =~ '/name' | Board start &_C | endif
+<                                                                    *Board:stop*
 Board stop ~
     Stop running the current link.
 >
          0  | lua if 0 then vim.cmd('Board stop') end | echo 'no output'
-<                                                                   *Board:menu*
-Board menu ~
-    Bring up the |Board-Menu|
-                                                                   *BoardTermCd*
-<Plug>(BoardTermCd) ~
-    When using terminal window, synchronize current working directory with Vim
-    by running `cd` command. To map key `Ctrl`+`\\` for terminal window:
->
-      tmap <C-\><C-\>  <Plug>(BoardTermCd)
-<
-    lua
->
-      vim.keymap.set('t', '<C-\\><C-\\>', '<Plug>(BoardTermCd)')
-<
-                                                                   *Board:speed*
+<                                                                   *Board:speed*
 Board speed ~
     Set the command processing rate in proportion to `Hz` while running the
     current link, and restores the default value after processing.
@@ -298,6 +276,16 @@ Board speed ~
             | echo ' Eight'
             | echo ' Nine'
             | echo ' Done!'
+<                                                                  *BoardTermCd*
+<Plug>(BoardTermCd) ~
+    When using terminal window, synchronize current working directory with Vim
+    by running `cd` command. To map key `Ctrl`+`\\` for terminal window:
+>
+      tmap <C-\><C-\>  <Plug>(BoardTermCd)
+<
+    lua
+>
+      vim.keymap.set('t', '<C-\\><C-\\>', '<Plug>(BoardTermCd)')
 <
 ------------------------------------------------------------------------------
 OPTIONS                                                          *Board-Options*
@@ -337,12 +325,12 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.22~
-    Improve syntax combination
+1.25~
+    Support filetype plugin
+    Improve optional menu keys, BoardTermCd
+    Change menu keys - load(<), unload(>)
 1.21~
     Add syntax type :brief
-1.20~
-    Improve syntax, option menu key
 1.19~
     Support file extension *.bd
     Support optional search key '/'

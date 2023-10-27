@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.22
+" Version: 1.25
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.22'
+let s:Version = '1.25'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -25,28 +25,7 @@ let s:Input = #{ timer:0, interval:20, wait:220, reltime:0 }
 let s:Help  = #{ Update:'', win:0, buf:-1 }
 let s:KeyMap = {'+':"4\<C-E>", '-':"4\<C-Y>", 'v':"\<C-F>", '^':"\<C-B>"}
 let s:Sentence = ['if', 'for', 'while']
-
-aug Board
-  au!
-  au BufRead,BufNewFile *.board,*.bd set ft=board
-  au BufReadPost        *.board,*.bd call <SID>BufReadPost()
-  au BufWritePost       *.board,*.bd call <SID>BufWritePost()
-  au ColorScheme        * call <SID>ColorScheme()
-aug END
-
-function s:Load()
-  if exists("s:Ready") | return | endif
-
-  call s:LoadColors()
-  if exists("*popup_create")
-    let s:Help.Update = function('s:WinPopup')
-  elseif exists("*nvim_open_win")
-    let s:Help.Update = function('s:WinFloat')
-  else
-    let s:Help.Update = function('s:Nop')
-  endif
-  let s:Ready = 1
-endfunction
+let s:Optional = '/?;nNgGHML'
 
 function s:LoadColors()
   if has('gui_running') || (has('termguicolors') && &termguicolors) || &t_Co >= 256
@@ -233,13 +212,13 @@ function s:Process(key)
   let l:board = []  " [board, load, prompt]
   let l:current = (&filetype == 'board') ? expand('%:p') : s:Board.current
 
-  if     a:key == '>>'| return s:UnloadLinks()
+  if     a:key == '>' | return s:UnloadLinks()
   elseif a:key == '+' | return s:AddNewBoard()
   elseif a:key == '-' | let l:board = [s:Board.prev, 0, 1]
   elseif a:key == '=' | let l:board = [s:Board.main, 2, 1]
   elseif a:key == '.' | let l:board = [l:current, 0, 0]
   elseif a:key == '.?'| let l:board = [l:current, 0, 1]
-  elseif a:key == '=='| let l:board = [l:current, 1, 1]
+  elseif a:key == '<' | let l:board = [l:current, 1, 1]
                         if &modified && !s:ConfirmSave()
                           return s:Prompt()
                         endif
@@ -346,6 +325,8 @@ function s:OpenFile(path, load=0)
       if !s:Loaded()
         call s:LoadLinks(a:path, a:load)
       endif
+    elseif !s:Loaded()
+      call s:CheckLinks()
     endif
     call s:SetSyntax()
   endif
@@ -404,6 +385,12 @@ function s:Loaded()
   endif
 endfunction
 
+function s:CheckLinks(op=0)
+  if !exists("b:BoardLinks") || a:op
+    let b:BoardLinks = search('^:Links\c\>', 'nw')
+  endif
+endfunction
+
 function s:LoadLinks(path='', type=0)
   let l:board = empty(a:path) ? expand('%:p') : a:path
   let l:list = a:type == 2
@@ -449,18 +436,15 @@ endfunction
 " returns [] end_of_section,  [''] no_value,  ['key','path|cmd|cmd..']
 function s:ReadLine(num)
   let l:line = getline(a:num)
-  " section column 1
+  " section: column 1
   if !empty(line[0]) && stridx(':# ', line[0]) == -1
     return []
   endif
-  " key column > 5
+  " key: column > 5
   if match(l:line, '\v[: ]\ {4,}\S') != -1
-    if l:line[0] == ':'
-      let l:line = trim(l:line[1:])
-    else
-      let l:line = trim(l:line)
-    endif
-    if stridx('-+=.:#', line[0]) == -1
+    let l:index = l:line[0] == ':'
+    let l:line = trim(l:line[l:index:])
+    if stridx('-=+<>:#', line[0]) == -1
       let l:key = matchstr(l:line, '\S\+\ze')
       if l:key == '|'
         let l:key = ''
@@ -505,7 +489,7 @@ function s:SetSyntax(op=0)
   setl fdm=marker nonu
 endfunction
 
-function s:SetSyntaxGuide()
+function s:ClearSyntaxGuide()
   let [i, l:end] = [0, line('$')]
   while i <= l:end
     let i += 1
@@ -545,7 +529,7 @@ function s:RunCmd(...)
 
   let l:cmd = l:unit.cmd[l:unit.run]
   if !empty(l:cmd)
-    if match(l:cmd, '^\S\+\.board$\c') == 0
+    if match(l:cmd, '\v^\S+\.(board|bd)$\c') == 0
       let l:path = l:cmd
       if !filereadable(l:path)
         let l:path = s:Board.path.'/'.l:path
@@ -659,8 +643,8 @@ endfunction
 function s:InputLong(...)
   let l:menu = ' Board (-)prev(=)main(+)new'
   let l:loaded = s:Loaded()
-  if !l:loaded
-    let l:menu .= '(.)link'
+  if !l:loaded && get(b:,'BoardLinks', 0)
+    let l:menu .= '(<)link'
   else
     if !&modified && l:loaded > 1
      setl nobl
@@ -706,18 +690,14 @@ function s:InputLong(...)
     let [l:key, s:Board.match] = [';', 0]
   endif
 
-  if l:key == ':' || (l:key == '/' && !s:Board.match)
+  if l:key == ':' || (!s:Board.match && stridx(s:Optional, l:key) != -1)
     let s:Board.hold = ''
     return feedkeys(l:key)
   elseif l:key == ';' && !s:Board.match
     let s:Board.hold = ''
     call s:Restore(1)
-  elseif l:key == '.'
-    if !l:loaded
-      call s:Process('==')
-    else
-      setl bl
-    endif
+  elseif l:key == '<' && l:loaded
+    setl bl
   else
     call s:Process(l:key)
   endif
@@ -761,11 +741,11 @@ function s:InputShort()
     let [l:key, s:Board.match] = [';', 0]
   endif
 
-  if l:key == ':' || (l:key == '/' && !s:Board.match)
+  if l:key == ':' || (!s:Board.match && stridx(s:Optional, l:key) != -1)
     return feedkeys(l:key)
   else
     redraw | echo ''
-    if l:key == '.' || (l:key == ';' && !s:Board.match)
+    if l:key == '<' || (l:key == ';' && !s:Board.match)
       return
     else
       call s:Process(l:key)
@@ -847,6 +827,14 @@ function s:CmdlineLeave(board)
   call s:Help.Update(0)
 endfunction
 
+function s:CmdlineChanged(board)
+  let s:Input.reltime = reltime()
+  if s:FindKey(getcmdline())
+    let s:Board.enter = 1
+    call feedkeys("\<Esc>", 'n')
+  endif
+endfunction
+
 function s:OpenScratchpad()
   let l:buf = s:Board.scratch.pad
   if !bufexists(l:buf)
@@ -865,14 +853,6 @@ function s:OpenScratchpad()
     setl buftype=nofile bl noswapfile nofen nowrap nonu
   endif
   normal! G
-endfunction
-
-function s:CmdlineChanged(board)
-  let s:Input.reltime = reltime()
-  if s:FindKey(getcmdline())
-    let s:Board.enter = 1
-    call feedkeys("\<Esc>", 'n')
-  endif
 endfunction
 
 function s:Scroll(key)
@@ -895,7 +875,7 @@ function s:FindKey(key)
   let s:Board.match = 0
   let l:len = len(a:key)
   let l:help = ''
-  if (l:len == 1 && stridx('-=+:.', a:key) != -1) || (a:key == '>>')
+  if (l:len == 1 && stridx('-=+:<>', a:key) != -1)
     let s:Board.input = a:key
     let s:Board.keys = 1
     return 1
@@ -903,7 +883,7 @@ function s:FindKey(key)
     let s:Board.keys = 1
     let l:list = s:GetKeys(a:key)
     let s:Board.match = len(l:list)
-    if !s:Board.match && (a:key == '/' || a:key == ';')
+    if !s:Board.match && l:len == 1 && stridx(s:Optional, a:key) != -1
       let s:Board.input = a:key
       return 1
     elseif s:Board.match == 1
@@ -920,7 +900,7 @@ function s:FindKey(key)
 endfunction
 
 function s:BufReadPost()
-  call s:SetSyntaxGuide()
+  call s:ClearSyntaxGuide()
   syn sync minlines=200
   setl nonu
 endfunction
@@ -928,11 +908,34 @@ endfunction
 function s:BufWritePost()
   if s:Loaded()
     call s:LoadLinks()
+  else
+    call s:CheckLinks(1)
   endif
 endfunction
 
 function s:ColorScheme()
   call s:LoadColors()
+endfunction
+
+function board#Load()
+  if exists("s:Ready") | return | endif
+
+  call s:LoadColors()
+  if exists("*popup_create")
+    let s:Help.Update = function('s:WinPopup')
+  elseif exists("*nvim_open_win")
+    let s:Help.Update = function('s:WinFloat')
+  else
+    let s:Help.Update = function('s:Nop')
+  endif
+  let s:Ready = 1
+  aug Board
+    au!
+    au BufReadPost  *.board,*.bd call <SID>BufReadPost()
+    au BufWritePost *.board,*.bd call <SID>BufWritePost()
+    au ColorScheme  * call <SID>ColorScheme()
+  aug END
+  call s:BufReadPost()
 endfunction
 
 function board#Menu()
@@ -958,7 +961,7 @@ endfunction
 
 function board#TermCd()
   let l:op = has('win32') ? '/d ' : ''
-  let l:cd = 'cd '.l:op.fnamemodify(getcwd(), ':~')."\<CR>"
+  let l:cd = 'cd '.l:op.fnamemodify(getcwd(), ':~')->escape(' ')."\<CR>"
   if exists("*term_sendkeys")
     call term_sendkeys(bufnr(), l:cd)
   elseif exists("*chansend")
@@ -987,8 +990,6 @@ function board#Command(cmd)
     echo ' Board: no matching command: '.l:cmd
   endif
 endfunction
-
-call s:Load()
 
 let &cpo = s:cpo_save
 unlet s:cpo_save

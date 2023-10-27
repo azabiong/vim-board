@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.22
+" Version: 1.25
 
 scriptencoding utf-8
 if exists("g:loaded_vim_board")

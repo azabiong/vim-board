@@ -2,35 +2,20 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.22 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.25 </h6></p>
 
 This plugin introduces a file type `board` where you can write quick notes and some shortcuts to
 files, directories and additional commands.
 
-#### Feature 1
+### Feature
 
-> After setting up a `Key`, you can bring up the board at any time during editing using:
+> After setting a custom `Key`, you can use the following key sequence to bring up the board:
 >
 > &nbsp; &nbsp; &nbsp; `Key` <kbd>Enter</kbd>
 >
 > and to return:
 >
 > &nbsp; &nbsp; &nbsp; `Key` <kbd>Esc</kbd>
-
-#### Feature 2
-
-> You can easily define shortcuts to directories, files, and commands on the board using simple **key-value** pairs.
-> For example:
-> ```
->   \dt  ~/Documents/Terms/
->    v   ~/.vimrc
-> ```
-> Immediately after saving, you can use the following key sequences to change the
-> current working directory, or open the file:
->
-> &nbsp; &nbsp; &nbsp; `Key` `\dt`
->
-> &nbsp; &nbsp; &nbsp; `Key` `v`
 
 <br>
 
@@ -80,8 +65,23 @@ default shortcut is a single quote and space if available.
 
 Now, save the changes and reload the plugin.
 
-> At this point, you can try out the features in the introduction section above.
 
+<br>
+
+## Syntax
+
+The plugin uses `.board` and `.bd` as file extensions, and the syntax is simple.  
+Each item can be marked differently with indentation and some leading characters.
+
+### Section
+
+The plugin uses sections to categorize content. Each section starts at the beginning of a line,
+and can have different syntax depending on its type.
+
+<div style="display:inline-block">
+<img width="315" alt="board_light" src="https://user-images.githubusercontent.com/83812658/209437944-cdfc79bc-819b-4b38-9cf6-71edb80c0eff.png">
+<img width="315" alt="board_dark" src="https://user-images.githubusercontent.com/83812658/209437963-67ea4c14-1da6-40b0-939e-dfa4e6981ad6.png">
+</div><br>
 <br>
 
 ## Menu
@@ -110,34 +110,20 @@ You can enter keys defined on the `board`, or switch between boards using the fo
   |<kbd>+</kbd>    |add new board|
   |<kbd>:</kbd>    |command-line mode|
   |<kbd>/</kbd>    |search (optional)|
-  |<kbd>.</kbd>    |load links|
-  |<kbd>></kbd><kbd>></kbd> |unload links|
+  |<kbd><</kbd>    |load links|
+  |<kbd>></kbd>    |unload links|
 
 </details>
 <br>
 
-## Syntax
-
-The plugin uses `.board` and `.bd` as file extensions, and the file syntax is simple.  
-Each item can be marked differently with indentation and some leading characters.
-
-### Section
-
-The plugin uses sections to categorize content. Each section starts at the beginning of a line,
-and can have different syntax depending on its type.
-
-<div style="display:inline-block">
-<img width="315" alt="board_light" src="https://user-images.githubusercontent.com/83812658/209437944-cdfc79bc-819b-4b38-9cf6-71edb80c0eff.png">
-<img width="315" alt="board_dark" src="https://user-images.githubusercontent.com/83812658/209437963-67ea4c14-1da6-40b0-939e-dfa4e6981ad6.png">
-</div><br>
-
-### :Links Section
+## :Links Section
 
  The plugin loads the shortcut links defined in this section. The following example defines
  two links:
  ```
-      \py  ~/Languages/Python/
-       pn  ~/Languages/Python/notes.py
+ :Links
+        \py  ~/Languages/Python/
+         pn  ~/Languages/Python/notes.py
  ```
 
  Each link is a simple space-separated **key-value** pair, and uses the same
@@ -152,14 +138,15 @@ characters except those that start with some predefined characters.
 
 Available leading characters:
 ```
-    ~`!@$%^&*_()[]{}<>'";,\/? 0-9 a-z A-Z and Unicode characters
+    ~!@$%^&*_()[]{}'`";,.\/? 0-9 a-z A-Z and Unicode characters
 ```
 Used in the menu and syntax:
 ```
     -  previous     #  comment 
     =  main         |  command 
     +  new
-    .  load
+    <  load
+    >  unload
     :  command
 ```
 
@@ -225,7 +212,7 @@ You can also define just a list of commands without specifying a file or directo
 
 For example, to define a command that copies frequently used commands or strings to the clipboard:
 ```vim
-      cs1 | let @+ = "copy this string to the clipboard"
+      s1  | let @+ = "copy this string to the clipboard"
 ```
 
 To define a substitution command:
