@@ -73,15 +73,16 @@ Now, save the changes and reload the plugin.
 The plugin uses `.board` and `.bd` as file extensions, and the syntax is simple.  
 Each item can be marked differently with indentation and some leading characters.
 
+<div style="display:inline-block">
+<img width="315" alt="board_light" src="https://user-images.githubusercontent.com/83812658/209437944-cdfc79bc-819b-4b38-9cf6-71edb80c0eff.png">
+<img width="315" alt="board_dark" src="https://user-images.githubusercontent.com/83812658/209437963-67ea4c14-1da6-40b0-939e-dfa4e6981ad6.png">
+</div><br>
+
 ### Section
 
 The plugin uses sections to categorize content. Each section starts at the beginning of a line,
 and can have different syntax depending on its type.
 
-<div style="display:inline-block">
-<img width="315" alt="board_light" src="https://user-images.githubusercontent.com/83812658/209437944-cdfc79bc-819b-4b38-9cf6-71edb80c0eff.png">
-<img width="315" alt="board_dark" src="https://user-images.githubusercontent.com/83812658/209437963-67ea4c14-1da6-40b0-939e-dfa4e6981ad6.png">
-</div><br>
 <br>
 
 ## Menu
