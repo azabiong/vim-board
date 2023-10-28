@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.25
+" Version: 1.25.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.25'
+let s:Version = '1.25.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -25,7 +25,7 @@ let s:Input = #{ timer:0, interval:20, wait:220, reltime:0 }
 let s:Help  = #{ Update:'', win:0, buf:-1 }
 let s:KeyMap = {'+':"4\<C-E>", '-':"4\<C-Y>", 'v':"\<C-F>", '^':"\<C-B>"}
 let s:Sentence = ['if', 'for', 'while']
-let s:Optional = '/?;nNgGHML'
+let s:Optional = '/?nNgGHML'
 
 function s:LoadColors()
   if has('gui_running') || (has('termguicolors') && &termguicolors) || &t_Co >= 256
@@ -883,7 +883,7 @@ function s:FindKey(key)
     let s:Board.keys = 1
     let l:list = s:GetKeys(a:key)
     let s:Board.match = len(l:list)
-    if !s:Board.match && l:len == 1 && stridx(s:Optional, a:key) != -1
+    if !s:Board.match && l:len == 1 && stridx(s:Optional.";", a:key) != -1
       let s:Board.input = a:key
       return 1
     elseif s:Board.match == 1

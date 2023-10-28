@@ -326,6 +326,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
+1.25.2~
+    Fix feature:return
 1.25~
     Support filetype plugin
     Improve optional menu keys, BoardTermCd
