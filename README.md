@@ -70,8 +70,8 @@ Now, save the changes and reload the plugin.
 
 ## Syntax
 
-The plugin uses `.board` and `.bd` as file extensions, and the syntax is simple.  
-Each item can be marked differently with indentation and some leading characters.
+The plugin has an easy syntax and uses `.board` and `.bd` as file extensions.  
+You can display each item differently by using indentation and some leading characters.
 
 <div style="display:inline-block">
 <img width="315" alt="board_light" src="https://user-images.githubusercontent.com/83812658/209437944-cdfc79bc-819b-4b38-9cf6-71edb80c0eff.png">
