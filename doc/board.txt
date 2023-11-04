@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.25.2`
+                                                                    `ver 1.25.3`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Syntax                |Board-Syntax|
@@ -109,6 +109,7 @@ following keys:
 <
  Each link is a simple space-separated `key-value` pair, and uses the same
  indentation as the `TEXT` field starting at column 6 or higher.
+ Modified links take effect immediately after saving.
                                                                      *Board-Key*
  Key ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
@@ -277,16 +278,6 @@ Board speed ~
             | echo ' Eight'
             | echo ' Nine'
             | echo ' Done!'
-<                                                                  *BoardTermCd*
-<Plug>(BoardTermCd) ~
-    When using terminal window, synchronize current working directory with Vim
-    by running `cd` command. To map key `Ctrl`+`\\` for terminal window:
->
-      tmap <C-\><C-\>  <Plug>(BoardTermCd)
-<
-    lua
->
-      vim.keymap.set('t', '<C-\\><C-\\>', '<Plug>(BoardTermCd)')
 <
 ------------------------------------------------------------------------------
 OPTIONS                                                          *Board-Options*
@@ -316,7 +307,17 @@ OPTIONS                                                          *Board-Options*
 <
     Default: 240 `(ms)`
     Values:  180 ~ 480
-
+                                                                   *BoardTermCd*
+<Plug>(BoardTermCd) ~
+    When using terminal window, synchronize current working directory with Vim
+    by running `cd` command. To map key `Ctrl`+`\\` for terminal window:
+>
+      tmap <C-\><C-\>  <Plug>(BoardTermCd)
+<
+    lua
+>
+      vim.keymap.set('t', '<C-\\><C-\\>', '<Plug>(BoardTermCd)')
+<
 ------------------------------------------------------------------------------
 ISSUES                                                            *Board-Issues*
 
@@ -326,7 +327,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.25.2~
+1.25.3~
+    Update samples
     Fix feature:return
 1.25~
     Support filetype plugin

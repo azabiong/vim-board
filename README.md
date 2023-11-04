@@ -2,7 +2,7 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.25.2 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.25.3 </h6></p>
 
 This plugin introduces a file type `board` where you can write quick notes and some shortcuts to
 files, directories and additional commands.
@@ -128,7 +128,8 @@ You can enter keys defined on the `board`, or switch between boards using the fo
  ```
 
  Each link is a simple space-separated **key-value** pair, and uses the same
- indentation as the `TEXT` field starting at column 6 or higher.
+ indentation as the `TEXT` field starting at column 6 or higher. &nbsp;
+ Modified links take effect immediately after saving.
 
 <details>
 <summary><b> Key </b></summary>
@@ -270,9 +271,9 @@ input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.
 
 ## Help tags
 
-For more information about commands and options, please refer to:
+For more information about options, please see:
 ```vim
-  :h Board
+ :h Board-Options
 ```
 
 <br>
@@ -288,7 +289,7 @@ or color scheme.
 
 **Example**
 ```vim
-  :hi BoardSpecial ctermfg=208 guifg=#ff8700
+ :hi BoardSpecial ctermfg=208 guifg=#ff8700
 ```
 <br>
 
