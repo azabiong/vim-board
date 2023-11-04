@@ -1,13 +1,10 @@
 # vim-board
 
+_
 
 
 
 
-
-:Links
-    group
-        _
 
 
 
@@ -33,6 +30,12 @@ Section
 
     Group :brief `marker` # comment
         T E X`T`
+
+
+:Links
+    group
+        #key value
+
 
 - Plain Text Section (with a hyphen)
     * plain text

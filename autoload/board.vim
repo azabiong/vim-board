@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.25.2
+" Version: 1.25.3
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.25.2'
+let s:Version = '1.25.3'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -142,12 +142,12 @@ endfunction
 
 function s:SetMainBoard()
   let l:vim = (match(s:Board.plug, '/vimfiles') != -1) ? 'vimfiles' : '.vim'
-  let l:main = expand('$HOME').'/'.l:vim.'/after/vim-board'
-  let l:main = expand(get(g:, 'BoardPath', l:main)).'/_main_.board'
+  let l:path = expand('$HOME').'/'.l:vim.'/after/vim-board'
+  let l:main = expand(get(g:, 'BoardPath', l:path)).'/_main_.board'
   let l:edit = ''
   call s:SelectWin()
   if !filereadable(l:main)
-    let l:edit = " main board:  ".fnamemodify(l:main, ':~')."\n"
+    let l:edit = " BoardPath: ".fnamemodify(l:main, ':~')."/\n"
     if confirm(l:edit, " Create file?  &yes\n&no", 0) != 1
       return
     endif

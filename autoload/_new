@@ -18,12 +18,6 @@ _
 
 
 
-
-:Links
-    group
-
-
-
 # syntax example
 Section
     Group :brief `marker` # comment
@@ -42,6 +36,12 @@ Section
     ? question
     ! notice
     & more
+
+
+:Links
+    group
+        #key value
+
 
 - Plain Text Section (with a hyphen)
     * plain text
