@@ -2,7 +2,7 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.25.3 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.25.4 </h6></p>
 
 This plugin introduces a file type `board` where you can write quick notes and some shortcuts to
 files, directories and additional commands.
