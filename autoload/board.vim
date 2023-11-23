@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.25.3
+" Version: 1.25.4
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -14,7 +14,7 @@ set cpo&vim
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.25.3'
+let s:Version = '1.25.4'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -472,8 +472,20 @@ function s:UnloadLinks()
 endfunction
 
 function s:SetBoard()
-  setl ft=board et ts=4 sts=4 sw=0 nonu
+  setl ft=board et ts=4 sts=4 sw=0 fdm=marker nonu
   syn sync minlines=200
+  call s:SetColumn()
+endfunction
+
+function s:SetColumn(op=0)
+  if &fdc < 1 && &scl != 'yes'
+    setl fdc=1
+    if a:op | redraw | endif
+  endif
+  if &nu
+    setl nonu
+    if a:op | redraw | endif
+  endif
 endfunction
 
 function s:SetSyntax(op=0)
@@ -486,7 +498,6 @@ function s:SetSyntax(op=0)
     syn match BoardCfgLinks "^:links\c\>" contained
     let b:Board.syntax = 'on'
   endif
-  setl fdm=marker nonu
 endfunction
 
 function s:ClearSyntaxGuide()
@@ -647,10 +658,10 @@ function s:InputLong(...)
     let l:menu .= '(<)link'
   else
     if !&modified && l:loaded > 1
-     setl nobl
-   endif
-   setl nonu
+      setl nobl
+    endif
   endif
+  call s:SetColumn(1)
   call s:InputInit(1, l:menu.'  ')
 
   aug BoardCmdline
@@ -902,7 +913,6 @@ endfunction
 function s:BufReadPost()
   call s:ClearSyntaxGuide()
   syn sync minlines=200
-  setl nonu
 endfunction
 
 function s:BufWritePost()
@@ -918,6 +928,7 @@ function s:ColorScheme()
 endfunction
 
 function board#Load()
+  call s:SetBoard()
   if exists("s:Ready") | return | endif
 
   call s:LoadColors()
