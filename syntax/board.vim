@@ -49,6 +49,8 @@ syn match BoardPlain "^[|:]\?\s*-.*$" contains=BoardGuide
 syn match BoardComment "\v(^[|:]? *| +)#.*$" contained contains=BoardGuide,BoardTodo
 syn match BoardCommentLine "^\s*#.*$"
 
+syn sync minlines=256
+
 hi def link BoardHelp StatusLine
 hi def link BoardCfgType PreProc
 hi def link BoardJumper Operator
@@ -61,4 +63,3 @@ hi def link BoardBrief Statement
 
 set cms=#%s
 let b:current_syntax = "board"
-
