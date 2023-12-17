@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.25.4`
+                                                                    `ver 1.25.6`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Syntax                |Board-Syntax|
@@ -26,8 +26,8 @@ CONTENTS                                                            *Vim-Board*
 ------------------------------------------------------------------------------
 INTRODUCTION                                                *Board-Introduction*
 
-This plugin introduces a file type `board` where you can write quick notes and
-some shortcuts to files, directories and additional commands.
+This plugin introduces a file type `board` which allows you to easily write quick
+notes and some shortcuts to files, directories and additional commands.
 
 Feature ~
 
@@ -327,7 +327,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.25.4~
+1.25.6~
+    Improve syntax minlines
     Improve local buffer options
     Update samples
     Fix feature:return
