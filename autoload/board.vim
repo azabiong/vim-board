@@ -428,6 +428,7 @@ function s:LoadLinks(path='', type=0)
       endif
     endwhile
     let l:opt = ''
+    let b:BoardLinks = 1
   endwhile
   call s:SetSyntax(1)
   call setpos('.', l:pos)

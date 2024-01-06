@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.25.6`
+                                                                    `ver 1.25.8`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Syntax                |Board-Syntax|
@@ -327,7 +327,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.25.6~
+1.25.8~
+    Improve Link menu
     Improve syntax minlines
     Improve local buffer options
     Update samples
