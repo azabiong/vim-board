@@ -2,7 +2,7 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.25.8 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.26 </h6></p>
 
 This plugin introduces a file type `board` which allows you to easily write quick notes
 and some shortcuts to files, directories and additional commands.
@@ -21,12 +21,23 @@ and some shortcuts to files, directories and additional commands.
 
 ## Installation
 
-You can use your preferred plugin manager using the string `'azabiong/vim-board'`. For example:
+You can use your preferred plugin manager using the string `'azabiong/vim-board'`. For example: <br>
+
+**vim-plug** &nbsp;` .vim  `
 ```vim
  Plug 'azabiong/vim-board'
 ```
+**lazy.nvim** &nbsp;` .lua  `
+```lua
+ {
+   "azabiong/vim-board",
+   init = function()
+     -- settings
+   end,
+ },
+```
 <details>
-<summary>&nbsp; or,&nbsp; Vim's built-in package feature: </summary>
+<summary>&nbsp; <b>or</b>, &nbsp;Vim's built-in package feature: </summary>
 <br>
 
 > |Linux, Mac| Windows &nbsp;|
@@ -43,28 +54,31 @@ You can use your preferred plugin manager using the string `'azabiong/vim-board'
 
 ## Configuration
 
-The first step is to define a directory to store the `board` files. The plugin default path is:
+The first item is to define the directory to store the `board` files,
+the next is to assign a convenient key to bring up the `menu` with the `board`.
+&nbsp;The plugin default shortcut is a single quote and space if available.
+
+<details open>
+<summary><b>&nbsp; .vim </b></summary>
+
 ```vim
-    let BoardPath = '~/.vim/after/vim-board'
-```
-The next step is to assign a convenient key to bring up the `menu` with the `board`. The plugin
-default shortcut is a single quote and space if available.
-```vim
+    let BoardPath = '~/.config/boards'
+
     nmap '<Space> <Plug>(BoardMenu)
 ```
+ </details>
 
-<details>
-<summary><b>&nbsp; lua </b></summary>
+<details open>
+<summary><b>&nbsp; .lua </b></summary>
 
 ```lua
-  vim.g.BoardPath = '~/.vim/after/vim-board'
+    vim.g.BoardPath = '~/.config/boards'
 
-  vim.keymap.set('n', "'<Space>", '<Plug>(BoardMenu)')
+    vim.keymap.set('n', "'<Space>", '<Plug>(BoardMenu)')
 ```
 </details>
 
 Now, save the changes and reload the plugin.
-
 
 <br>
 
@@ -121,8 +135,9 @@ You can enter keys defined on the `board`, or switch between boards using the fo
 
  The plugin loads the shortcut links defined in this section. The following example defines
  two links:
- ```
+ ```sh
  :Links
+        #key value
         \py  ~/Languages/Python/
          pn  ~/Languages/Python/notes.py
  ```
@@ -157,8 +172,8 @@ The same key can be defined differently on each board.
 ### Long keys
 
 Long keys can be activated by typing only the unique prefix portion of the key.
-For example, if you define a long key `xylophone` and no key starts with `xy`,
-you can open the link with `xy` <kbd>Enter</kbd>.  
+For example, if you defined the long key `xylophone`, and there are no other keys that start with `xy`,
+you can open the link with `xy`<kbd>Enter</kbd>.
 
 <br>
 </details>

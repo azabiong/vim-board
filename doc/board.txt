@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.25.8`
+                                                                    `ver 1.26`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Syntax                |Board-Syntax|
@@ -43,14 +43,12 @@ Feature ~
 ------------------------------------------------------------------------------
 CONFIGURATION                                              *Board-Configuration*
 
-The first step is to define a directory to store the `board` files. The plugin
-default path is:
+The first item is to define the directory to store the `board` files, the next
+is to assign a convenient key to bring up the `menu` with the `board`. The plugin
+default shortcut is a single quote and space if available.
 >
-    let BoardPath = '~/.vim/after/vim-board'
-<
-The next step is to assign a convenient key to bring up the `menu` with the `board`.
-The plugin default shortcut is `a single quote and space` if available.
->
+    let BoardPath = '~/.config/boards'
+
     nmap '<Space> <Plug>(BoardMenu)
 <
 Now, save the changes and reload the plugin.
@@ -132,8 +130,8 @@ following keys:
 
     Long keys ~
     Long keys can be activated by typing only the unique prefix portion of the key.
-    For example, if you define a long key `xylophone` and no key starts with `xy`,
-    you can open the link with `xy` <Enter>.
+    For example, if you defined the long key `xylophone`, and there are no other keys
+    that start with `xy`, you can open the link with `xy`<Enter>.
                                                                     *Board-Path*
  Path ~
     To easily define a link to a file, the plugin supports copying the current
@@ -285,7 +283,7 @@ OPTIONS                                                          *Board-Options*
 |BoardPath| specifies the directory where the `board` files will be stored.
     The plugin default path is:
 >
-        let BoardPath = '~/.vim/after/vim-board'
+        let BoardPath = '~/.config/boards'
 <
     The plugin loads `_main_.board` when started.
                                                                  *BoardRegister*
@@ -327,12 +325,8 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.25.8~
-    Improve Link menu
-    Improve syntax minlines
-    Improve local buffer options
-    Update samples
-    Fix feature:return
+1.26~
+    Improve syntax, scratchpad focusing, link menu
 1.25~
     Support filetype plugin
     Improve optional menu keys, BoardTermCd

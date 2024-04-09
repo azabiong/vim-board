@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.25.8
+" Version: 1.26
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -11,10 +11,11 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
+let g:BoardPath = get(g:, 'BoardPath', '')
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.25.8'
+let s:Version = '1.26'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -141,9 +142,20 @@ function s:Nop(...)
 endfunction
 
 function s:SetMainBoard()
-  let l:vim = (match(s:Board.plug, '/vimfiles') != -1) ? 'vimfiles' : '.vim'
-  let l:path = expand('$HOME').'/'.l:vim.'/after/vim-board'
-  let l:main = expand(get(g:, 'BoardPath', l:path)).'/_main_.board'
+  if empty(g:BoardPath)
+    let l:path = expand('~/.config/boards')
+    if !isdirectory(l:path)
+      let l:vim = (match(s:Board.plug, '/vimfiles') != -1) ? 'vimfiles' : '.vim'
+      let l:vim = expand('$HOME').'/'.l:vim.'/after/vim-board'
+      if isdirectory(l:vim)
+        let l:path = l:vim
+      endif
+    endif
+  else
+    let l:path = expand(g:BoardPath)
+  endif
+
+  let l:main = l:path.'/_main_.board'
   let l:edit = ''
   call s:SelectWin()
   if !filereadable(l:main)
@@ -795,18 +807,29 @@ function s:Edit()
 endfunction
 
 function s:SelectWin()
-  if !empty(&buftype) && !&modifiable && index(['help', 'terminal'], &buftype) == -1
-    for i in range(winnr('$'), 1, -1)
-      let l:buf = winbufnr(i)
-      if empty(getbufvar(l:buf, '&buftype')) || getbufvar(l:buf, '&modifiable')
-        exe i "wincmd w"
-        break
-      endif
-    endfor
+  if empty(get(t:, 'Board', ''))
+    let t:Board = {'win': 0}
   endif
+
+  let l:win = win_id2win(t:Board.win)
+  if l:win && winnr() == bufwinnr(s:Board.scratch.pad)
+    exe l:win "wincmd w"
+  else
+    if !empty(&buftype) && !&modifiable && index(['help', 'terminal'], &buftype) == -1
+      for i in range(winnr('$'), 1, -1)
+        let l:buf = winbufnr(i)
+        if empty(getbufvar(l:buf, '&buftype')) || getbufvar(l:buf, '&modifiable')
+          exe i "wincmd w"
+          break
+        endif
+      endfor
+    endif
+  endif
+
   if &filetype != 'board' && !empty(bufname())
     let w:BoardOverlap = {'buf':bufnr(), 'view':winsaveview()}
   endif
+  let t:Board.win = win_getid()
 endfunction
 
 function s:ConfirmSave()
