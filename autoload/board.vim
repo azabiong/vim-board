@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.26
+" Version: 1.26.2
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -15,7 +15,7 @@ let g:BoardPath = get(g:, 'BoardPath', '')
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.26'
+let s:Version = '1.26.2'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -450,14 +450,14 @@ endfunction
 function s:ReadLine(num)
   let l:line = getline(a:num)
   " section: column 1
-  if !empty(line[0]) && stridx(':# ', line[0]) == -1
+  if !empty(l:line[0]) && stridx("# \t", l:line[0]) == -1
     return []
+  else
   endif
   " key: column > 5
-  if match(l:line, '\v[: ]\ {4,}\S') != -1
-    let l:index = l:line[0] == ':'
-    let l:line = trim(l:line[l:index:])
-    if stridx('-=+<>:#', line[0]) == -1
+  if match(l:line, '\v^( {4}|\t)\s+\S') != -1
+    let l:line = trim(l:line)
+    if stridx('-=+<>:#', l:line[0]) == -1
       let l:key = matchstr(l:line, '\S\+\ze')
       if l:key == '|'
         let l:key = ''
@@ -510,18 +510,6 @@ function s:SetSyntax(op=0)
     syn match BoardCfgLinks "^:links\c\>" contained
     let b:Board.syntax = 'on'
   endif
-endfunction
-
-function s:ClearSyntaxGuide()
-  let [i, l:end] = [0, line('$')]
-  while i <= l:end
-    let i += 1
-    let l:line = getline(i)
-    let l:char = l:line[0]
-    if l:char == '|' || (l:char == ':' && l:line !~ '^:\w')
-      call setline(i, ' '.l:line[1:])
-    endif
-  endwhile
 endfunction
 
 function s:SetSpeed(freq)
@@ -934,7 +922,6 @@ function s:FindKey(key)
 endfunction
 
 function s:BufReadPost()
-  call s:ClearSyntaxGuide()
 endfunction
 
 function s:BufWritePost()
