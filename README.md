@@ -54,8 +54,8 @@ You can use your preferred plugin manager using the string `'azabiong/vim-board'
 
 ## Configuration
 
-The first item is to define the directory to store the `board` files,
-the next is to assign a convenient key to bring up the `menu` with the `board`.
+The first item is to define the directory to store the `board` files.
+And next is to assign a convenient key to bring up the `board` with `Menu`.
 &nbsp;The plugin default shortcut is a single quote and space if available.
 
 <details open>
