@@ -55,7 +55,7 @@ You can use your preferred plugin manager using the string `'azabiong/vim-board'
 ## Configuration
 
 The first item is to define the directory to store the `board` files.
-And next is to assign a convenient key to bring up the `board` with `Menu`.
+And next is to assign a convenient key to bring up the `board` with `menu`.
 &nbsp;The plugin default shortcut is a single quote and space if available.
 
 <details open>
@@ -101,7 +101,7 @@ and can have different syntax depending on its type.
 
 ## Menu
 
-Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most recently used `board`.
+Pressing the `BoardMenu` key will bring up the most recently used `board` with the auto-expanding `menu`.
 
 <img height="26" alt="menu" src="https://github.com/azabiong/vim-board/assets/83812658/b3958bdf-f6b9-4f2c-84f0-6de6054ad35b">
 
@@ -171,9 +171,9 @@ The same key can be defined differently on each board.
 
 ### Long keys
 
-Long keys can be activated by typing only the unique prefix portion of the key.
-For example, if you defined the long key `xylophone`, and there are no other keys that start with `xy`,
-you can open the link with `xy`<kbd>Enter</kbd>.
+Long keys can be activated by typing only the unique prefix portion of the key. &nbsp;
+For example, if you define a link with a long key `xylophone`, and no other keys start with `xy`,
+you can open the link with `xy` <kbd>Enter</kbd>.
 
 <br>
 </details>

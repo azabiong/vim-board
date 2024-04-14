@@ -31,20 +31,20 @@ notes and some shortcuts to files, directories and additional commands.
 
 Feature ~
 
- After setting a custom `Key`, you can use the following key sequence to bring up
- the board:
+After setting a custom `Key`, you can use the following key sequence to bring up
+the board:
 >
-      Key Enter
+    Key Enter
 <
- and to return:
+and to return:
 >
-      Key Esc
+    Key Esc
 <
 ------------------------------------------------------------------------------
 CONFIGURATION                                              *Board-Configuration*
 
 The first item is to define the directory to store the `board` files. And next
-is to assign a convenient key to bring up the `board` with `Menu`. The plugin
+is to assign a convenient key to bring up the `board` with `menu`. The plugin
 default shortcut is a single quote and space if available.
 >
     let BoardPath = '~/.config/boards'
@@ -62,18 +62,18 @@ characters.
 
 Section ~
 
- The plugin uses sections to categorize content. Each section starts at the
- beginning of a line, and can have different syntax depending on its type.
+The plugin uses sections to categorize content. Each section starts at the
+beginning of a line, and can have different syntax depending on its type.
 >
-  Section
-      Group
-          TEXT
+ Section
+     Group
+         Text
 <
 ------------------------------------------------------------------------------
 MENU                                                                *Board-Menu*
 
-Pressing the `BoardMenu` key will bring up the auto-expanding menu with the most
-recently used `board`.
+Pressing the `BoardMenu` key will bring up the most recently used `board` with
+the auto-expanding `menu`.
 >
     Board (-)prev(=)main(+)new  _
 <
@@ -96,28 +96,28 @@ following keys:
            >      unload links
 
 ------------------------------------------------------------------------------
-:LINKS SECTION                                                     *Board-Links*
+LINKS SECTION                                                     *Board-Links*
 
- The plugin loads the shortcut links defined in this section. The following
- example defines two links:
+The plugin loads the shortcut links defined in this section. The following
+example defines two links:
 >
  :Links
         \py  ~/Languages/Python/
          pn  ~/Languages/Python/notes.py
 <
- Each link is a simple space-separated `key-value` pair, and uses the same
- indentation as the `TEXT` field starting at column 6 or higher.
- Modified links take effect immediately after saving.
+Each link is a simple space-separated `key-value` pair, and uses the same
+indentation as the `TEXT` field starting at column 6 or higher. Modified links
+take effect immediately after saving.
                                                                      *Board-Key*
- Key ~
+Key ~
     A key can consist of any combination of symbols, alphanumeric, and Unicode
     characters except those that start with some predefined characters.
 
-    Available leading characters: ~
+   Available leading characters: ~
 
         ~!@$%^&*_()[]{}'`";,.\/? 0-9 a-z A-Z and Unicode characters
 
-    Used in the menu and syntax: ~
+   Used in the menu and syntax: ~
 
         -  previous     #  comment
         =  main         |  command
@@ -128,12 +128,12 @@ following keys:
 
     The same key can be defined differently on each board.
 
-    Long keys ~
+  Long keys ~
     Long keys can be activated by typing only the unique prefix portion of the key.
-    For example, if you defined the long key `xylophone`, and there are no other keys
-    that start with `xy`, you can open the link with `xy`<Enter>.
+    For example, if you define a link with a long key `xylophone`, and no other
+    keys that start with `xy`, you can open the link with `xy` <Enter>.
                                                                     *Board-Path*
- Path ~
+Path ~
     To easily define a link to a file, the plugin supports copying the current
     file's path to a register when the `menu` key is pressed (by default the `b`
     register).
@@ -142,7 +142,7 @@ following keys:
 >
         CTRL-R b
 <
-    Tip ~
+  Tip ~
     When switching to another board stored in the |BoardPath| directory, you can
     omit the path and specify only the file name. For example:
 >
@@ -151,7 +151,7 @@ following keys:
     Switching boards using the defined keys will automatically load the links
     defined on the board.
 
- Commands ~
+Commands ~
     Additional commands can be added using the `|` bar character.
 
     For example, to browse files after changing the current working directory:
@@ -166,7 +166,7 @@ following keys:
 >
         \d1  ~/Directory/ | NERDTreeCWD | wincmd p | edit README.md
 <
- Commands only ~
+Commands only ~
     You can also define just a list of commands without specifying a file or
     directory.
 
@@ -189,28 +189,28 @@ following keys:
         sh1 | Board* | r! echo "This is the scratchpad on the Board"
         sh2 | Board* | r! curl -sI example.com
 <
- Multi-line commands ~
+Multi-line commands ~
     Multi-line commands can be set using the leading bar `|` character.
 >
         bar ~/directory/or_file
             | echo 'foo'
             | echo 'bar'
 <
- Link reference ~
+Link reference ~
     Links that have already been defined can be referenced using the '&' symbol.
     For example:
 >
         _N  | NERDTreeCWD
         \d1 ~/Directory/ | &_N
 <
- Command-line mode ~
+Command-line mode ~
     When using the `|` bar character as a shell `pipe` or other meaning, you can
     switch to command-line mode input by adding a colon `:` after the bar.
 >
         sh3 | Board* |: r! ls | wc
         sh4 | Board* |: r! cat ~/.ssh/known_hosts | awk '$1 ~ /[0-9]/ { print $1; exit}'
 <
- Stop command ~
+Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
     input CTRL-C or an undefined key.
 
@@ -222,10 +222,10 @@ depending on the current 'background' mode. You can use the native |hi| command
 to customize colors starting with `Board`, and save them to the configuration
 file or color scheme.
 >
-  BoardHelp  BoardSection  BoardGroup  BoardSpecial  BoardMarker  BoardLink
-  BoardLed...
+    BoardHelp  BoardSection  BoardGroup  BoardSpecial  BoardMarker  BoardLink
+    BoardLed...
 <
- Example ~
+Example ~
 >
     :hi BoardSpecial ctermfg=208 guifg=#ff8700
 <
