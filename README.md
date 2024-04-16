@@ -9,7 +9,7 @@ and some shortcuts to files, directories and additional commands.
 
 ### Feature
 
-> After setting a custom `Key`, you can use the following key sequence to bring up the board:
+> After setting up a custom `Key`, you can bring up the board using the following key sequence:
 >
 > &nbsp; &nbsp; &nbsp; `Key` <kbd>Enter</kbd>
 >
