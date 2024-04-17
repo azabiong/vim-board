@@ -260,10 +260,11 @@ Multi-line commands &nbsp;can be set using the leading bar `|` character.
 
 ### Link reference
 
-Links that have already been defined can be referenced using the '&' symbol. for example:
+You can refer to links using the '&' symbol instead of duplicates. For example:
 ```vim
-      _N  | NERDTreeCWD
       \d1 ~/Directory/ | &_N
+
+      _N  | NERDTreeCWD | wincmd =
 ```
 
 ### Command-line mode

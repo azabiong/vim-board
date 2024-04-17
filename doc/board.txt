@@ -197,11 +197,12 @@ Multi-line commands ~
             | echo 'bar'
 <
 Link reference ~
-    Links that have already been defined can be referenced using the '&' symbol.
+    You can refer to links using the '&' symbol instead of duplicates.
     For example:
 >
-        _N  | NERDTreeCWD
-        \d1 ~/Directory/ | &_N
+      \d1 ~/Directory/ | &_N
+
+      _N  | NERDTreeCWD | wincmd =
 <
 Command-line mode ~
     When using the `|` bar character as a shell `pipe` or other meaning, you can
