@@ -192,7 +192,7 @@ Commands only ~
 Multi-line commands ~
     Multi-line commands can be set using the leading bar `|` character.
 >
-        bar ~/directory/or_file
+        c1  ~/directory/or_file
             | echo 'foo'
             | echo 'bar'
 <
@@ -200,9 +200,10 @@ Link reference ~
     You can refer to links using the '&' symbol instead of duplicates.
     For example:
 >
-      \d1 ~/Directory/ | &_N
+        \d1 ~/directory1/ | &_N
+        \d2 ~/directory2/ | &_N
 
-      _N  | NERDTreeCWD | wincmd =
+        _N  | NERDTreeCWD | wincmd =
 <
 Command-line mode ~
     When using the `|` bar character as a shell `pipe` or other meaning, you can

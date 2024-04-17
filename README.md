@@ -253,7 +253,7 @@ To define some input from the shell tool to the scratchpad, `Board*`:
 
 Multi-line commands &nbsp;can be set using the leading bar `|` character.
 ```vim
-      bar ~/directory/or_file
+      c1  ~/directory/or_file
           | echo 'foo'
           | echo 'bar'
 ```
@@ -262,7 +262,8 @@ Multi-line commands &nbsp;can be set using the leading bar `|` character.
 
 You can refer to links using the '&' symbol instead of duplicates. For example:
 ```vim
-      \d1 ~/Directory/ | &_N
+      \d1 ~/directory1/ | &_N
+      \d2 ~/directory2/ | &_N
 
       _N  | NERDTreeCWD | wincmd =
 ```
