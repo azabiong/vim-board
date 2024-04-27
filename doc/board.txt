@@ -59,16 +59,14 @@ SYNTAX                                                            *Board-Syntax*
 The plugin has an easy syntax and uses `.board` and `.bd` as file extensions.
 You can display each item differently by using indentation and some leading
 characters.
-
-Section ~
-
-The plugin uses sections to categorize content. Each section starts at the
-beginning of a line, and can have different syntax depending on its type.
 >
  Section
      Group
          Text
 <
+The plugin uses `sections` to categorize content. Each section starts at the
+beginning of a line, and can have different syntax depending on its type.
+
 ------------------------------------------------------------------------------
 MENU                                                                *Board-Menu*
 
