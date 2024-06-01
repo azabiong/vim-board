@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.26.2`
+                                                                    `ver 1.26.3`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Syntax                |Board-Syntax|
@@ -100,8 +100,8 @@ The plugin loads the shortcut links defined in this section. The following
 example defines two links:
 >
  :Links
-        \py  ~/Languages/Python/
          pn  ~/Languages/Python/notes.py
+        \py  ~/Languages/Python/ | edit .
 <
 Each link is a simple space-separated `key-value` pair, and uses the same
 indentation as the `TEXT` field starting at column 6 or higher. Modified links
@@ -325,7 +325,7 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.26.2~
+1.26.3~
     Improve syntax, link loading
 1.26~
     Improve syntax, scratchpad focusing, link menu

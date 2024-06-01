@@ -2,7 +2,7 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.26.2 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.26.3 </h6></p>
 
 This plugin introduces a file type `board` which allows you to easily write quick notes
 and some shortcuts to files, directories and additional commands.
@@ -136,8 +136,8 @@ You can enter keys defined on the `board`, or switch between boards using the fo
  ```sh
  :Links
         #key value
-        \py  ~/Languages/Python/
          pn  ~/Languages/Python/notes.py
+        \py  ~/Languages/Python/ | edit .
  ```
 
  Each link is a simple space-separated **key-value** pair, and uses the same

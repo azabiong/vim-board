@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.26.2
+" Version: 1.26.3
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -15,7 +15,7 @@ let g:BoardPath = get(g:, 'BoardPath', '')
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.26.2'
+let s:Version = '1.26.3'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,

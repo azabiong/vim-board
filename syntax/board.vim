@@ -45,8 +45,8 @@ syn match BoardJumper " \zs[|&]:\=" contained
 syn match BoardBacktick "`" contained
 syn match BoardTodo "\<Todo\>\c" contained
 syn match BoardEmpty "^\s*$" contained
-syn match BoardComment "\v(^\s*|[ \t]+)#.*$" contained contains=BoardTodo,BoardMarker
-syn match BoardCommentLine "^\s*#.*$" contains=BoardTodo,BoardMarker
+syn match BoardComment "\v(^\s*|[ \t]+)#\W.*$" contained contains=BoardTodo,BoardMarker
+syn match BoardCommentLine "^\s*#\W.*$" contains=BoardTodo,BoardMarker
 syn match BoardPlain "^\s*-.*$"
 
 syn sync minlines=256
