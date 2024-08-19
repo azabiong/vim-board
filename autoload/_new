@@ -27,7 +27,7 @@ Section
     [  LED-1  ]  {  LED-2  }  <  LED-3  >
 
     # simple checklist, or Todo
-    o active item
+    o active item or group
     - inactive or done
     + new item
     * special
@@ -40,7 +40,7 @@ Section
 
 :Links
     group
-        #key value
+        # key value
 
 
 - Plain Text Section (with a hyphen)
