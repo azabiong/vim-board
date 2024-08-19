@@ -131,18 +131,19 @@ You can enter keys defined on the `board`, or switch between boards using the fo
 
 ## :Links Section
 
- The plugin loads the shortcut links defined in this section. The following example defines
- two links:
- ```sh
- :Links
-        #key value
-         pn  ~/Languages/Python/notes.py
-        \py  ~/Languages/Python/ | edit .
- ```
+The plugin loads the shortcut links defined in the `:Links` section.
+The following example defines two links:
+```sh
+:Links
+    group
+       #key value
+        pn  ~/Languages/Python/notes.py
+       \py  ~/Languages/Python/ | edit .
+```
 
- Each link is a simple space-separated **key-value** pair, and uses the same
- indentation as the `TEXT` field starting at column 6 or higher. &nbsp;
- Modified links take effect immediately after saving.
+Each link is a simple space-separated **key-value** pair, and uses the same
+indentation as the `TEXT` field starting at column 6 or higher. &nbsp;
+Modified links take effect immediately after saving.
 
 <details>
 <summary><b> Key </b></summary>
