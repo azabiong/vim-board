@@ -54,8 +54,8 @@ You can use your preferred plugin manager using the string `'azabiong/vim-board'
 
 ## Configuration
 
-The first item is to define the directory to store the `board` files.
-And next is to assign a convenient key to bring up the `board` with `menu`.
+The first thing is to define a directory to store the `board` files.
+And the next is to assign a convenient key to bring up the `board` with `menu`.
 &nbsp;The plugin default shortcut is a single quote and space if available.
 
 <details open>
@@ -170,7 +170,7 @@ The same key can be defined differently on each board.
 
 ### Long keys
 
-Long keys can be activated by typing only the unique prefix portion of the key. &nbsp;
+Long keys can be activated by entering only the unique prefix part of the key. &nbsp;
 For example, if you define a link with a long key `xylophone`, and no other keys start with `xy`,
 you can open the link with `xy` <kbd>Enter</kbd>.
 
@@ -195,6 +195,10 @@ When switching to another board stored in the `BoardPath` directory,
 you can omit the path and specify only the file name.&nbsp; For example:
 ```vim
       'a  another.board
+```
+or
+```vim
+      'a  subdirectory/another.board
 ```
 Switching boards using the defined keys will automatically load the links defined on the board.
 
@@ -280,7 +284,7 @@ switch to command-line mode input by adding a colon `:` after the bar.
 ### Stop command
 
 To stop a long list of commands while processing, press the `menu` key and
-input <kbd>Ctrl</kbd>+<kbd>C</kbd> or an undefined key.
+input <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 
 </details>
 <br>
@@ -314,3 +318,7 @@ or color scheme.
 If you have any issues that need fixing, comments or new features you would like to add, please feel free to open an issue.
 
 <br>
+
+## License
+MIT
+

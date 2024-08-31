@@ -43,7 +43,7 @@ and to return:
 ------------------------------------------------------------------------------
 CONFIGURATION                                              *Board-Configuration*
 
-The first item is to define the directory to store the `board` files. And next
+The first thing is to define a directory to store the `board` files. And the next
 is to assign a convenient key to bring up the `board` with `menu`. The plugin
 default shortcut is a single quote and space if available.
 >
@@ -128,7 +128,7 @@ Key ~
     The same key can be defined differently on each board.
 
   Long keys ~
-    Long keys can be activated by typing only the unique prefix portion of the key.
+    Long keys can be activated by entering only the unique prefix part of the key.
     For example, if you define a link with a long key `xylophone`, and no other
     keys that start with `xy`, you can open the link with `xy` <Enter>.
                                                                     *Board-Path*
@@ -146,6 +146,8 @@ Path ~
     omit the path and specify only the file name. For example:
 >
         'a  another.board
+<    or  >
+        'a  subdirectory/another.board
 <
     Switching boards using the defined keys will automatically load the links
     defined on the board.
@@ -213,7 +215,7 @@ Command-line mode ~
 <
 Stop command ~
     To stop a long list of commands while processing, press the `menu` key and
-    input CTRL-C or an undefined key.
+    input CTRL-C.
 
 ------------------------------------------------------------------------------
 CUSTOMIZING COLORS                                    *Board-Customizing-Colors*
