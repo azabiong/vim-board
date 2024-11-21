@@ -2,7 +2,7 @@
 
 # vim-board
 
-<p><h6> &nbsp;&nbsp; ver 1.26.3 </h6></p>
+<p><h6> &nbsp;&nbsp; ver 1.26.4 </h6></p>
 
 This plugin introduces a file type `board` which allows you to easily write quick notes
 and some shortcuts to files, directories and additional commands.
@@ -84,16 +84,14 @@ Now, save the changes and reload the plugin.
 
 ## Syntax
 
-The plugin has an easy syntax and uses `.board` and `.bd` as file extensions.  
-You can display each item differently by using indentation and some leading characters.
+The plugin uses `.board` and `.bd` as file extensions, and you can display each item differently by using indentation and some leading characters.
 
 <div style="display:inline-block">
 <img width="315" alt="board_light" src="https://user-images.githubusercontent.com/83812658/209437944-cdfc79bc-819b-4b38-9cf6-71edb80c0eff.png">
 <img width="315" alt="board_dark" src="https://user-images.githubusercontent.com/83812658/209437963-67ea4c14-1da6-40b0-939e-dfa4e6981ad6.png">
 </div> <br><br>
 
-The plugin uses **sections** to categorize content. Each section starts at the beginning of a line,
-and can have different syntax depending on its type.
+Each section starts at the beginning of a line, and can have different syntax depending on its type.
 
 <br>
 

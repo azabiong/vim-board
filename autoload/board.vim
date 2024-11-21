@@ -2,7 +2,7 @@
 " Author: Azabiong
 " License: MIT
 " Source: https://github.com/azabiong/vim-board
-" Version: 1.26.3
+" Version: 1.26.4
 
 scriptencoding utf-8
 if exists("s:Board")
@@ -15,7 +15,7 @@ let g:BoardPath = get(g:, 'BoardPath', '')
 let g:BoardRegister = get(g:,'BoardRegister', 'b')
 let g:BoardMenuExpand = get(g:,'BoardMenuExpand', 220)
 
-let s:Version = '1.26.3'
+let s:Version = '1.26.4'
 let s:Board = #{ plug:expand('<sfile>:h'), path:'', main:'', current:'', prev:'', hold:'',
                \ menu:'', restore:0, input:'', change:'', keys:0, enter:0, match:0,
                \ timer:0, interval:1, stack:[#{ key:'', cmd:[], run:0 }], range:1024,
@@ -32,7 +32,7 @@ function s:LoadColors()
   if has('gui_running') || (has('termguicolors') && &termguicolors) || &t_Co >= 256
     if &background == 'dark'
       let l:colors = [
-        \ ['BoardSection',    'ctermfg=219 ctermbg=NONE cterm=bold guifg=#f8a0f8 guibg=NONE    gui=bold'],
+        \ ['BoardSection',    'ctermfg=219 ctermbg=NONE cterm=bold guifg=#f8a8f8 guibg=NONE    gui=bold'],
         \ ['BoardCfgLinks',   'ctermfg=215 ctermbg=NONE cterm=bold guifg=#f8b868 guibg=NONE    gui=bold'],
         \ ['BoardGroup',      'ctermfg=147 ctermbg=NONE cterm=bold guifg=#aabcf0 guibg=NONE    gui=bold'],
         \ ['BoardLink',       'ctermfg=109 ctermbg=NONE cterm=NONE guifg=#98bcbc guibg=NONE    gui=NONE'],

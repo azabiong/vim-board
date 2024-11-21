@@ -11,7 +11,7 @@
                                                                              ~
 ------------------------------------------------------------------------------
 CONTENTS                                                            *Vim-Board*
-                                                                    `ver 1.26.3`
+                                                                    `ver 1.26.4`
                   Introduction          |Board-Introduction|
                   Configuration         |Board-Configuration|
                   Syntax                |Board-Syntax|
@@ -56,16 +56,17 @@ Now, save the changes and reload the plugin.
 ------------------------------------------------------------------------------
 SYNTAX                                                            *Board-Syntax*
 
-The plugin has an easy syntax and uses `.board` and `.bd` as file extensions.
-You can display each item differently by using indentation and some leading
+The plugin uses `.board` and `.bd` as file extensions, and you can display each
+item differently by using indentation and some leading
+
 characters.
 >
  Section
      Group
          Text
 <
-The plugin uses `sections` to categorize content. Each section starts at the
-beginning of a line, and can have different syntax depending on its type.
+Each section starts at the beginning of a line, and can have different syntax
+depending on its type.
 
 ------------------------------------------------------------------------------
 MENU                                                                *Board-Menu*
@@ -328,7 +329,7 @@ like to add, please feel free to open an issue.
 ------------------------------------------------------------------------------
 LOG                                                                  *Board-Log*
 
-1.26.3~
+1.26.4~
     Improve syntax, link loading
 1.26~
     Improve syntax, scratchpad focusing, link menu

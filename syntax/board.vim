@@ -34,14 +34,15 @@ syn match BoardAmpersand "^\s*&.*$" contained contains=BoardSign,BoardLed1,Board
 syn match BoardQuestion "^\s*?.*$" contained contains=BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
 syn match BoardExclamation "^\s*!.*$" contained contains=BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardBrief,BoardComment
 syn match BoardBrief " :.*$" contained contains=BoardSign,BoardLed1,BoardLed2,BoardLed3,BoardMarker,BoardComment
-syn match BoardLink "\v^( {4}|\t)\s+\S.*$" contained contains=BoardJumper
+syn match BoardLink "\v^( {4}|\t)\s+\S.*$" contained contains=BoardKey,BoardJumper
 syn match BoardLed1 "\[[^]]*]" contained contains=BoardBracket
 syn match BoardLed2 "{[^}]*}" contained contains=BoardBracket
 syn match BoardLed3 "\v\<[^\>]*\>" contained contains=BoardBracket
 syn match BoardMarker "`[^`]*`" contained contains=BoardBacktick
+syn match BoardKey "\v^\s+\S+"  contained contains=BoardJumper
 syn match BoardBracket "[\[\]\{\}\<\>]" contained
 syn match BoardSign "\v(^\s*[*+=&?!:]| :)" contained
-syn match BoardJumper " \zs[|&]:\=" contained
+syn match BoardJumper "\s\zs[|&]:\=" contained
 syn match BoardBacktick "`" contained
 syn match BoardTodo "\<Todo\>\c" contained
 syn match BoardEmpty "^\s*$" contained
@@ -61,6 +62,7 @@ hi def link BoardComment Comment
 hi def link BoardCommentLine Comment
 hi def link BoardBrief Statement
 hi def link BoardProperty Identifier
+hi def link BoardKey Type
 
 set cms=#%s
 let b:current_syntax = "board"
