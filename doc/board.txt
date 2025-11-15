@@ -246,13 +246,13 @@ Board menu ~
     Bring up the |Board-Menu|
                                                                    *Board:start*
 Board start ~
-    Start running another link.
+    Start running another link. For example:
 >
         _C  | echo 'a list of commands'
          c  | if getcwd() =~ '/name' | Board start &_C | endif
 <                                                                    *Board:stop*
 Board stop ~
-    Stop running the current link.
+    Stop running the current link. For example:
 >
          0  | lua if 0 then vim.cmd('Board stop') end | echo 'no output'
 <                                                                   *Board:speed*
@@ -382,4 +382,4 @@ LOG                                                                  *Board-Log*
       :Board*
 
 ------------------------------------------------------------------------------
-Vim:ft=help:tw=80:ts=4:et:nowrap:norl
+vim:ft=help:nowrap:norl:tw=80:ts=4:et
