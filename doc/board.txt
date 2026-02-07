@@ -43,15 +43,14 @@ and to return:
 ------------------------------------------------------------------------------
 CONFIGURATION                                              *Board-Configuration*
 
-The first thing is to define a directory to store the `board` files. And the next
-is to assign a convenient key to bring up the `board` with `menu`. The plugin
-default shortcut is a single quote and space if available.
+The directory for saving `board` files and the shortcut key for bring up the
+board `menu` are configurable, and the default settings are as follows:
 >
     let BoardPath = '~/.config/boards'
 
     nmap '<Space> <Plug>(BoardMenu)
 <
-Now, save the changes and reload the plugin.
+(single quote and space)
 
 ------------------------------------------------------------------------------
 SYNTAX                                                            *Board-Syntax*
@@ -76,8 +75,8 @@ the auto-expanding `menu`.
 >
     Board (-)prev(=)main(+)new  _
 <
-You can enter keys defined on the `board`, or switch between boards using the
-following keys:
+You can enter keys defined on the `board` files, or switch between boards using
+the following keys:
 
         <Enter>   edit current board
          <Esc>    return
@@ -98,7 +97,7 @@ following keys:
 LINKS SECTION                                                     *Board-Links*
 
 The plugin loads the shortcut links defined in the `:Links` section.
-The following example defines two links:
+The following example defines two shortcut links:
 >
 :Links
     group
@@ -172,19 +171,27 @@ Commands only ~
     You can also define just a list of commands without specifying a file or
     directory.
 
-    For example, to define a command that copies frequently used commands or
-    strings to the clipboard:
->
-        s1  | let @+ = "copy this string to the clipboard"
-<
-    To define a substitution command:
+    For example, to define a substitution command:
 >
         ss  | %s/Foo/Bar/gc
 <
-    To define a set of temporary key-maps:
+    To launch the app associated with the input:
+    Linux ~
 >
-        key | nn f0 <Cmd>echo 0<CR>
-            | nn f9 <Cmd>echo 9<CR>
+          ww | silent !xdg-open https://www.vim.org
+<
+    Windows ~
+>
+          ww | silent !start https://www.vim.org
+<
+    macOS ~
+>
+          ww | silent !open https://www.vim.org
+<
+    To define a command that copies frequently used commands or strings
+    to the clipboard:
+>
+        s1  | let @+ = "copy this string to the clipboard"
 <
     To define some input from the shell tool to the scratchpad, `Board*`:
 >
@@ -197,6 +204,11 @@ Multi-line commands ~
         c1  ~/directory/or_file
             | echo 'foo'
             | echo 'bar'
+<
+    To define a set of temporary key-maps:
+>
+        key | nn f0 <Cmd>echo 0<CR>
+            | nn f9 <Cmd>echo 9<CR>
 <
 Link reference ~
     You can refer to links using the '&' symbol instead of duplicates.

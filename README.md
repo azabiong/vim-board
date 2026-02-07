@@ -54,16 +54,14 @@ You can use your preferred plugin manager using the string `'azabiong/vim-board'
 
 ## Configuration
 
-The first thing is to define a directory to store the `board` files.
-And the next is to assign a convenient key to bring up the `board` with `menu`.
-&nbsp;The plugin default shortcut is a single quote and space if available.
+The directory for saving `board` files and the shortcut key for bring up the board `menu`
+are configurable, and the default settings are as follows:
 
 <details open>
 <summary><b>&nbsp; .vim </b></summary>
 
 ```vim
     let BoardPath = '~/.config/boards'
-
     nmap '<Space> <Plug>(BoardMenu)
 ```
  </details>
@@ -73,12 +71,11 @@ And the next is to assign a convenient key to bring up the `board` with `menu`.
 
 ```lua
     vim.g.BoardPath = '~/.config/boards'
-
     vim.keymap.set('n', "'<Space>", '<Plug>(BoardMenu)')
 ```
 </details>
 
-Now, save the changes and reload the plugin.
+> <kbd>'</kbd> <kbd>space</kbd> &nbsp;&nbsp; single quote and space 
 
 <br>
 
@@ -101,7 +98,7 @@ Pressing the `BoardMenu` key will bring up the most recently used `board` with t
 
 <img height="26" alt="menu" src="https://github.com/azabiong/vim-board/assets/83812658/b3958bdf-f6b9-4f2c-84f0-6de6054ad35b">
 
-You can enter keys defined on the `board`, or switch between boards using the following keys:
+You can enter keys defined on the `board` files, or switch between boards using the following keys:
 
 <details>
 <summary><b> keys </b></summary>
@@ -130,7 +127,7 @@ You can enter keys defined on the `board`, or switch between boards using the fo
 ## :Links Section
 
 The plugin loads the shortcut links defined in the `:Links` section.
-The following example defines two links:
+The following example defines two shortcut links:
 ```sh
 :Links
     group
@@ -143,6 +140,7 @@ Each link is a simple space-separated **key-value** pair, and uses the same
 indentation as the `TEXT` field starting at column 6 or higher. &nbsp;
 Modified links take effect immediately after saving.
 
+<br>
 <details>
 <summary><b> Key </b></summary>
 <br>
@@ -173,6 +171,7 @@ For example, if you define a link with a long key `xylophone`, and no other keys
 you can open the link with `xy` <kbd>Enter</kbd>.
 
 <br>
+<br>
 </details>
 
 <details>
@@ -201,6 +200,7 @@ or
 Switching boards using the defined keys will automatically load the links defined on the board.
 
 <br>
+<br>
 </details>
 
 <details>
@@ -228,20 +228,29 @@ More commands can be combined together:
 
 You can also define just a list of commands without specifying a file or directory.
 
-For example, to define a command that copies frequently used commands or strings to the clipboard:
-```vim
-      s1  | let @+ = "copy this string to the clipboard"
-```
-
-To define a substitution command:
+For example, to define a substitution command:
 ```vim
       ss  | %s/Foo/Bar/gc
 ```
 
-To define a set of temporary key-maps:
+To launch the app associated with the input:
+
+**Linux** 
 ```vim
-      key | nn f0 <Cmd>echo 0<CR>
-          | nn f9 <Cmd>echo 9<CR>
+      ww | silent !xdg-open https://www.vim.org
+```
+**Windows** 
+```vim
+      ww | silent !start https://www.vim.org
+```
+**macOS** 
+```vim
+      ww | silent !open https://www.vim.org
+```
+
+To define a command that copies frequently used commands or strings to the clipboard:
+```vim
+      s1  | let @+ = "copy this string to the clipboard"
 ```
 
 To define some input from the shell tool to the scratchpad, `Board*`:
@@ -257,6 +266,12 @@ Multi-line commands &nbsp;can be set using the leading bar `|` character.
       c1  ~/directory/or_file
           | echo 'foo'
           | echo 'bar'
+```
+
+To define a set of temporary key-maps:
+```vim
+      key | nn f0 <Cmd>echo 0<CR>
+          | nn f9 <Cmd>echo 9<CR>
 ```
 
 ### Link reference
@@ -284,16 +299,8 @@ switch to command-line mode input by adding a colon `:` after the bar.
 To stop a long list of commands while processing, press the `menu` key and
 input <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 
-</details>
 <br>
-
-## Help tags
-
-For more information about options, please see:
-```vim
- :h Board-Options
-```
-
+</details>
 <br>
 
 ## Customizing Colors
@@ -309,6 +316,15 @@ or color scheme.
 ```vim
  :hi BoardSpecial ctermfg=208 guifg=#ff8700
 ```
+<br>
+
+## Help tags
+
+For more information about configurable options, please see:
+```vim
+ :h Board-Options
+```
+
 <br>
 
 ## Issues
